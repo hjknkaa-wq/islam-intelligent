@@ -1,0 +1,10 @@
+Task: 27 - Security audit
+
+Command: python scripts/security_audit.py --simulate-secret
+Output:
+[OK] --simulate-secret: detector triggered (3 pattern(s))
+[OK] Security audit passed
+
+Command: python scripts/security_audit.py
+Output:
+[OK] Security audit passed
