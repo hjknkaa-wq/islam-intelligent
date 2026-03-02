@@ -1,0 +1,15 @@
+[INFO] Database target: sqlite
+[OK] Created SQLite file: C:\Users\barka\project_all\1\untuk-belajar\18-PROYEK-ORKRESTASI-\oh-my-opencode\islam-intelligent\.local\dev.db
+[INFO] Found 1 migration(s) in C:\Users\barka\project_all\1\untuk-belajar\18-PROYEK-ORKRESTASI-\oh-my-opencode\islam-intelligent\packages\schemas\sql
+[INFO] Applying migration 0001_init to SQLite
+[OK] Applied migration 0001_init
+[OK] Schema sanity checks passed
+[OK] Database initialization complete
+
+=== Idempotency test ===
+[INFO] Database target: sqlite
+[OK] SQLite file exists: C:\Users\barka\project_all\1\untuk-belajar\18-PROYEK-ORKRESTASI-\oh-my-opencode\islam-intelligent\.local\dev.db
+[INFO] Found 1 migration(s) in C:\Users\barka\project_all\1\untuk-belajar\18-PROYEK-ORKRESTASI-\oh-my-opencode\islam-intelligent\packages\schemas\sql
+[SKIP] Migration 0001_init already recorded
+[OK] Schema sanity checks passed
+[OK] Database already initialized
