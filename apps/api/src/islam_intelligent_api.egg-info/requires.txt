@@ -1,0 +1,7 @@
+fastapi
+sqlalchemy>=2.0
+pydantic<3,>=2
+alembic
+
+[dev]
+pytest
