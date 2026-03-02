@@ -2,10 +2,15 @@
   "id": "T-91e46ffc-685e-4f78-938b-30f9939d951e",
   "subject": "Fix critical security/data-integrity issues in API",
   "description": "Implement DB engine, citation verifier, RAG evidence ID, auth middleware, and error leakage fixes; add/adjust tests and run verification.",
-  "status": "in_progress",
+  "status": "completed",
   "activeForm": "Fixing critical API/RAG issues",
   "blocks": [],
   "blockedBy": [],
+  "metadata": {
+    "completed_at": "2026-03-02T05:10:00Z",
+    "deliverables": "DB engine fix, citation verifier fix, auth middleware, error handling",
+    "evidence": "git commits b483d21 and related"
+  },
   "repoURL": "local",
   "threadID": "ses_3530e6167ffeLSYM1yM9oP9bxi"
 }
