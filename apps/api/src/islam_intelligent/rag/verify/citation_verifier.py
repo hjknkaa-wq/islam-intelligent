@@ -8,6 +8,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import cast
 from collections.abc import Mapping, Sequence
+from islam_intelligent.db.engine import DATABASE_URL
 
 
 @dataclass(frozen=True)
@@ -20,6 +21,13 @@ class CitationVerificationResult:
 
 
 def _default_dev_db_path() -> Path:
+    """Use DATABASE_URL from engine module to ensure consistency with API."""
+    db_url = DATABASE_URL
+    if isinstance(db_url, str) and db_url.startswith("sqlite+pysqlite:///"):
+        path_str = db_url[len("sqlite+pysqlite:///"):]
+        if path_str:
+            return Path(path_str)
+    # Fallback to default path
     repo_root = Path(__file__).resolve().parents[6]
     return repo_root / ".local" / "dev.db"
 
