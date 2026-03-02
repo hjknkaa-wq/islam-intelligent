@@ -13,7 +13,6 @@ app = FastAPI(title="Islam Intelligent API")
 app.include_router(sources.router)
 app.include_router(spans.router)
 app.include_router(kg.router)
-app.include_router(kg.router)
 app.include_router(rag.router)
 app.include_router(evidence.router)
 
