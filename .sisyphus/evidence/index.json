@@ -1,0 +1,81 @@
+{
+  "generated_at": "2026-03-02T04:07:00Z",
+  "total_files": 15,
+  "files": [
+    {
+      "path": ".sisyphus\\evidence\\task-17-part1-span-highlighter.txt",
+      "sha256": "269a0b71e65e1561e48af7994c04e2c80b1ac21e1ec1acb9804a782f95c6fbe1",
+      "size_bytes": 42
+    },
+    {
+      "path": ".sisyphus\\evidence\\task-17-part2-highlight-component.txt",
+      "sha256": "7741e347418470fd6dfd38836cd735745bd24c498170eb1cbdde4f3f9c35acf1",
+      "size_bytes": 749
+    },
+    {
+      "path": ".sisyphus\\evidence\\task-18-eval-run.txt",
+      "sha256": "d2fc1a373d2dca9267000ad65f773aa814153e1a9092fe2694624dd7be9fcdd8",
+      "size_bytes": 377
+    },
+    {
+      "path": ".sisyphus\\evidence\\task-19-prov-integrity.txt",
+      "sha256": "0bbfe0b5fdfb25428b82123c2aa793f3ff2c1d6477d5109480fa11cb0f9500d2",
+      "size_bytes": 167
+    },
+    {
+      "path": ".sisyphus\\evidence\\task-19-retract.txt",
+      "sha256": "5e3ee91184e1d29d062ddca420594f616fcd1ae227cee6e5a5611cfb597fa8b7",
+      "size_bytes": 757
+    },
+    {
+      "path": ".sisyphus\\evidence\\task-20-db-init.txt",
+      "sha256": "45271c88a6bfc4b463093788439c0817be23383ba1c4d6f7cffe0e0db7314569",
+      "size_bytes": 937
+    },
+    {
+      "path": ".sisyphus\\evidence\\task-21-reset-seed.txt",
+      "sha256": "61735e3bce5dec3d57a824679c4333f21fa9020f47c8af1e04652ea8c6baac1d",
+      "size_bytes": 366
+    },
+    {
+      "path": ".sisyphus\\evidence\\task-22-trust-toggle.txt",
+      "sha256": "38378b87087711aad3c32134db296d93bc014a4bfc8c499b0dcc4ebb5fadc96d",
+      "size_bytes": 306
+    },
+    {
+      "path": ".sisyphus\\evidence\\task-22-untrusted-abstain.txt",
+      "sha256": "3414c8293c6ea4c75c876d7202446368486bcb44252c8b3054d89f192a5009d8",
+      "size_bytes": 828
+    },
+    {
+      "path": ".sisyphus\\evidence\\task-23-rag-logs.txt",
+      "sha256": "74444b84f887d4cf623889e8b48d4480e4e8434e2d5080c0218b1aa88a4e072b",
+      "size_bytes": 493
+    },
+    {
+      "path": ".sisyphus\\evidence\\task-24-citation-fabrication.txt",
+      "sha256": "2074dd113c2dbce2dab2fef68fb00b6ff3b891d6fd4f99d124d58c8708131f9f",
+      "size_bytes": 1049
+    },
+    {
+      "path": ".sisyphus\\evidence\\task-25-eval-thresholds.txt",
+      "sha256": "554ea47ee08b936763abb60169c121c42a155366a99c584d2f36a01888057f4b",
+      "size_bytes": 343
+    },
+    {
+      "path": ".sisyphus\\evidence\\task-27-security-audit.txt",
+      "sha256": "4c62a6ed18dc96e7eb5284f4a7fcd6c4182cc2b0aa456b32f38af88c35b3c3ea",
+      "size_bytes": 258
+    },
+    {
+      "path": ".sisyphus\\evidence\\task-28-hash-chain.txt",
+      "sha256": "f91be4add9662d50533d015aa83d78a1e2abd081c409a675accaf1ef59285139",
+      "size_bytes": 5762
+    },
+    {
+      "path": ".sisyphus\\evidence\\task-29-verify-all.txt",
+      "sha256": "ade82a92f6ad26da7a2e28a020294055b2e7b49ab7d066a2c25252bda08ab589",
+      "size_bytes": 7102
+    }
+  ]
+}
