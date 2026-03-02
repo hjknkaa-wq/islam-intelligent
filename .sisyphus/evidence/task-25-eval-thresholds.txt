@@ -1,0 +1,11 @@
+Task 25: Eval with assertions
+ASSERTIONS FAILED:
+- citation_required_pass_rate==1.0 (actual=0.0)
+- locator_resolve_pass_rate==1.0 (actual=0.0)
+- abstention_f1>=0.95 (actual=0.5333333333333333)
+Failure taxonomy (answerable cases):
+- missing_citations: 0
+- untrusted_sources: 0
+- citation_verification_failed: 0
+- other: 7
+Exit code: 1
