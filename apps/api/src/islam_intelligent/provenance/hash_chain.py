@@ -49,7 +49,7 @@ def compute_entity_hash(entity: ProvEntity) -> str:
     if entity.json_data:
         try:
             json_data_obj = json.loads(entity.json_data)
-        except Exception:
+        except json.JSONDecodeError:
             json_data_obj = entity.json_data
 
     payload = {

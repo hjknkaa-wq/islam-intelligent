@@ -29,6 +29,7 @@ pnpm-debug.log*
 # Python cache and virtualenv
 __pycache__/
 *.py[cod]
+*.egg-info/
 .venv/
 venv/
 .pytest_cache/
@@ -36,8 +37,7 @@ venv/
 .ruff_cache/
 
 # Local tool/runtime folders
-
-
+.local/
 # IDE/editor and OS files
 .vscode/
 .idea/
