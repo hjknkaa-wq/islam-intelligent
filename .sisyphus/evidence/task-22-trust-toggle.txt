@@ -1,0 +1,6 @@
+Task 22: set_source_trust.py
+fixture: C:\Users\barka\project_all\1\untuk-belajar\18-PROYEK-ORKRESTASI-\oh-my-opencode\islam-intelligent\data\fixtures\hadith_minimal.yaml
+fixture_id: sahih_bukhari_minimal
+source_id: 11adf208-d37e-5c4d-8270-a6491908cd07
+updated_rows: 1
+trust_status: trusted -> trusted
