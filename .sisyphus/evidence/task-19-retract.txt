@@ -1,0 +1,25 @@
+Command:
+python scripts/retract_source.py --first-fixture --reason "license issue"
+
+Output:
+{
+  "new": {
+    "created_at": "2026-03-02T01:12:41.108073",
+    "retraction_reason": "license issue",
+    "source_id": "68d3c8fd-c6ff-4a1c-90a9-49475809ca78",
+    "supersedes_source_id": "11adf208-d37e-5c4d-8270-a6491908cd07",
+    "trust_status": "retracted",
+    "work_title": "Sahih al-Bukhari - Sample Hadith"
+  },
+  "new_exists": true,
+  "old": {
+    "created_at": "2026-03-02T01:12:41.106919",
+    "retraction_reason": null,
+    "source_id": "11adf208-d37e-5c4d-8270-a6491908cd07",
+    "supersedes_source_id": null,
+    "trust_status": "trusted",
+    "work_title": "Sahih al-Bukhari - Sample Hadith"
+  },
+  "old_exists": true,
+  "uses_project_model": false
+}

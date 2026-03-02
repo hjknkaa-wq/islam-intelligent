@@ -1,0 +1,3 @@
+=== Task 19a: verify_provenance.py ===
+ERROR: Missing required table(s): source_document, text_unit, evidence_span, kg_entity, kg_edge, kg_edge_evidence
+Exit code: 2
