@@ -1,0 +1,96 @@
+Task 28: Hash chain verification
+Traceback (most recent call last):
+  File "C:\ProgramData\miniconda3\Lib\typing.py", line 1035, in __init__
+    code = compile(arg_to_compile, '<string>', 'eval')
+  File "<string>", line 1
+    ProvActivity' | None
+                ^
+SyntaxError: unterminated string literal (detected at line 1)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\barka\AppData\Roaming\Python\Python313\site-packages\sqlalchemy\util\typing.py", line 274, in eval_expression
+    annotation = eval(expression, cls_namespace, locals_)
+  File "<string>", line 1, in <module>
+  File "C:\ProgramData\miniconda3\Lib\typing.py", line 429, in inner
+    return _caches[func](*args, **kwds)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\ProgramData\miniconda3\Lib\typing.py", line 1221, in _generic_class_getitem
+    args = tuple(_type_convert(p) for p in args)
+  File "C:\ProgramData\miniconda3\Lib\typing.py", line 1221, in <genexpr>
+    args = tuple(_type_convert(p) for p in args)
+                 ~~~~~~~~~~~~~^^^
+  File "C:\ProgramData\miniconda3\Lib\typing.py", line 169, in _type_convert
+    return ForwardRef(arg, module=module, is_class=allow_special_forms)
+  File "C:\ProgramData\miniconda3\Lib\typing.py", line 1037, in __init__
+    raise SyntaxError(f"Forward reference must be an expression -- got {arg!r}")
+SyntaxError: Forward reference must be an expression -- got "ProvActivity' | None"
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\barka\AppData\Roaming\Python\Python313\site-packages\sqlalchemy\orm\util.py", line 2323, in _extract_mapped_subtype
+    annotated = de_stringify_annotation(
+        cls,
+    ...<2 lines>...
+        str_cleanup_fn=_cleanup_mapped_str_annotation,
+    )
+  File "C:\Users\barka\AppData\Roaming\Python\Python313\site-packages\sqlalchemy\util\typing.py", line 158, in de_stringify_annotation
+    annotation = eval_expression(
+        annotation, originating_module, locals_=locals_, in_class=cls
+    )
+  File "C:\Users\barka\AppData\Roaming\Python\Python313\site-packages\sqlalchemy\util\typing.py", line 278, in eval_expression
+    raise NameError(
+        f"Could not de-stringify annotation {expression!r}"
+    ) from err
+NameError: Could not de-stringify annotation 'Mapped["ProvActivity\' | None"]'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\barka\project_all\1\untuk-belajar\18-PROYEK-ORKRESTASI-\oh-my-opencode\islam-intelligent\scripts\verify_hash_chain.py", line 191, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "C:\Users\barka\project_all\1\untuk-belajar\18-PROYEK-ORKRESTASI-\oh-my-opencode\islam-intelligent\scripts\verify_hash_chain.py", line 147, in main
+    ok, missing = _ensure_provenance_tables(engine)
+                  ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\barka\project_all\1\untuk-belajar\18-PROYEK-ORKRESTASI-\oh-my-opencode\islam-intelligent\scripts\verify_hash_chain.py", line 66, in _ensure_provenance_tables
+    from islam_intelligent.provenance import models as prov_models  # noqa: F401
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\barka\project_all\1\untuk-belajar\18-PROYEK-ORKRESTASI-\oh-my-opencode\islam-intelligent\apps\api\src\islam_intelligent\provenance\__init__.py", line 7, in <module>
+    from islam_intelligent.provenance.models import (
+    ...<6 lines>...
+    )
+  File "C:\Users\barka\project_all\1\untuk-belajar\18-PROYEK-ORKRESTASI-\oh-my-opencode\islam-intelligent\apps\api\src\islam_intelligent\provenance\models.py", line 156, in <module>
+    class ProvDerivation(Base):
+    ...<27 lines>...
+        )
+  File "C:\Users\barka\AppData\Roaming\Python\Python313\site-packages\sqlalchemy\orm\decl_api.py", line 846, in __init_subclass__
+    _as_declarative(cls._sa_registry, cls, cls.__dict__)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\barka\AppData\Roaming\Python\Python313\site-packages\sqlalchemy\orm\decl_base.py", line 245, in _as_declarative
+    return _MapperConfig.setup_mapping(registry, cls, dict_, None, {})
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\barka\AppData\Roaming\Python\Python313\site-packages\sqlalchemy\orm\decl_base.py", line 326, in setup_mapping
+    return _ClassScanMapperConfig(
+        registry, cls_, dict_, table, mapper_kw
+    )
+  File "C:\Users\barka\AppData\Roaming\Python\Python313\site-packages\sqlalchemy\orm\decl_base.py", line 562, in __init__
+    self._scan_attributes()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\barka\AppData\Roaming\Python\Python313\site-packages\sqlalchemy\orm\decl_base.py", line 1022, in _scan_attributes
+    collected_annotation = self._collect_annotation(
+        name, annotation, base, None, obj
+    )
+  File "C:\Users\barka\AppData\Roaming\Python\Python313\site-packages\sqlalchemy\orm\decl_base.py", line 1302, in _collect_annotation
+    extracted = _extract_mapped_subtype(
+        raw_annotation,
+    ...<6 lines>...
+        expect_mapped=expect_mapped and not is_dataclass,
+    )
+  File "C:\Users\barka\AppData\Roaming\Python\Python313\site-packages\sqlalchemy\orm\util.py", line 2337, in _extract_mapped_subtype
+    raise orm_exc.MappedAnnotationError(
+    ...<3 lines>...
+    ) from ne
+sqlalchemy.orm.exc.MappedAnnotationError: Could not interpret annotation Mapped['ProvActivity' | None].  Check that it uses names that are correctly imported at the module level. See chained stack trace for more hints.
