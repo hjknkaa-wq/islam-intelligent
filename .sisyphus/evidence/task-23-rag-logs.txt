@@ -1,0 +1,13 @@
+Task 23: verify_rag_logs.py evidence
+Database: .local/dev.db
+
+Command: python scripts/verify_rag_logs.py
+Output: [OK] All RAG queries have complete audit logs
+Exit code: 0
+
+Command: python scripts/verify_rag_logs.py --simulate-missing
+Output: [FAIL] RAG log verification failed (3 violation(s))
+Output: - query_id=SIMULATED_QUERY_ID missing rag_retrieval_result
+Output: - query_id=SIMULATED_QUERY_ID missing rag_validation
+Output: - query_id=SIMULATED_QUERY_ID missing rag_answer
+Exit code: 1
