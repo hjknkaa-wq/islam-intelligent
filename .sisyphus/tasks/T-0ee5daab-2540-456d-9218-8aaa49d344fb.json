@@ -1,0 +1,10 @@
+{
+  "id": "T-0ee5daab-2540-456d-9218-8aaa49d344fb",
+  "subject": "Create Playwright E2E tests for provenance-first UI",
+  "description": "Add provenance.spec.ts with answer/abstain mode assertions, clickable citations opening evidence panel, and save screenshots to .sisyphus/evidence/. Run Playwright tests for verification.",
+  "status": "completed",
+  "activeForm": "Creating Playwright E2E tests for provenance-first UI",
+  "blocks": [],
+  "blockedBy": [],
+  "threadID": "ses_35370d029ffewmr0l70r43fme5"
+}

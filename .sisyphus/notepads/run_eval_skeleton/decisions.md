@@ -1,0 +1,3 @@
+- Decision: Use a lightweight YAML loader with PyYAML fallback to keep skeleton simple.
+- Timestamp format chosen as UTC ISO 8601 with Z suffix for clarity.
+- Assertions are opt-in via --assert and use deterministic checks against the generated report.

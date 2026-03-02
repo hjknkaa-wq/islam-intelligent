@@ -1,0 +1,10 @@
+{
+  "id": "T-aa43cd1f-94f8-48be-b58d-0a4291d03081",
+  "subject": "Add demo/test and evidence output file for EvidenceHighlight verification",
+  "description": "Create a simple demo/test file to exercise verified + mismatch cases; generate and save deterministic test output to .sisyphus/evidence/task-17-part2-highlight-component.txt.",
+  "status": "completed",
+  "activeForm": "Added Next.js demo page and evidence output file; added vitest config + fixed spanHighlighter test so `npm test -- --run` passes; fixed build blockers (next.config.mjs + crypto.subtle typing) and confirmed `npm run build` succeeds; lsp_diagnostics clean.",
+  "blocks": [],
+  "blockedBy": [],
+  "threadID": "ses_3544ba39affeET0qRw2bSBUh5b"
+}

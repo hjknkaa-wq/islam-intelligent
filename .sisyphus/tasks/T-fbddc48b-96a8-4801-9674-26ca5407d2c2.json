@@ -1,0 +1,9 @@
+{
+  "id": "T-fbddc48b-96a8-4801-9674-26ca5407d2c2",
+  "subject": "Add FastAPI KG routes",
+  "description": "Create apps/api/src/islam_intelligent/api/routes/kg.py with entity and edge endpoints enforcing evidence requirements.",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [],
+  "threadID": "ses_354d68790ffeqwzM9pl9LxGPa8"
+}

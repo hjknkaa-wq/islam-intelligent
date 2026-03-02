@@ -1,0 +1,13 @@
+{
+  "id": "T-d8c00ea6-8872-45b6-acc4-0ab2c57a46a7",
+  "subject": "Create text_unit_builder.py module",
+  "description": "Create apps/api/src/islam_intelligent/ingest/text_unit_builder.py with:\n- build_text_unit(source_id, unit_type, canonical_id, text, locator_json) -> dict\n- create_quran_ayah(source_id, surah, ayah, text) -> dict\n- create_hadith_item(source_id, collection, numbering_system, hadith_number, text) -> dict\n- Uses NFC normalization from normalize/normalizer.py\n- Computes SHA-256 hashes\n- Returns complete text_unit record ready for DB insertion",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [],
+  "metadata": {
+    "component": "ingest",
+    "file": "text_unit_builder.py"
+  },
+  "threadID": "ses_354e8e007ffeSIEWLk5M7tdqmB"
+}

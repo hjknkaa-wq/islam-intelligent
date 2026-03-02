@@ -1,0 +1,12 @@
+{
+  "id": "T-977711cd-2590-44ac-94fb-a8a86eda4899",
+  "subject": "Create FastAPI project scaffold under apps/api",
+  "description": "Create required package directories and files for FastAPI backend scaffold in apps/api with minimal placeholders and health endpoint.",
+  "status": "completed",
+  "activeForm": "Creating apps/api file structure and required scaffold files.",
+  "blocks": [],
+  "blockedBy": [
+    "T-2a0b3b1d-23c0-45f8-8dcb-3c0bcdf9c826"
+  ],
+  "threadID": "ses_3552614eaffeNH04zaXoiPNOaL"
+}

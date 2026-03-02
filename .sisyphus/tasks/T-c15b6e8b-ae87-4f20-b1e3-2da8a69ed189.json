@@ -1,0 +1,15 @@
+{
+  "id": "T-c15b6e8b-ae87-4f20-b1e3-2da8a69ed189",
+  "subject": "Create JSON schema validation files",
+  "description": "Create packages/schemas/json/ directory with 6 JSON schema files:\n- source_document.json - validate source records\n- text_unit.json - validate text units\n- evidence_span.json - validate spans\n- kg_entity.json, kg_edge.json - validate KG\n- rag_answer.json - validate answer contract\n\nEnsure schemas enforce evidence requirements and provenance chains.",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [
+    "T-1"
+  ],
+  "metadata": {
+    "type": "schema",
+    "layer": "json"
+  },
+  "threadID": "ses_3551073b8ffeWsJ2h2tsMkOFDl"
+}

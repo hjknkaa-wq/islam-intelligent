@@ -1,0 +1,15 @@
+{
+  "id": "T-84917e26-4414-41e3-94dd-9bd69cf4b88a",
+  "subject": "Phase 3: Generate AGENTS.md",
+  "description": "Generate AGENTS.md files for root and selected subdirectories",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [
+    "T-2"
+  ],
+  "metadata": {
+    "phase": "generate",
+    "priority": "high"
+  },
+  "threadID": "ses_3554cac7dffeffRyfrsCP50JC5"
+}

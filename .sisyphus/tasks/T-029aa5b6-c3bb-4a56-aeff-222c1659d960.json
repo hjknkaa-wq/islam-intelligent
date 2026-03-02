@@ -1,0 +1,13 @@
+{
+  "id": "T-029aa5b6-c3bb-4a56-aeff-222c1659d960",
+  "subject": "Create verification script",
+  "description": "Create scripts/verify_normalization.py with:\n- --check nfc: verifies text_unit.text_canonical is NFC\n- --check nfkc_not_stored: verifies no NFKC in storage\n- Returns 0 if all valid",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [],
+  "metadata": {
+    "priority": "high",
+    "type": "verification"
+  },
+  "threadID": "ses_354f05314ffeJxCWFhsHFGE7Ia"
+}

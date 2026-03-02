@@ -1,0 +1,10 @@
+{
+  "id": "T-25716690-6b2c-496e-a2e6-556d366d816b",
+  "subject": "Inspect existing Playwright E2E patterns for citations/highlight",
+  "description": "Read existing `apps/ui/tests/e2e/citations.spec.ts`, Playwright config, and EvidenceHighlight-related code to mirror project conventions and selectors.",
+  "status": "completed",
+  "activeForm": "Read and analyze existing E2E tests + relevant UI components; identify stable selectors and network stubbing strategy.",
+  "blocks": [],
+  "blockedBy": [],
+  "threadID": "ses_3543e1aceffeQdYwM1K8rUa3V7"
+}

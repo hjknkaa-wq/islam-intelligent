@@ -1,0 +1,13 @@
+{
+  "id": "T-332dff8d-3583-463f-8cde-012428278c8b",
+  "subject": "Verify idempotency and record evidence",
+  "description": "Run script twice, validate schema checks, lsp diagnostics, and write .sisyphus/evidence/task-20-db-init.txt",
+  "status": "completed",
+  "activeForm": "Verifying db_init behavior and recording evidence",
+  "blocks": [],
+  "blockedBy": [
+    "T-015ae618-1f2a-4e71-bd24-debaf0490ec6"
+  ],
+  "parentID": "T-2c975e50-189b-4a0b-956c-ec2fc45810f8",
+  "threadID": "ses_353cf44aeffeb5S29kIxu4FVa3"
+}

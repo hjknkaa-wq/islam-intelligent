@@ -1,0 +1,13 @@
+{
+  "id": "T-cf42509b-1580-4752-8459-8643ecca3b95",
+  "subject": "Fix deprecation warning in scripts/run_eval.py: use timezone-aware UTC timestamp",
+  "description": "Goal: Replace deprecated usage of datetime.utcnow() for UTC timestamp with timezone-aware approach.\n\nChange needed:\n- Before (line ~80): timestamp = datetime.datetime.utcnow().strftime(\"%Y-%m-%dT%H:%M:%SZ\")\n- After: timestamp = datetime.datetime.now(datetime.timezone.utc).strftime(\"%Y-%m-%dT%H:%M:%SZ\")\n\nRationale: Avoids deprecation warnings and ensures explicit timezone awareness.\n\nSteps:\n1) Apply patch to scripts/run_eval.py.\n2) Run static checks (lsp diagnostics) on changed file.\n3) Verify by running: python scripts/run_eval.py --suite golden --output /tmp/test2.json\n\nAcceptance: Script runs without deprecation warnings and produces /tmp/test2.json.\n",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [],
+  "metadata": {
+    "completed_at": "2026-03-02T04:31:00Z",
+    "evidence": "No datetime.utcnow deprecation warnings found in codebase"
+  },
+  "threadID": "ses_3541cff60ffepb6OMM7Z50Q0C5"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "T-deba9b10-b291-4685-bd89-588235853155",
+  "subject": "Inspect fixtures and source_document schema for trust_status update",
+  "description": "Locate first fixture in data/fixtures/, extract source_id, and inspect .local/dev.db source_document table columns and current trust_status representation.",
+  "status": "completed",
+  "activeForm": "Fixtures are YAML; metadata.source_id exists; DB source_document has source_id PK and trust_status text",
+  "blocks": [],
+  "blockedBy": [],
+  "threadID": "ses_353aa5303ffe60iB6odbrWmBan"
+}

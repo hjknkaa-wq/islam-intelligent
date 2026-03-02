@@ -1,0 +1,13 @@
+{
+  "id": "T-081802e4-1c84-4a18-a813-3256f57612dc",
+  "subject": "Create test_append_only.py script",
+  "description": "Create scripts/test_append_only.py to test append-only versioning behavior",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [],
+  "metadata": {
+    "plan": "source-registry-apis",
+    "order": 5
+  },
+  "threadID": "ses_354f78917ffez4tVjrc3noScFr"
+}

@@ -1,0 +1,13 @@
+{
+  "id": "T-6ed092f6-fad1-483f-9d02-cd636c508246",
+  "subject": "Create EvidenceSpan API routes",
+  "description": "Create `apps/api/src/islam_intelligent/api/routes/spans.py` with FastAPI routes:\n- POST /spans - create new evidence span\n- GET /spans/{span_id} - get span with verification status\n- POST /spans/{span_id}/verify - verify span hash against stored text\n\nFollow existing patterns from sources.py router.",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [],
+  "metadata": {
+    "component": "api",
+    "file": "spans.py"
+  },
+  "threadID": "ses_354de6930ffeiVzP1nDoPVYX1H"
+}

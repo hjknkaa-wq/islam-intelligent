@@ -1,0 +1,10 @@
+{
+  "id": "T-329d3f31-972b-435b-8fe0-e39864267f74",
+  "subject": "Implement span highlight E2E spec with verified + failure cases",
+  "description": "Create `apps/ui/tests/e2e/span-highlight.spec.ts` with tests that click citation, open evidence panel, verify badges + highlighted text, and save screenshots to `.sisyphus/evidence/`.",
+  "status": "completed",
+  "activeForm": "Write Playwright tests with deterministic data (mock or seeded) and required assertions + screenshots.",
+  "blocks": [],
+  "blockedBy": [],
+  "threadID": "ses_3543e1aceffeQdYwM1K8rUa3V7"
+}

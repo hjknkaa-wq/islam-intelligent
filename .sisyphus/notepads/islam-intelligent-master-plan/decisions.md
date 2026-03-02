@@ -1,0 +1,2 @@
+- Decision: Introduce a stub no_broken_links verification in verify_provenance.py to enable API/CLI flow for future implementation.
+- Next: implement actual broken-link validation using provenance graph and primary sources.

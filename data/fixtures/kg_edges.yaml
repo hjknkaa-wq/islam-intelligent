@@ -1,0 +1,51 @@
+{
+  "evidence_spans": [
+    {
+      "evidence_span_id": "es_quran_2_255_1",
+      "text_unit_canonical_id": "quran:2:255",
+      "start_byte": 0,
+      "end_byte": 32,
+      "note": "Ayat al-Kursi evidence span (example offsets)"
+    },
+    {
+      "evidence_span_id": "es_hadith_bukhari_sahih_1_1",
+      "text_unit_canonical_id": "hadith:bukhari:sahih:1",
+      "start_byte": 0,
+      "end_byte": 64,
+      "note": "Hadith on intentions (example offsets)"
+    },
+    {
+      "evidence_span_id": "es_quran_1_1_1",
+      "text_unit_canonical_id": "quran:1:1",
+      "start_byte": 0,
+      "end_byte": 24,
+      "note": "Surah Al-Fatiha 1:1 evidence span (example offsets)"
+    }
+  ],
+  "edges": [
+    {
+      "edge_id": "edge_allah_described_by_ayat_al_kursi",
+      "subject_entity_id": "ent_allah",
+      "predicate": "is described by",
+      "object_literal": "Ayat al-Kursi",
+      "evidence_span_ids": ["es_quran_2_255_1"],
+      "confidence": 1.0
+    },
+    {
+      "edge_id": "edge_prophet_muhammad_narrated_hadith_intentions",
+      "subject_entity_id": "ent_prophet_muhammad",
+      "predicate": "narrated",
+      "object_literal": "Hadith on intentions",
+      "evidence_span_ids": ["es_hadith_bukhari_sahih_1_1"],
+      "confidence": 1.0
+    },
+    {
+      "edge_id": "edge_al_fatiha_contains_bismillah",
+      "subject_entity_id": "ent_surah_al_fatiha",
+      "predicate": "contains",
+      "object_entity_id": "ent_bismillah",
+      "evidence_span_ids": ["es_quran_1_1_1"],
+      "confidence": 1.0
+    }
+  ]
+}

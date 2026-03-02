@@ -1,0 +1,14 @@
+{
+  "id": "T-b79ebba2-0e29-4f40-9fea-0f2e2ee8ac23",
+  "subject": "Create provenance recorder.py helper",
+  "description": "Create apps/api/src/islam_intelligent/provenance/recorder.py with record_activity, record_generation, get_git_sha, compute_params_hash functions",
+  "status": "completed",
+  "blocks": [
+    "T-provenancetests",
+    "T-provenanceverify"
+  ],
+  "blockedBy": [
+    "T-provenancemodels"
+  ],
+  "threadID": "ses_354fda07dffexa5KWa4dZ821Xt"
+}

@@ -1,0 +1,13 @@
+{
+  "id": "T-870ca231-6329-4638-9cea-9cf2ae0ec03c",
+  "subject": "Create Source model and SourceRegistry in domain/models.py",
+  "description": "Add SourceDocument model with append-only versioning fields (source_id, version, supersedes_source_id, sha256, created_at, etc.) to domain/models.py",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [],
+  "metadata": {
+    "plan": "source-registry-apis",
+    "order": 1
+  },
+  "threadID": "ses_354f78917ffez4tVjrc3noScFr"
+}

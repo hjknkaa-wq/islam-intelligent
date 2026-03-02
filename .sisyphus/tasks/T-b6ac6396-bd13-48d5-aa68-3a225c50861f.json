@@ -1,0 +1,9 @@
+{
+  "id": "T-b6ac6396-bd13-48d5-aa68-3a225c50861f",
+  "subject": "Fix hashlib.compare_digest issue",
+  "description": "Replace hashlib.compare_digest with hmac.compare_digest for compatibility",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [],
+  "threadID": "ses_354f05314ffeJxCWFhsHFGE7Ia"
+}

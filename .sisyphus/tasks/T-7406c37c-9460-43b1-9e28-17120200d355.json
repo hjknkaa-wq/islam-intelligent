@@ -1,0 +1,10 @@
+{
+  "id": "T-7406c37c-9460-43b1-9e28-17120200d355",
+  "subject": "Implement scripts/verify_provenance.py integrity checker",
+  "description": "Create scripts/verify_provenance.py using SQLAlchemy ORM to detect broken foreign-key references across provenance tables and detect orphaned entities; support --check no_broken_links; exit 0/1 with clear output; no data mutations; SQLite/Postgres via DATABASE_URL and project engine/models.",
+  "status": "completed",
+  "activeForm": "Implementing verify_provenance.py provenance integrity checks",
+  "blocks": [],
+  "blockedBy": [],
+  "threadID": "ses_353ff139fffeyMK9R0s43V284e"
+}

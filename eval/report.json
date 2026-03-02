@@ -1,0 +1,219 @@
+{
+  "api_base_url": null,
+  "cases": [
+    {
+      "abstain_reason": "insufficient_evidence",
+      "case_id": "quran_001_fatiha_first_verse",
+      "citation_required_details": {
+        "reason": "not_answer"
+      },
+      "citation_required_pass": false,
+      "error": null,
+      "expected_verdict": "answer",
+      "fail_reason": "insufficient_evidence",
+      "locator_resolve_details": {
+        "reason": "not_answer"
+      },
+      "locator_resolve_pass": false,
+      "predicted_verdict": "abstain",
+      "query": "What is the first verse of the Quran?",
+      "retrieved_count": 0,
+      "sufficiency_score": 0.0
+    },
+    {
+      "abstain_reason": "insufficient_evidence",
+      "case_id": "quran_002_ayat_kursi_location",
+      "citation_required_details": {
+        "reason": "not_answer"
+      },
+      "citation_required_pass": false,
+      "error": null,
+      "expected_verdict": "answer",
+      "fail_reason": "insufficient_evidence",
+      "locator_resolve_details": {
+        "reason": "not_answer"
+      },
+      "locator_resolve_pass": false,
+      "predicted_verdict": "abstain",
+      "query": "Which surah and ayah contains Ayat al-Kursi?",
+      "retrieved_count": 0,
+      "sufficiency_score": 0.0
+    },
+    {
+      "abstain_reason": "insufficient_evidence",
+      "case_id": "quran_003_short_surahs",
+      "citation_required_details": {
+        "reason": "not_answer"
+      },
+      "citation_required_pass": false,
+      "error": null,
+      "expected_verdict": "answer",
+      "fail_reason": "insufficient_evidence",
+      "locator_resolve_details": {
+        "reason": "not_answer"
+      },
+      "locator_resolve_pass": false,
+      "predicted_verdict": "abstain",
+      "query": "Name three short surahs from the end of the Quran",
+      "retrieved_count": 0,
+      "sufficiency_score": 0.0
+    },
+    {
+      "abstain_reason": "insufficient_evidence",
+      "case_id": "hadith_001_intentions",
+      "citation_required_details": {
+        "reason": "not_answer"
+      },
+      "citation_required_pass": false,
+      "error": null,
+      "expected_verdict": "answer",
+      "fail_reason": "insufficient_evidence",
+      "locator_resolve_details": {
+        "reason": "not_answer"
+      },
+      "locator_resolve_pass": false,
+      "predicted_verdict": "abstain",
+      "query": "What did the Prophet say about intentions?",
+      "retrieved_count": 0,
+      "sufficiency_score": 0.0
+    },
+    {
+      "abstain_reason": "insufficient_evidence",
+      "case_id": "hadith_002_seeking_knowledge",
+      "citation_required_details": {
+        "reason": "not_answer"
+      },
+      "citation_required_pass": false,
+      "error": null,
+      "expected_verdict": "answer",
+      "fail_reason": "insufficient_evidence",
+      "locator_resolve_details": {
+        "reason": "not_answer"
+      },
+      "locator_resolve_pass": false,
+      "predicted_verdict": "abstain",
+      "query": "What is the virtue of seeking knowledge in Islam?",
+      "retrieved_count": 0,
+      "sufficiency_score": 0.0
+    },
+    {
+      "abstain_reason": "insufficient_evidence",
+      "case_id": "abstain_001_future_prediction",
+      "citation_required_pass": null,
+      "error": null,
+      "expected_verdict": "abstain",
+      "fail_reason": "insufficient_evidence",
+      "locator_resolve_pass": null,
+      "predicted_verdict": "abstain",
+      "query": "When will the Day of Judgment occur?",
+      "retrieved_count": 0,
+      "sufficiency_score": 0.0
+    },
+    {
+      "abstain_reason": "insufficient_evidence",
+      "case_id": "abstain_002_outside_corpus",
+      "citation_required_pass": null,
+      "error": null,
+      "expected_verdict": "abstain",
+      "fail_reason": "insufficient_evidence",
+      "locator_resolve_pass": null,
+      "predicted_verdict": "abstain",
+      "query": "What are the details of the Battle of Badr's tactics?",
+      "retrieved_count": 0,
+      "sufficiency_score": 0.0
+    },
+    {
+      "abstain_reason": "insufficient_evidence",
+      "case_id": "abstain_003_vague_question",
+      "citation_required_pass": null,
+      "error": null,
+      "expected_verdict": "abstain",
+      "fail_reason": "insufficient_evidence",
+      "locator_resolve_pass": null,
+      "predicted_verdict": "abstain",
+      "query": "Tell me everything about Islam",
+      "retrieved_count": 0,
+      "sufficiency_score": 0.0
+    },
+    {
+      "abstain_reason": "insufficient_evidence",
+      "case_id": "abstain_004_obscure_topic",
+      "citation_required_pass": null,
+      "error": null,
+      "expected_verdict": "abstain",
+      "fail_reason": "insufficient_evidence",
+      "locator_resolve_pass": null,
+      "predicted_verdict": "abstain",
+      "query": "What are the specific rulings on underwater basket weaving?",
+      "retrieved_count": 0,
+      "sufficiency_score": 0.0
+    },
+    {
+      "abstain_reason": "insufficient_evidence",
+      "case_id": "citation_001_must_resolve",
+      "citation_required_details": {
+        "reason": "not_answer"
+      },
+      "citation_required_pass": false,
+      "error": null,
+      "expected_verdict": "answer",
+      "fail_reason": "insufficient_evidence",
+      "locator_resolve_details": {
+        "reason": "not_answer"
+      },
+      "locator_resolve_pass": false,
+      "predicted_verdict": "abstain",
+      "query": "What does Surah Al-Ikhlas say about Allah?",
+      "retrieved_count": 0,
+      "sufficiency_score": 0.0
+    },
+    {
+      "abstain_reason": "insufficient_evidence",
+      "case_id": "citation_002_hash_verification",
+      "citation_required_details": {
+        "reason": "not_answer"
+      },
+      "citation_required_pass": false,
+      "error": null,
+      "expected_verdict": "answer",
+      "fail_reason": "insufficient_evidence",
+      "locator_resolve_details": {
+        "reason": "not_answer"
+      },
+      "locator_resolve_pass": false,
+      "predicted_verdict": "abstain",
+      "query": "Quote the last ayah of the Quran",
+      "retrieved_count": 0,
+      "sufficiency_score": 0.0
+    }
+  ],
+  "failure_taxonomy": {
+    "citation_verification_failed": 0,
+    "missing_citations": 0,
+    "other": 7,
+    "untrusted_sources": 0
+  },
+  "generated_at": "2026-03-02T03:18:30.758541+00:00",
+  "metrics": {
+    "abstention_f1": 0.5333333333333333,
+    "abstention_fn": 0,
+    "abstention_fp": 7,
+    "abstention_precision": 0.36363636363636365,
+    "abstention_recall": 1.0,
+    "abstention_tp": 4,
+    "answerable_total": 7,
+    "citation_required_pass_rate": 0.0,
+    "locator_resolve_pass_rate": 0.0,
+    "total_cases": 11,
+    "unanswerable_total": 4
+  },
+  "suite": "golden",
+  "suite_metadata": {
+    "abstention_count": 4,
+    "answerable_count": 5,
+    "citation_verification_count": 2,
+    "created": "2026-03-02",
+    "total_cases": 11,
+    "version": "1.0.0"
+  }
+}

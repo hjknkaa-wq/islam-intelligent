@@ -1,0 +1,10 @@
+{
+  "id": "T-1d1684b7-00c0-4c2c-9c01-d887d2caf05f",
+  "subject": "Extend scripts/run_eval.py with CI assertions and failure taxonomy",
+  "description": "Add --assert flags (key==value, key>=value) to gate CI on eval metrics, enforce default thresholds (citation_required_pass_rate==1.0, locator_resolve_pass_rate==1.0, abstention_f1>=0.95), print failure taxonomy counts (missing_citations, untrusted_sources, citation_verification_failed), exit 0/1 accordingly, and write evidence file .sisyphus/evidence/task-25-eval-thresholds.txt.",
+  "status": "completed",
+  "activeForm": "Implement --assert parsing and metric comparisons; emit taxonomy; ensure correct exit codes; update evidence file; run lsp diagnostics and python test run.",
+  "blocks": [],
+  "blockedBy": [],
+  "threadID": "ses_3537efcc2ffeuaf9A0jYZ6DoLj"
+}

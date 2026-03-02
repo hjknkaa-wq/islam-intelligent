@@ -1,0 +1,9 @@
+{
+  "id": "T-20f5e8f4-c4e3-40ce-b068-1ebbfde392ba",
+  "subject": "Add KG evidence requirement tests and run verification",
+  "description": "Create apps/api/tests/test_kg_edge_requires_evidence.py; run lsp diagnostics on changed files, pytest for the test file, and scripts/kg_integrity.py.",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [],
+  "threadID": "ses_354d68790ffeqwzM9pl9LxGPa8"
+}

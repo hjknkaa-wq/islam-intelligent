@@ -1,0 +1,9 @@
+{
+  "id": "T-808b8a5a-70c5-4126-9e82-2ad5ed8fd316",
+  "subject": "Create packages/schemas directory structure",
+  "description": "Create placeholder directory structure for JSON schemas and SQL migrations package:\n- packages/schemas/package.json\n- packages/schemas/json/source_document.json\n- packages/schemas/json/text_unit.json\n- packages/schemas/sql/0001_init.sql\n- packages/schemas/README.md",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [],
+  "threadID": "ses_3551c944affeJ7eq1erLwLHAj1"
+}

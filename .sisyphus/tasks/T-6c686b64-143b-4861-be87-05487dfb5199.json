@@ -1,0 +1,9 @@
+{
+  "id": "T-6c686b64-143b-4861-be87-05487dfb5199",
+  "subject": "Fix Unicode encoding in verification script",
+  "description": "Replace Unicode checkmarks with ASCII characters for Windows compatibility",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [],
+  "threadID": "ses_354f05314ffeJxCWFhsHFGE7Ia"
+}

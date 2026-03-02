@@ -1,0 +1,15 @@
+{
+  "id": "T-632da0ec-d5c2-4f16-bb95-1867daf3dccd",
+  "subject": "Create directory/file scaffold for services and web",
+  "description": "",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [
+    "T-3408e418-72eb-430b-b7c0-2b2b1173e440"
+  ],
+  "metadata": {
+    "completed_at": "2026-03-02T04:30:00Z",
+    "evidence": "Directory structure created: services/ingest/, services/rag/"
+  },
+  "threadID": "ses_35404de5dffeVvbfWinI44FVYb"
+}

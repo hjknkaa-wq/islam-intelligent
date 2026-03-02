@@ -1,0 +1,10 @@
+{
+  "id": "T-1dcdbaa4-6d4d-46b3-a55d-ee0aa6d5c563",
+  "subject": "Verify set_source_trust.py (run + diagnostics)",
+  "description": "Run python scripts/set_source_trust.py --first-fixture --trusted true and ensure output shows before/after; run lsp_diagnostics and py_compile.",
+  "status": "completed",
+  "activeForm": "Ran CLI and py_compile; lsp_diagnostics clean for scripts/set_source_trust.py",
+  "blocks": [],
+  "blockedBy": [],
+  "threadID": "ses_353aa5303ffe60iB6odbrWmBan"
+}

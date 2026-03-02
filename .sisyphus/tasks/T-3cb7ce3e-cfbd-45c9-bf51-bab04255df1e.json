@@ -1,0 +1,10 @@
+{
+  "id": "T-3cb7ce3e-cfbd-45c9-bf51-bab04255df1e",
+  "subject": "Implement scripts/run_eval.py golden evaluation runner",
+  "description": "Create scripts/run_eval.py to run eval/cases/golden.yaml suite, call API/pipeline, compute citation_required + locator_resolve + abstention metrics, write eval/report.json, and ensure CLI exits 0 on success.",
+  "status": "completed",
+  "activeForm": "Implement scripts/run_eval.py and verify python scripts/run_eval.py --suite golden --output eval/report.json",
+  "blocks": [],
+  "blockedBy": [],
+  "threadID": "ses_3542accc0ffeXWpcZwnKsFCD6X"
+}

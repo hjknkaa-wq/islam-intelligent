@@ -1,0 +1,12 @@
+{
+  "id": "T-1af282df-75ff-4669-8eb9-1b42bb183687",
+  "subject": "Implement scripts/retract_source.py append-only source retraction",
+  "description": "Create CLI script to retract a source_document by inserting a new version row (supersedes_source_id set, trust_status='retracted', retraction_reason populated), support --source-id and --first-fixture, and write evidence file .sisyphus/evidence/task-19-retract.txt showing old/new rows.",
+  "status": "completed",
+  "activeForm": "Implemented scripts/retract_source.py; generated evidence; diagnostics clean; compileall passed",
+  "blocks": [],
+  "blockedBy": [],
+  "repoURL": "",
+  "parentID": "",
+  "threadID": "ses_353f4f4c0ffeoxRaj2OR8q0w36"
+}

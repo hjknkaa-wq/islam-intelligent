@@ -1,0 +1,15 @@
+{
+  "id": "T-e73c2099-403e-4918-9f1d-be9d3cf43e62",
+  "subject": "Phase 2: Scoring & Location Decision",
+  "description": "Score directories based on complexity metrics, determine AGENTS.md locations",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [
+    "T-1"
+  ],
+  "metadata": {
+    "phase": "scoring",
+    "priority": "high"
+  },
+  "threadID": "ses_3554cac7dffeffRyfrsCP50JC5"
+}

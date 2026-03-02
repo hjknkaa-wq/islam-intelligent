@@ -1,0 +1,141 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://islam-intelligent.dev/schemas/source_document.json",
+  "title": "Source Document",
+  "description": "Schema for Islamic source documents with provenance and licensing information",
+  "type": "object",
+  "required": [
+    "source_id",
+    "source_type",
+    "work_title",
+    "language",
+    "license_id",
+    "license_url",
+    "content_hash_sha256",
+    "content_length_bytes",
+    "storage_path",
+    "trust_status"
+  ],
+  "properties": {
+    "source_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for the source document"
+    },
+    "source_type": {
+      "type": "string",
+      "enum": [
+        "quran_text",
+        "hadith_collection",
+        "tafsir",
+        "fiqh",
+        "sirah",
+        "translation",
+        "other"
+      ],
+      "description": "Type of Islamic source"
+    },
+    "work_title": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Title of the work"
+    },
+    "author": {
+      "type": ["string", "null"],
+      "description": "Author/compiler of the work (if known)"
+    },
+    "edition": {
+      "type": ["string", "null"],
+      "description": "Edition information (publisher, year, etc.)"
+    },
+    "language": {
+      "type": "string",
+      "pattern": "^[a-z]{2}(-[A-Z]{2})?$",
+      "description": "Language code in BCP-47 format (e.g., 'ar', 'en', 'id')"
+    },
+    "canonical_ref": {
+      "type": ["string", "null"],
+      "description": "Bibliographic reference or canonical URL"
+    },
+    "license_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "SPDX license identifier or custom license code"
+    },
+    "license_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to full license text"
+    },
+    "rights_holder": {
+      "type": ["string", "null"],
+      "description": "Entity holding copyright or distribution rights"
+    },
+    "attribution_text": {
+      "type": ["string", "null"],
+      "description": "Required attribution text for display"
+    },
+    "retrieved_at": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "Timestamp when source was retrieved/ingested"
+    },
+    "content_hash_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$",
+      "description": "SHA-256 hash of canonical source content"
+    },
+    "content_mime": {
+      "type": "string",
+      "default": "text/plain",
+      "description": "MIME type of the source content"
+    },
+    "content_length_bytes": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Size of source content in bytes"
+    },
+    "storage_path": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Path to stored source file"
+    },
+    "trust_status": {
+      "type": "string",
+      "enum": ["untrusted", "trusted"],
+      "default": "untrusted",
+      "description": "Trust status gates answering - only trusted sources can be cited"
+    },
+    "supersedes_source_id": {
+      "type": ["string", "null"],
+      "format": "uuid",
+      "description": "ID of previous version this source supersedes (for versioning)"
+    },
+    "retraction_reason": {
+      "type": ["string", "null"],
+      "description": "Reason for retraction (required if superseding)"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Creation timestamp"
+    }
+  },
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "required": ["supersedes_source_id"],
+        "properties": {
+          "supersedes_source_id": { "type": "string" }
+        }
+      },
+      "then": {
+        "required": ["retraction_reason"],
+        "properties": {
+          "retraction_reason": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  ]
+}

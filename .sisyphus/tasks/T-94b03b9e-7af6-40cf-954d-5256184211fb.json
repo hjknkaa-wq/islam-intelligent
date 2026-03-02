@@ -1,0 +1,16 @@
+{
+  "id": "T-94b03b9e-7af6-40cf-954d-5256184211fb",
+  "subject": "Update load_fixtures.py to use builder",
+  "description": "Update scripts/load_fixtures.py to:\n- Integrate with text_unit_builder\n- Load both Quran and Hadith fixtures\n- Use normalization pipeline\n- Insert into text_unit table",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [
+    "T-95e8f9f6-1b0e-475a-a5d6-91cf865a481f",
+    "T-aab4a99e-e090-4082-a7fb-740e18e9cd70"
+  ],
+  "metadata": {
+    "component": "scripts",
+    "file": "load_fixtures.py"
+  },
+  "threadID": "ses_354e8e007ffeSIEWLk5M7tdqmB"
+}

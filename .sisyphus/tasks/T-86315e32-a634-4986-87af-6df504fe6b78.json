@@ -1,0 +1,10 @@
+{
+  "id": "T-86315e32-a634-4986-87af-6df504fe6b78",
+  "subject": "Inspect UI patterns and spanHighlighter utility for EvidenceHighlight",
+  "description": "Read existing components styling conventions and confirm byteOffsetsToStringRange API; find existing hash format usage.",
+  "status": "completed",
+  "activeForm": "Confirmed Tailwind patterns, existing hash utilities (apps/ui/src/lib/byteOffsets.ts), and byteOffsetsToStringRange API (apps/ui/src/lib/spanHighlighter.ts).",
+  "blocks": [],
+  "blockedBy": [],
+  "threadID": "ses_3544ba39affeET0qRw2bSBUh5b"
+}

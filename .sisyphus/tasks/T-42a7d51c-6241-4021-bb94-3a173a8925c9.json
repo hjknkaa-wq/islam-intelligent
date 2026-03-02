@@ -1,0 +1,10 @@
+{
+  "id": "T-42a7d51c-6241-4021-bb94-3a173a8925c9",
+  "subject": "Implement scripts/set_source_trust.py CLI",
+  "description": "Create scripts/set_source_trust.py implementing --first-fixture and --trusted true/false, updates source_document.trust_status and prints before/after.",
+  "status": "completed",
+  "activeForm": "Created scripts/set_source_trust.py using sqlite3; derives source_id from first *_minimal.yaml fixture; prints before/after",
+  "blocks": [],
+  "blockedBy": [],
+  "threadID": "ses_353aa5303ffe60iB6odbrWmBan"
+}

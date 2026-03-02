@@ -1,0 +1,13 @@
+{
+  "id": "T-9e9b9bfa-d172-4a9b-9b90-cedf3003b379",
+  "subject": "Create PROV-DM models.py with 6 tables",
+  "description": "Create apps/api/src/islam_intelligent/provenance/models.py with Entity, Activity, Agent, Generation, Usage, Derivation tables following W3C PROV-DM spec",
+  "status": "completed",
+  "blocks": [
+    "T-provenancerecorder",
+    "T-provenancetests",
+    "T-provenanceverify"
+  ],
+  "blockedBy": [],
+  "threadID": "ses_354fda07dffexa5KWa4dZ821Xt"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "T-2c975e50-189b-4a0b-956c-ec2fc45810f8",
+  "subject": "Implement database bootstrap script",
+  "description": "Create scripts/db_init.py to initialize SQLite/Postgres database by applying SQL migrations idempotently and write evidence file",
+  "status": "completed",
+  "activeForm": "Implementing database bootstrap script with migration execution and sanity checks",
+  "blocks": [],
+  "blockedBy": [],
+  "threadID": "ses_353cf44aeffeb5S29kIxu4FVa3"
+}

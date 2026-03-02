@@ -1,0 +1,13 @@
+{
+  "id": "T-d8e3ac3f-04fb-49a2-afd8-d2cf18238c4b",
+  "subject": "Create span invalid input tests",
+  "description": "Create `apps/api/tests/test_span_reject_invalid.py` with tests:\n- Test rejects start_byte < 0\n- Test rejects end_byte > text length\n- Test rejects start_byte >= end_byte\n- Test rejects hash mismatch\n\nEnsure all validation errors are properly raised.",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [],
+  "metadata": {
+    "component": "tests",
+    "file": "test_span_reject_invalid.py"
+  },
+  "threadID": "ses_354de6930ffeiVzP1nDoPVYX1H"
+}

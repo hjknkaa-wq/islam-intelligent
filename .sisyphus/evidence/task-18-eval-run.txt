@@ -1,0 +1,15 @@
+Command:
+  python scripts/run_eval.py --suite golden --output eval/report.json
+
+Report:
+  eval/report.json
+
+Key Metrics (from report.json):
+  total_cases: 11
+  answerable_total: 7
+  unanswerable_total: 4
+  citation_required_pass_rate: 0.0
+  locator_resolve_pass_rate: 0.0
+  abstention_precision: 0.36363636363636365
+  abstention_recall: 1.0
+  abstention_f1: 0.5333333333333333

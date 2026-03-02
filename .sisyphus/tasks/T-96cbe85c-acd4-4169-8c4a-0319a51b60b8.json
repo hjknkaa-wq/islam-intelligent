@@ -1,0 +1,9 @@
+{
+  "id": "T-96cbe85c-acd4-4169-8c4a-0319a51b60b8",
+  "subject": "Add KG integrity checker script",
+  "description": "Create scripts/kg_integrity.py to validate evidence spans on edges; exit code 0 if clean else non-zero.",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [],
+  "threadID": "ses_354d68790ffeqwzM9pl9LxGPa8"
+}

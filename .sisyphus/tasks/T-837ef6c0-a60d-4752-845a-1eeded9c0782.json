@@ -1,0 +1,13 @@
+{
+  "id": "T-837ef6c0-a60d-4752-845a-1eeded9c0782",
+  "subject": "Create hadith_minimal.yaml fixtures",
+  "description": "Create data/fixtures/hadith_minimal.yaml with:\n- 3-5 hadith from Sahih Bukhari (public domain/narrations)\n- Canonical IDs: hadith:bukhari:sahih:1, hadith:bukhari:sahih:2, etc.\n- Arabic text and English translation\n- Proper metadata (source, license, attribution)",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [],
+  "metadata": {
+    "component": "fixtures",
+    "file": "hadith_minimal.yaml"
+  },
+  "threadID": "ses_354e8e007ffeSIEWLk5M7tdqmB"
+}

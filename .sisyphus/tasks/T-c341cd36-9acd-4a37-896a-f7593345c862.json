@@ -1,0 +1,9 @@
+{
+  "id": "T-c341cd36-9acd-4a37-896a-f7593345c862",
+  "subject": "Verify test + record evidence",
+  "description": "Run lsp diagnostics and pytest for new test; write .sisyphus/evidence/task-22-untrusted-abstain.txt with what ran and results.",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [],
+  "threadID": "ses_35399e489ffeXzB9RzPD2RxpAg"
+}

@@ -1,0 +1,13 @@
+{
+  "id": "T-08c5cdbb-4a2c-4f98-b5b8-f32890f78a36",
+  "subject": "Add root Makefile targets and update docker-compose services",
+  "description": "",
+  "status": "completed",
+  "activeForm": "Adding Makefile and updating docker-compose",
+  "blocks": [],
+  "blockedBy": [
+    "T-e7dd671a-0bfd-4cb7-8922-0cbaa6bf0b7f",
+    "T-926c0e60-3ffe-4f6c-97df-3dbc0507ba4c"
+  ],
+  "threadID": "ses_3533b6361ffejGLBs4S2aPAZwL"
+}

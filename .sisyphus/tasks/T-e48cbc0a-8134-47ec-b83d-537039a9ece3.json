@@ -1,0 +1,13 @@
+{
+  "id": "T-e48cbc0a-8134-47ec-b83d-537039a9ece3",
+  "subject": "Create SQL migration file with 7 schema tables",
+  "description": "Create packages/schemas/sql/0001_init.sql with:\n1. source_document - source registry with license info\n2. text_unit - Quran ayat and hadith items  \n3. evidence_span - byte offsets with hash verification\n4. kg_entity - knowledge graph entities\n5. kg_edge - edges with evidence requirement\n6. kg_edge_evidence - junction table for edge-span links\n7. rag_query, rag_retrieval_result, rag_validation, rag_answer - RAG pipeline logs\n\nFollow docs/CANONICAL_IDS.md for ID formats and ensure provenance chains with source_id links throughout.",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [],
+  "metadata": {
+    "type": "schema",
+    "layer": "sql"
+  },
+  "threadID": "ses_3551073b8ffeWsJ2h2tsMkOFDl"
+}

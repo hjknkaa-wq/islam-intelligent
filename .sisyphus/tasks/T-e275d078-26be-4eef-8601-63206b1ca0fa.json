@@ -1,0 +1,13 @@
+{
+  "id": "T-e275d078-26be-4eef-8601-63206b1ca0fa",
+  "subject": "Create span round-trip tests",
+  "description": "Create `apps/api/tests/test_span_roundtrip.py` with tests:\n- Test creating span from text_unit\n- Test hash verification passes for valid span\n- Test span snippet matches original bytes\n- Test prefix/suffix extraction\n\nVerify UTF-8 byte offset handling is correct.",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [],
+  "metadata": {
+    "component": "tests",
+    "file": "test_span_roundtrip.py"
+  },
+  "threadID": "ses_354de6930ffeiVzP1nDoPVYX1H"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "T-1e259753-0bb5-4fb9-99dd-f213d143acb0",
+  "subject": "Inspect existing DB schema/models for KG and evidence spans",
+  "description": "Review packages/schemas/sql/0001_init.sql and existing SQLAlchemy patterns to implement KG managers with evidence enforcement.",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [],
+  "threadID": "ses_354d68790ffeqwzM9pl9LxGPa8"
+}

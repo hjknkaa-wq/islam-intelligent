@@ -1,0 +1,13 @@
+{
+  "id": "T-c85fc461-e41f-476c-a0f4-c4b0abe361eb",
+  "subject": "Create EvidenceSpan domain builder module",
+  "description": "Create `apps/api/src/islam_intelligent/domain/span_builder.py` with:\n- create_span(text_unit_id, start_byte, end_byte, text_unit_text) -> dict\n- validate_span(span, text_unit_text) -> bool\n- extract_snippet(text, start_byte, end_byte) -> str\n- compute_snippet_hash(snippet) -> str\n- get_prefix_suffix(text, start_byte, end_byte, context=50) -> (prefix, suffix)\n\nKey requirements:\n- Use UTF-8 byte offsets (not character offsets)\n- Compute sha256 hash of the byte slice\n- Validate span boundaries\n- Extract context prefix/suffix",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [],
+  "metadata": {
+    "component": "domain",
+    "file": "span_builder.py"
+  },
+  "threadID": "ses_354de6930ffeiVzP1nDoPVYX1H"
+}

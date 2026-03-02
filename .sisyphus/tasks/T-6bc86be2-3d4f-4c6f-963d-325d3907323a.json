@@ -1,0 +1,10 @@
+{
+  "id": "T-6bc86be2-3d4f-4c6f-963d-325d3907323a",
+  "subject": "Create sources/LICENSE_AUDIT.md for Islamic text sources",
+  "description": "Create a single audit doc capturing candidate Islamic text sources and their license status (SAFE/RESTRICTED/UNKNOWN). Must include Tanzil.net Quran text license research plus major translation license research. For each source: source_id, status, license_url, attribution_text, rights_holder, and any redistribution requirements. Identify at least 2-3 SAFE sources suitable for MVP fixtures; do not mark uncertain sources SAFE. Verification: ensure file exists, lsp_diagnostics clean for new md file; build not applicable for docs-only repo.",
+  "status": "completed",
+  "activeForm": "Creating license audit documentation",
+  "blocks": [],
+  "blockedBy": [],
+  "threadID": "ses_3552b6a27ffeMV01KALrdt4zqg"
+}

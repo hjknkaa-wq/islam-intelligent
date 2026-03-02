@@ -1,0 +1,45 @@
+# Node.js dependencies and package manager cache
+node_modules/
+.npm/
+.pnpm-store/
+
+# Build outputs
+.next/
+dist/
+build/
+out/
+
+# Test and coverage artifacts
+coverage/
+test-results/
+playwright-report/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment files (keep the example file)
+.env
+.env.*
+!.env.example
+
+# Python cache and virtualenv
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local tool/runtime folders
+
+
+# IDE/editor and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

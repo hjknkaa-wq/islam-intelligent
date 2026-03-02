@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://islam-intelligent.dev/schemas/kg_entity.json",
+  "title": "Knowledge Graph Entity",
+  "description": "Schema for knowledge graph entities (people, concepts, events, etc.)",
+  "type": "object",
+  "required": [
+    "entity_id",
+    "entity_type",
+    "canonical_name",
+    "aliases_json"
+  ],
+  "properties": {
+    "entity_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for the entity"
+    },
+    "entity_type": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Type of entity (e.g., 'person', 'concept', 'event', 'location', 'book')"
+    },
+    "canonical_name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Primary name of the entity"
+    },
+    "aliases_json": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "default": [],
+      "description": "Alternative names and aliases for the entity"
+    },
+    "description": {
+      "type": ["string", "null"],
+      "description": "Description or definition of the entity"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Creation timestamp"
+    }
+  },
+  "additionalProperties": false
+}

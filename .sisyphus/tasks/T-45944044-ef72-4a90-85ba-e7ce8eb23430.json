@@ -1,0 +1,10 @@
+{
+  "id": "T-45944044-ef72-4a90-85ba-e7ce8eb23430",
+  "subject": "Patch scripts/set_source_trust.py to sqlite3-only and fix --trusted flag behavior",
+  "description": "Remove any SQLAlchemy ORM usage; ensure SELECT/UPDATE are simple sqlite3; accept --trusted with optional value (supports both '--trusted' and '--trusted true/false').",
+  "status": "completed",
+  "activeForm": "Replaced SQLAlchemy with sqlite3; removed ORDER BY version; --trusted now supports '--trusted', '--trusted true', '--trusted false'",
+  "blocks": [],
+  "blockedBy": [],
+  "threadID": "ses_353aa5303ffe60iB6odbrWmBan"
+}

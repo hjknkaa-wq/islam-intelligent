@@ -1,0 +1,93 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://islam-intelligent.dev/schemas/kg_edge.json",
+  "title": "Knowledge Graph Edge",
+  "description": "Schema for knowledge graph edges linking entities (requires evidence)",
+  "type": "object",
+  "required": [
+    "edge_id",
+    "subject_entity_id",
+    "predicate",
+    "evidence_span_ids"
+  ],
+  "properties": {
+    "edge_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for the edge"
+    },
+    "subject_entity_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Source entity (subject of the relationship)"
+    },
+    "predicate": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Relationship type (e.g., 'authored', 'mentions', 'is_a', 'related_to')"
+    },
+    "object_entity_id": {
+      "type": ["string", "null"],
+      "format": "uuid",
+      "description": "Target entity (optional if object_literal is provided)"
+    },
+    "object_literal": {
+      "type": ["string", "null"],
+      "description": "Literal value (optional if object_entity_id is provided)"
+    },
+    "confidence_score": {
+      "type": ["number", "null"],
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Confidence level for this edge (0.0 to 1.0)"
+    },
+    "evidence_span_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "minItems": 1,
+      "description": "Evidence spans supporting this edge (REQUIRED - minimum 1)"
+    },
+    "evidence_details": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "evidence_span_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "relevance_score": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          }
+        },
+        "required": ["evidence_span_id"]
+      },
+      "description": "Detailed evidence information with relevance scores"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Creation timestamp"
+    }
+  },
+  "anyOf": [
+    {
+      "required": ["object_entity_id"],
+      "properties": {
+        "object_entity_id": { "type": "string", "format": "uuid" }
+      }
+    },
+    {
+      "required": ["object_literal"],
+      "properties": {
+        "object_literal": { "type": "string", "minLength": 1 }
+      }
+    }
+  ],
+  "additionalProperties": false
+}

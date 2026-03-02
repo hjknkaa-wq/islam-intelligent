@@ -1,0 +1,59 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://islam-intelligent.dev/schemas/evidence_span.json",
+  "title": "Evidence Span",
+  "description": "Schema for evidence spans with UTF-8 byte offsets and hash verification",
+  "type": "object",
+  "required": [
+    "evidence_span_id",
+    "text_unit_id",
+    "start_byte",
+    "end_byte",
+    "snippet_utf8_sha256"
+  ],
+  "properties": {
+    "evidence_span_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for the evidence span"
+    },
+    "text_unit_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Reference to parent text unit"
+    },
+    "start_byte": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Inclusive UTF-8 byte offset into text_canonical"
+    },
+    "end_byte": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Exclusive UTF-8 byte offset into text_canonical"
+    },
+    "snippet_text": {
+      "type": ["string", "null"],
+      "description": "Optional: the actual span text for display"
+    },
+    "snippet_utf8_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$",
+      "description": "SHA-256 of UTF-8 bytes from start_byte to end_byte"
+    },
+    "prefix_text": {
+      "type": ["string", "null"],
+      "description": "Optional context before span for fuzzy re-anchoring"
+    },
+    "suffix_text": {
+      "type": ["string", "null"],
+      "description": "Optional context after span for fuzzy re-anchoring"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Creation timestamp"
+    }
+  },
+  "additionalProperties": false
+}

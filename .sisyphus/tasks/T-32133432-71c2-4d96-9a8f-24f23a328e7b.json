@@ -1,0 +1,11 @@
+{
+  "id": "T-32133432-71c2-4d96-9a8f-24f23a328e7b",
+  "subject": "Create root .env.example for compose variables",
+  "description": "Add non-secret environment variable template consumed by docker-compose services.",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [
+    "T-fac45f67-e855-4516-b932-b7fcbbeeb2e7"
+  ],
+  "threadID": "ses_3551c6911ffePP8Ji5QepowPVs"
+}

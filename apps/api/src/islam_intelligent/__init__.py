@@ -1,0 +1,1 @@
+"""Islam Intelligent API package."""

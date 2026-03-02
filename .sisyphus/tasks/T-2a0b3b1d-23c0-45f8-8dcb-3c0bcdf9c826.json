@@ -1,0 +1,10 @@
+{
+  "id": "T-2a0b3b1d-23c0-45f8-8dcb-3c0bcdf9c826",
+  "subject": "Read tech stack versions for API scaffold",
+  "description": "Read docs/TECH_STACK.md and extract exact Python/FastAPI dependency versions for apps/api pyproject.toml.",
+  "status": "completed",
+  "activeForm": "Reading docs/TECH_STACK.md to capture exact backend dependency versions.",
+  "blocks": [],
+  "blockedBy": [],
+  "threadID": "ses_3552614eaffeNH04zaXoiPNOaL"
+}

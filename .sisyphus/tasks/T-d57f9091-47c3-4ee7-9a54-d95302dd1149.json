@@ -1,0 +1,9 @@
+{
+  "id": "T-d57f9091-47c3-4ee7-9a54-d95302dd1149",
+  "subject": "Inspect RAG entrypoint + dev.db schema for trust_status",
+  "description": "Find how to call RAG pipeline/query and confirm source_document table columns; verify .local/dev.db presence and how trust is enforced.",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [],
+  "threadID": "ses_35399e489ffeXzB9RzPD2RxpAg"
+}

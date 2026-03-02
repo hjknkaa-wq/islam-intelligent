@@ -1,0 +1,11 @@
+{
+  "id": "T-6652d4ed-b1fc-42ac-8f86-0ed0ea3ea3c3",
+  "subject": "Create verify_provenance.py script",
+  "description": "Create scripts/verify_provenance.py with --check no_orphans command that returns 0 if clean, non-zero if violations",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [
+    "T-provenancetests"
+  ],
+  "threadID": "ses_354fda07dffexa5KWa4dZ821Xt"
+}

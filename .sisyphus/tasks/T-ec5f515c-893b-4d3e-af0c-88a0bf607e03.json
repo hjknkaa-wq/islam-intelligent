@@ -1,0 +1,15 @@
+{
+  "id": "T-ec5f515c-893b-4d3e-af0c-88a0bf607e03",
+  "subject": "Phase 4: Review & Deduplicate",
+  "description": "Remove generic advice, deduplicate content, validate files",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [
+    "T-3"
+  ],
+  "metadata": {
+    "phase": "review",
+    "priority": "medium"
+  },
+  "threadID": "ses_3554cac7dffeffRyfrsCP50JC5"
+}

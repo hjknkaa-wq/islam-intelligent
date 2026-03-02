@@ -1,0 +1,14 @@
+{
+  "id": "T-7c680268-883d-4c7b-aa3e-f6e82c2c6a2f",
+  "subject": "Implement citation verifier and enforce abstain on failed verification",
+  "description": "Add citation verifier module under rag/verify, integrate into RAG pipeline, ensure citation verifier tests pass, and record evidence file for task-24.",
+  "status": "completed",
+  "activeForm": "Implementing citation verifier and integrating abstain enforcement",
+  "blocks": [],
+  "blockedBy": [],
+  "metadata": {
+    "completed_at": "2026-03-02T04:31:00Z",
+    "evidence": "apps/api/src/islam_intelligent/rag/verify/citation_verifier.py exists"
+  },
+  "threadID": "ses_3538ac876ffeGcTjvPV5Tt6Z6k"
+}

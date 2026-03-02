@@ -1,0 +1,9 @@
+{
+  "id": "T-b48034a8-499c-4302-ad70-b530a3d1c267",
+  "subject": "Implement RAG log verification script and evidence",
+  "description": "Create scripts/verify_rag_logs.py to validate rag_query audit completeness in .local/dev.db, support --simulate-missing, return proper exit codes, run verification, and record evidence in .sisyphus/evidence/task-23-rag-logs.txt.",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [],
+  "threadID": "ses_3538f10f8ffegien9H3mXV5py3"
+}

@@ -1,0 +1,293 @@
+{
+  "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/dev/assets/oh-my-opencode.schema.json",
+
+  // ─────────────────────────────────────────────────────────────
+  // ISLAM INTELLIGENT — OMO Project Profile (Accuracy-First)
+  // Goal: build Palantir-like Islamic Knowledge Intelligence Platform
+  // Key: provenance/citations always; avoid hallucination; plan-first.
+  // ─────────────────────────────────────────────────────────────
+
+  "auto_update": true,
+
+  // Orchestrator behavior
+  "sisyphus_agent": {
+    "disabled": false,
+    "default_builder_enabled": false,
+    "planner_enabled": true,
+    "replace_plan": true
+  },
+
+  // Cross-session task tracking (useful for massive project)
+  "sisyphus": {
+    "tasks": {
+      "storage_path": ".sisyphus/tasks",
+      "claude_code_compat": false
+    }
+  },
+
+  // Reliability: auto-switch to backup models on API errors/timeouts
+  "runtime_fallback": {
+    "enabled": true,
+    "retry_on_errors": [400, 429, 503, 529],
+    "max_fallback_attempts": 3,
+    "cooldown_seconds": 60,
+    "timeout_seconds": 45,
+    "notify_on_fallback": true
+  },
+
+  // Hashline edit prevents stale-line edits (enabled by default; keep explicit)
+  "hashline_edit": true,
+
+  // Git hygiene
+  "git_master": {
+    "commit_footer": true,
+    "include_co_authored_by": true
+  },
+
+  // Enforce quality (esp. “no hallucination” + citations)
+  "comment_checker": {
+    "custom_prompt": "You are a STRICT verifier.\\nEvaluate the assistant message below and produce improvement comments.\\n\\nHARD RULES:\\n1) Any factual/religious claim MUST be backed by an explicit citation/provenance reference.\\n2) If a claim has no source → flag it as hallucination risk and request abstention or retrieval.\\n3) For Islamic content: require primary source refs (Qur'an surah:ayah; hadith collection + number + grading if available; tafsir title/vol/page if known).\\n4) For engineering claims: require file paths, symbols, and (when possible) line ranges.\\n5) Prefer 'I don't know / insufficient sources' over guessing.\\n\\nMessage to review:\\n{{comments}}"
+  },
+
+  "notification": { "force_enable": true },
+
+  // ── AGENTS (only configure known OMO agents) ──────────────────
+  "agents": {
+    // Main orchestrator: cheap + long context works great
+    "sisyphus": {
+      "model": "kimi-for-coding/k2p5",
+      "temperature": 0.2,
+      "fallback_models": ["openai/gpt-5.2", "opencode/gpt-5-nano"],
+      "permission": {
+        "edit": "allow",
+        "webfetch": "allow",
+        "external_directory": "ask",
+        "doom_loop": "allow",
+        "bash": {
+          "git": "allow",
+          "rg": "allow",
+          "fd": "allow",
+          "ls": "allow",
+          "cat": "allow",
+          "sed": "ask",
+          "python": "allow",
+          "node": "allow",
+          "bun": "allow",
+          "npm": "allow",
+          "pnpm": "allow",
+          "docker": "ask",
+          "curl": "ask",
+          "wget": "ask",
+          "rm": "deny",
+          "sudo": "deny"
+        }
+      },
+      "prompt_append": "PROJECT RULES:\\n- Plan-first for any multi-file change.\\n- Never assert Islamic facts without explicit primary citations.\\n- If evidence is missing: say 'insufficient sources' and request retrieval/ingestion.\\n- Always preserve provenance for every dataset transformation."
+    },
+
+    // Planner (Prometheus) — make strict plans + acceptance criteria
+    "prometheus": {
+      "model": "openai/gpt-5.2",
+      "variant": "high",
+      "temperature": 0.2,
+      "fallback_models": ["kimi-for-coding/k2p5"],
+      "prompt_append": "PLANNING RULES:\\n1) Break work into milestones: ingestion → normalization → KG → RAG → UI → eval → hardening.\\n2) Every milestone must define: schema, provenance, tests, and rollback strategy.\\n3) For accuracy: require 'evidence-first' flows (retrieve → verify → generate)."
+    },
+
+    // Deep autonomous worker (Hephaestus) — heavy coding/refactor
+    "hephaestus": {
+      "model": "openai/gpt-5.3-codex",
+      "variant": "xhigh",
+      "temperature": 0.1,
+      "fallback_models": ["openai/gpt-5.2", "kimi-for-coding/k2p5"],
+      "permission": {
+        "edit": "allow",
+        "webfetch": "allow",
+        "external_directory": "ask",
+        "doom_loop": "allow",
+        "bash": "ask"
+      },
+      "prompt_append": "ENGINEERING RULES:\\n- Prefer deterministic pipelines; avoid 'LLM magic' without verification.\\n- Write tests + data validation checks for every ingestion/transform step.\\n- Keep changes small & reviewable; commit atomically."
+    },
+
+    // Architecture / correctness consultant (read-only)
+    "oracle": {
+      "model": "openai/gpt-5.2",
+      "variant": "high",
+      "temperature": 0.1,
+      "fallback_models": ["anthropic/claude-sonnet-4-6", "kimi-for-coding/k2p5"],
+      "permission": { "edit": "deny", "bash": "deny", "webfetch": "allow" },
+      "prompt_append": "You are a strict reviewer. Flag any missing provenance, schema ambiguity, or eval gaps."
+    },
+
+    // Research + docs
+    "librarian": {
+      "model": "kimi-for-coding/k2p5",
+      "temperature": 0.2,
+      "fallback_models": ["opencode/gpt-5-nano"],
+      "permission": { "edit": "deny", "bash": "ask", "webfetch": "allow" },
+      "prompt_append": "Research rule: prefer primary docs/specs; summarize with bullet points + links + caveats."
+    },
+
+    // Codebase exploration (cheap)
+    "explore": {
+      "model": "opencode/gpt-5-nano",
+      "temperature": 0.2,
+      "fallback_models": ["kimi-for-coding/k2p5"],
+      "permission": { "edit": "deny", "bash": "allow", "webfetch": "deny" }
+    },
+
+    // Critic / QA
+    "momus": {
+      "model": "openai/gpt-5.2",
+      "variant": "high",
+      "temperature": 0.1,
+      "fallback_models": ["kimi-for-coding/k2p5"],
+      "permission": { "edit": "deny", "bash": "deny", "webfetch": "allow" },
+      "prompt_append": "Act as QA: find edge cases, missing tests, security risks, and citation gaps."
+    },
+
+    // Executor for scheduled tasks
+    "atlas": {
+      "model": "kimi-for-coding/k2p5",
+      "temperature": 0.2,
+      "fallback_models": ["openai/gpt-5.2", "opencode/gpt-5-nano"],
+      "permission": { "edit": "allow", "bash": "ask", "doom_loop": "allow", "webfetch": "allow" }
+    }
+  },
+
+  // ── CATEGORIES (include all built-ins to avoid unwanted defaults) ──────────
+  "categories": {
+    "quick": {
+      "model": "opencode/gpt-5-nano",
+      "temperature": 0.2
+    },
+    "unspecified-low": {
+      "model": "opencode/gpt-5-nano",
+      "temperature": 0.2
+    },
+    "unspecified-high": {
+      "model": "openai/gpt-5.2",
+      "variant": "high",
+      "temperature": 0.1,
+      "fallback_models": ["kimi-for-coding/k2p5"]
+    },
+    "writing": {
+      "model": "kimi-for-coding/k2p5",
+      "temperature": 0.2
+    },
+    "visual-engineering": {
+      "model": "openai/gpt-5.2",
+      "variant": "high",
+      "temperature": 0.3,
+      "fallback_models": ["kimi-for-coding/k2p5", "openai/gpt-5.2"]
+    },
+    "artistry": {
+      "model": "opencode/minimax-m2.5-free",
+      "temperature": 0.6
+    },
+    "deep": {
+      "model": "openai/gpt-5.3-codex",
+      "variant": "xhigh",
+      "temperature": 0.1,
+      "fallback_models": ["openai/gpt-5.2"]
+    },
+    "ultrabrain": {
+      "model": "openai/gpt-5.3-codex",
+      "variant": "xhigh",
+      "temperature": 0.1,
+      "fallback_models": ["openai/gpt-5.2"]
+    },
+
+    // ── Custom categories for ISLAM INTELLIGENT ──────────────────────────────
+    "islam-etl": {
+      "model": "kimi-for-coding/k2p5",
+      "temperature": 0.1,
+      "description": "Ingestion + normalization pipeline (Quran/Hadith/Tafsir/Fiqh/etc) with strict provenance",
+      "prompt_append": "ETL RULES:\\n- Never drop provenance fields.\\n- Every transform must be reversible or logged.\\n- Validate with checksums + schema + sample-based spot checks."
+    },
+    "islam-kg": {
+      "model": "openai/gpt-5.2",
+      "variant": "high",
+      "temperature": 0.1,
+      "description": "Ontology + Knowledge Graph modeling and query design",
+      "prompt_append": "KG RULES:\\n- Model entities/edges with explicit provenance.\\n- Support multi-source conflicts (different editions/gradings).\\n- Every edge must point to source document + location."
+    },
+    "islam-rag": {
+      "model": "openai/gpt-5.3-codex",
+      "variant": "xhigh",
+      "temperature": 0.1,
+      "description": "Multi-hop RAG + grounded generation (no hallucination)",
+      "prompt_append": "RAG RULES:\\n- Evidence-first: retrieve → validate → answer.\\n- If evidence missing/ambiguous: abstain + ask for more sources.\\n- Always output citations/provenance pointers."
+    },
+    "islam-eval": {
+      "model": "openai/gpt-5.2",
+      "variant": "high",
+      "temperature": 0.1,
+      "description": "Evaluation harness, hallucination checks, regression tests",
+      "prompt_append": "EVAL RULES:\\n- Build golden sets + adversarial tests.\\n- Add 'citation-required' unit tests.\\n- Measure abstention correctness, not just answer rate."
+    },
+    "islam-security": {
+      "model": "openai/gpt-5.2",
+      "variant": "high",
+      "temperature": 0.1,
+      "description": "Threat modeling, authZ/authN, data integrity, audit logs",
+      "prompt_append": "Security rule: assume hostile inputs; design auditing + tamper-evident provenance."
+    },
+    "git": {
+      "model": "opencode/gpt-5-nano",
+      "temperature": 0.2,
+      "description": "All git operations",
+      "prompt_append": "Atomic commits only; never rewrite history without asking; avoid destructive commands."
+    }
+  },
+
+  // ── Background task concurrency (control cost) ────────────────────────────
+  "background_task": {
+    "defaultConcurrency": 4,
+    "staleTimeoutMs": 180000,
+    "providerConcurrency": {
+      "openai": 2,
+      "anthropic": 1,
+      "google": 2,
+      "kimi-for-coding": 6,
+      "opencode": 12
+    },
+    "modelConcurrency": {
+      "openai/gpt-5.3-codex": 1,
+      "openai/gpt-5.2": 2,
+      "kimi-for-coding/k2p5": 6,
+      "opencode/gpt-5-nano": 10
+    }
+  },
+
+  // ── Experimental (keep conservative for provenance-heavy work) ────────────
+  "experimental": {
+    "task_system": true,
+    "auto_resume": true,
+    "truncate_all_tool_outputs": false,
+    "aggressive_truncation": false,
+    "dynamic_context_pruning": {
+      "enabled": false,
+      "notification": "detailed",
+      "protected_tools": [
+        "task",
+        "todowrite",
+        "todoread",
+        "lsp_rename",
+        "session_read",
+        "session_write",
+        "session_search"
+      ]
+    }
+  },
+
+  // tmux panes optional (disable by default)
+  "tmux": {
+    "enabled": false,
+    "layout": "main-vertical",
+    "main_pane_size": 60,
+    "main_pane_min_width": 120,
+    "agent_pane_min_width": 40
+  }
+}

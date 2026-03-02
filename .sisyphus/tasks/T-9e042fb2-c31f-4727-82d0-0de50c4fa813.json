@@ -1,0 +1,15 @@
+{
+  "id": "T-9e042fb2-c31f-4727-82d0-0de50c4fa813",
+  "subject": "Add provenance schema migrations",
+  "description": "",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [
+    "T-3408e418-72eb-430b-b7c0-2b2b1173e440"
+  ],
+  "metadata": {
+    "completed_at": "2026-03-02T04:30:00Z",
+    "evidence": "packages/schemas/sql/0001_init.sql contains provenance schema"
+  },
+  "threadID": "ses_35404de5dffeVvbfWinI44FVYb"
+}

@@ -1,0 +1,3 @@
+- No known blockers at patch time.
+- If PyYAML is unavailable, a simple fallback parser is used (limited YAML support).
+- Ensure that the repository includes eval/cases/{suite}.yaml for tests.

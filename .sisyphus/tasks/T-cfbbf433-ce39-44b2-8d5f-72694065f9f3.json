@@ -1,0 +1,10 @@
+{
+  "id": "T-cfbbf433-ce39-44b2-8d5f-72694065f9f3",
+  "subject": "Implement scripts/run_eval.py CLI + metrics + report writer",
+  "description": "Create scripts/run_eval.py with argparse, suite loading, runner calling API/pipeline, metrics calculation, report JSON emission, and optional --assert gates.",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [],
+  "parentID": "T-3cb7ce3e-cfbd-45c9-bf51-bab04255df1e",
+  "threadID": "ses_3542accc0ffeXWpcZwnKsFCD6X"
+}

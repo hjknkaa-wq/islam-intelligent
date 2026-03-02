@@ -1,0 +1,10 @@
+{
+  "id": "T-847ef7c5-e496-4bbb-a98e-0cddd11a1876",
+  "subject": "Create scripts/verify_all.py unified verification entrypoint",
+  "description": "Implement scripts/verify_all.py that runs db init+seed, pytest, eval thresholds, optional UI e2e, and provenance/manifest/hash-chain verification. Support --check-invariants quick mode, exit non-zero on first failure, machine-readable output, and produce evidence file .sisyphus/evidence/task-29-verify-all.txt by running quick mode.",
+  "status": "completed",
+  "activeForm": "Implement verify_all runner + evidence",
+  "blocks": [],
+  "blockedBy": [],
+  "threadID": "ses_35352b4a5ffep6sG0pvN6zkdIj"
+}

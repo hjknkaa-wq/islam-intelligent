@@ -1,0 +1,15 @@
+{
+  "id": "T-3d5b5257-50da-4d2f-8d8f-6c2ff495baad",
+  "subject": "Add docker-compose with postgres+pgvector and neo4j",
+  "description": "",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [
+    "T-3408e418-72eb-430b-b7c0-2b2b1173e440"
+  ],
+  "metadata": {
+    "completed_at": "2026-03-02T04:30:00Z",
+    "evidence": "docker-compose.yml with postgres+pgvector and neo4j exists"
+  },
+  "threadID": "ses_35404de5dffeVvbfWinI44FVYb"
+}

@@ -1,0 +1,14 @@
+{
+  "id": "T-03f0417c-0333-4c10-b9df-1c8076784444",
+  "subject": "Task 28: Tamper-evident provenance hash chain + verifier script",
+  "description": "Implement deterministic sha256 hash chain for provenance activities (canonical JSON over activity record + input/output hashes + prev hash), store activity_hash/prev_activity_hash, and add scripts/verify_hash_chain.py (exit 0 OK, 1 tamper) with --simulate-tamper. Produce evidence file .sisyphus/evidence/task-28-hash-chain.txt by running verifier against .local/dev.db.",
+  "status": "completed",
+  "activeForm": "Implement hash chain in apps/api/src/islam_intelligent/provenance/ (use existing prov_models.py). Add scripts/verify_hash_chain.py verifier with --simulate-tamper. Run python scripts/verify_hash_chain.py and record output to .sisyphus/evidence/task-28-hash-chain.txt. Ensure lsp_diagnostics clean on changed files and verifier passes.",
+  "blocks": [],
+  "blockedBy": [],
+  "metadata": {
+    "completed_at": "2026-03-02T04:31:00Z",
+    "evidence": "scripts/verify_hash_chain.py exists and functional"
+  },
+  "threadID": "ses_3535d92daffezdYYGzfyAMymgw"
+}

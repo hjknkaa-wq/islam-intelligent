@@ -1,0 +1,13 @@
+{
+  "id": "T-729190f0-b6bb-443f-b3fa-60c0b962e9dc",
+  "subject": "Create validate_canonical_ids.py script",
+  "description": "Create scripts/validate_canonical_ids.py with:\n- --from-db: validates all canonical IDs in database\n- --from-file: validates IDs in fixtures\n- Returns 0 if all valid",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [],
+  "metadata": {
+    "component": "scripts",
+    "file": "validate_canonical_ids.py"
+  },
+  "threadID": "ses_354e8e007ffeSIEWLk5M7tdqmB"
+}

@@ -1,0 +1,14 @@
+{
+  "id": "T-1002b215-b30a-4efb-ab33-bc51576155e0",
+  "subject": "Run validation and fix issues",
+  "description": "Execute python scripts/validate_schemas.py\n- Fix any validation errors\n- Ensure all schemas are properly formed\n- Verify evidence-first requirements are enforced",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [
+    "T-3"
+  ],
+  "metadata": {
+    "type": "verification"
+  },
+  "threadID": "ses_3551073b8ffeWsJ2h2tsMkOFDl"
+}

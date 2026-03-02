@@ -1,0 +1,13 @@
+{
+  "id": "T-015ae618-1f2a-4e71-bd24-debaf0490ec6",
+  "subject": "Implement scripts/db_init.py",
+  "description": "Add CLI script using SQLAlchemy/sqlite3 to create DB and apply migration idempotently for SQLite and Postgres",
+  "status": "completed",
+  "activeForm": "Implementing db_init script",
+  "blocks": [],
+  "blockedBy": [
+    "T-ed21791d-64b6-4a20-8407-ceb2012e2d09"
+  ],
+  "parentID": "T-2c975e50-189b-4a0b-956c-ec2fc45810f8",
+  "threadID": "ses_353cf44aeffeb5S29kIxu4FVa3"
+}

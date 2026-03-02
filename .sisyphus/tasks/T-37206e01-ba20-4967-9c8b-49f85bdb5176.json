@@ -1,0 +1,9 @@
+{
+  "id": "T-37206e01-ba20-4967-9c8b-49f85bdb5176",
+  "subject": "Add pytest for untrusted sources abstain behavior",
+  "description": "Create apps/api/tests/test_untrusted_sources_abstain.py using sqlite3 to toggle source_document.trust_status and assert verdict/fail_reason for trusted vs untrusted.",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [],
+  "threadID": "ses_35399e489ffeXzB9RzPD2RxpAg"
+}

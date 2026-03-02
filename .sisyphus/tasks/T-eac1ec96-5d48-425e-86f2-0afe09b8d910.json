@@ -1,0 +1,9 @@
+{
+  "id": "T-eac1ec96-5d48-425e-86f2-0afe09b8d910",
+  "subject": "Create dev_reset_and_seed.py script",
+  "description": "Create a script that wipes SQLite DB, runs db_init.py, runs load_fixtures.py, and performs smoke checks",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [],
+  "threadID": "ses_353c2a3f5ffe2VEvyyoL0Ggdur"
+}

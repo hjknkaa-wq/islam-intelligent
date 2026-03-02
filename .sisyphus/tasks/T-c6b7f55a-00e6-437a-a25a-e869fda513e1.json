@@ -1,0 +1,10 @@
+{
+  "id": "T-c6b7f55a-00e6-437a-a25a-e869fda513e1",
+  "subject": "Inspect golden.yaml case format and response contract",
+  "description": "Read eval/cases/golden.yaml to learn schema; inspect API/pipeline response structure for verdict/statements/citations fields and locator format.",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [],
+  "parentID": "T-3cb7ce3e-cfbd-45c9-bf51-bab04255df1e",
+  "threadID": "ses_3542accc0ffeXWpcZwnKsFCD6X"
+}

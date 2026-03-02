@@ -1,0 +1,9 @@
+{
+  "id": "T-dcc94683-2125-4833-8bda-6f9107767572",
+  "subject": "Add KG fixtures (entities/edges)",
+  "description": "Create data/fixtures/kg_entities.yaml and data/fixtures/kg_edges.yaml with sample entities and evidence-backed edges.",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [],
+  "threadID": "ses_354d68790ffeqwzM9pl9LxGPa8"
+}

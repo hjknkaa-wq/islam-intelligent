@@ -1,0 +1,365 @@
+{
+  "source_document": {
+    "source_id": "d23fe651-93a3-590a-8e56-06404aee4ed7",
+    "source_type": "quran_text",
+    "work_title": "The Quran - Uthmani Script",
+    "language": "ar",
+    "license_id": "CC-BY-3.0",
+    "license_url": "https://tanzil.net/docs/text_license",
+    "rights_holder": "Tanzil Project",
+    "attribution_text": "Tanzil Quran Text Copyright (C) 2007-2021 Tanzil Project\nLicense: Creative Commons Attribution 3.0\nPlease check updates at: http://tanzil.net/updates/",
+    "retrieved_at": "2026-03-02",
+    "content_hash_sha256": "6950b816384705899ab27375e20d9124140a7bcbf37cd14c13e9887aae5fb26b",
+    "content_length_bytes": 2130,
+    "storage_path": "C:\\Users\\barka\\project_all\\1\\untuk-belajar\\18-PROYEK-ORKRESTASI-\\oh-my-opencode\\islam-intelligent\\data\\fixtures\\quran_minimal.yaml",
+    "trust_status": "trusted"
+  },
+  "text_units": [
+    {
+      "text_unit_id": "f8b1c759-077d-50ba-9ed0-26631d96b1db",
+      "source_id": "d23fe651-93a3-590a-8e56-06404aee4ed7",
+      "unit_type": "quran_ayah",
+      "canonical_id": "quran:1:1",
+      "canonical_locator_json": {
+        "surah": 1,
+        "ayah": 1,
+        "surah_name_ar": "الفاتحة",
+        "surah_name_en": "Al-Fatiha",
+        "juz": 1
+      },
+      "text_canonical": "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
+      "text_canonical_utf8_sha256": "a83ca7b2c2b3d1ef0c5dd0a0d10ae2704707602ed48cfca8268df5453a69cb34"
+    },
+    {
+      "text_unit_id": "73108141-1c9f-5089-87ab-5cfacbc4a235",
+      "source_id": "d23fe651-93a3-590a-8e56-06404aee4ed7",
+      "unit_type": "quran_ayah",
+      "canonical_id": "quran:1:2",
+      "canonical_locator_json": {
+        "surah": 1,
+        "ayah": 2,
+        "surah_name_ar": "الفاتحة",
+        "surah_name_en": "Al-Fatiha",
+        "juz": 1
+      },
+      "text_canonical": "الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ",
+      "text_canonical_utf8_sha256": "a93115238c654ace014ae9f582c729faf6a7cc92272012266293a38c3975808b"
+    },
+    {
+      "text_unit_id": "8733fc2d-6095-558b-99ef-c3860893b87d",
+      "source_id": "d23fe651-93a3-590a-8e56-06404aee4ed7",
+      "unit_type": "quran_ayah",
+      "canonical_id": "quran:1:3",
+      "canonical_locator_json": {
+        "surah": 1,
+        "ayah": 3,
+        "surah_name_ar": "الفاتحة",
+        "surah_name_en": "Al-Fatiha",
+        "juz": 1
+      },
+      "text_canonical": "الرَّحْمَٰنِ الرَّحِيمِ",
+      "text_canonical_utf8_sha256": "4a3cf22fe293a7ad435f57eed98f4ca70508f0b29041c12288fcb79d093d5c24"
+    },
+    {
+      "text_unit_id": "6f86dab9-922d-5400-9796-94c3acc2cefd",
+      "source_id": "d23fe651-93a3-590a-8e56-06404aee4ed7",
+      "unit_type": "quran_ayah",
+      "canonical_id": "quran:1:4",
+      "canonical_locator_json": {
+        "surah": 1,
+        "ayah": 4,
+        "surah_name_ar": "الفاتحة",
+        "surah_name_en": "Al-Fatiha",
+        "juz": 1
+      },
+      "text_canonical": "مَالِكِ يَوْمِ الدِّينِ",
+      "text_canonical_utf8_sha256": "6af28b805da8886e0fdf9eb093fdc5285d0243b9ce3d738670ec171b0d85cde4"
+    },
+    {
+      "text_unit_id": "c933bc48-867a-5c41-b6b8-6de1f93c0502",
+      "source_id": "d23fe651-93a3-590a-8e56-06404aee4ed7",
+      "unit_type": "quran_ayah",
+      "canonical_id": "quran:1:5",
+      "canonical_locator_json": {
+        "surah": 1,
+        "ayah": 5,
+        "surah_name_ar": "الفاتحة",
+        "surah_name_en": "Al-Fatiha",
+        "juz": 1
+      },
+      "text_canonical": "إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ",
+      "text_canonical_utf8_sha256": "e37dd000c43f4bc1628095578f14cada18a628ed2d604f0392f6a8fa25f4fad8"
+    },
+    {
+      "text_unit_id": "8835f374-bac0-58f3-8352-dc72daf96c63",
+      "source_id": "d23fe651-93a3-590a-8e56-06404aee4ed7",
+      "unit_type": "quran_ayah",
+      "canonical_id": "quran:1:6",
+      "canonical_locator_json": {
+        "surah": 1,
+        "ayah": 6,
+        "surah_name_ar": "الفاتحة",
+        "surah_name_en": "Al-Fatiha",
+        "juz": 1
+      },
+      "text_canonical": "اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ",
+      "text_canonical_utf8_sha256": "137677bd0f9a7afd5bcd135324e54bd6676130830b60d1fbe2ea404d34cbc96e"
+    },
+    {
+      "text_unit_id": "4ac3bddb-605a-517e-aac8-dd9fd26bc483",
+      "source_id": "d23fe651-93a3-590a-8e56-06404aee4ed7",
+      "unit_type": "quran_ayah",
+      "canonical_id": "quran:1:7",
+      "canonical_locator_json": {
+        "surah": 1,
+        "ayah": 7,
+        "surah_name_ar": "الفاتحة",
+        "surah_name_en": "Al-Fatiha",
+        "juz": 1
+      },
+      "text_canonical": "صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ",
+      "text_canonical_utf8_sha256": "1467350c71ee6827d5d9c05fcb67ad28c66f7ef31b4c41a9036e5c1bed11c059"
+    },
+    {
+      "text_unit_id": "ee272002-9f86-5d6c-9436-4752021c1f38",
+      "source_id": "d23fe651-93a3-590a-8e56-06404aee4ed7",
+      "unit_type": "quran_ayah",
+      "canonical_id": "quran:2:255",
+      "canonical_locator_json": {
+        "surah": 2,
+        "ayah": 255,
+        "surah_name_ar": "البقرة",
+        "surah_name_en": "Al-Baqarah",
+        "juz": 3
+      },
+      "text_canonical": "اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ ۚ لَهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ ۗ مَنْ ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلَّا بِإِذْنِهِ ۚ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ ۖ وَلَا يُحِيطُونَ بِشَيْءٍ مِنْ عِلْمِهِ إِلَّا بِمَا شَاءَ ۚ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ ۖ وَلَا يَئُودُهُ حِفْظُهُمَا ۚ وَهُوَ الْعَلِيُّ الْعَظِيمُ",
+      "text_canonical_utf8_sha256": "522aeb8ad14860b089103b1645e342c724f0e1d4efc65347577a0835ab7f4c22"
+    },
+    {
+      "text_unit_id": "dc5c824d-4525-5435-8557-c7f9f4293a48",
+      "source_id": "d23fe651-93a3-590a-8e56-06404aee4ed7",
+      "unit_type": "quran_ayah",
+      "canonical_id": "quran:112:1",
+      "canonical_locator_json": {
+        "surah": 112,
+        "ayah": 1,
+        "surah_name_ar": "الإخلاص",
+        "surah_name_en": "Al-Ikhlas",
+        "juz": 30
+      },
+      "text_canonical": "قُلْ هُوَ اللَّهُ أَحَدٌ",
+      "text_canonical_utf8_sha256": "87c9734829da0178ccd96ecc96c7ac84804e3d5e137f6a478c433789edf7cf9b"
+    },
+    {
+      "text_unit_id": "5cedebe4-e061-58bb-a882-fbc606fa9958",
+      "source_id": "d23fe651-93a3-590a-8e56-06404aee4ed7",
+      "unit_type": "quran_ayah",
+      "canonical_id": "quran:112:2",
+      "canonical_locator_json": {
+        "surah": 112,
+        "ayah": 2,
+        "surah_name_ar": "الإخلاص",
+        "surah_name_en": "Al-Ikhlas",
+        "juz": 30
+      },
+      "text_canonical": "اللَّهُ الصَّمَدُ",
+      "text_canonical_utf8_sha256": "84c27c06ce4114989c44c85ea0ed7e8f27d9ba96ef8937b2ca336c36c0bb9241"
+    },
+    {
+      "text_unit_id": "e83fecec-7c7a-5e38-90c1-e81c1fbddf3f",
+      "source_id": "d23fe651-93a3-590a-8e56-06404aee4ed7",
+      "unit_type": "quran_ayah",
+      "canonical_id": "quran:112:3",
+      "canonical_locator_json": {
+        "surah": 112,
+        "ayah": 3,
+        "surah_name_ar": "الإخلاص",
+        "surah_name_en": "Al-Ikhlas",
+        "juz": 30
+      },
+      "text_canonical": "لَمْ يَلِدْ وَلَمْ يُولَدْ",
+      "text_canonical_utf8_sha256": "fe38e7c9006a6b6032988cba2fbf80978274b83513edc6338bd33cdf8cda5e30"
+    },
+    {
+      "text_unit_id": "80712bc8-2f79-5def-b96c-ec3ee1306543",
+      "source_id": "d23fe651-93a3-590a-8e56-06404aee4ed7",
+      "unit_type": "quran_ayah",
+      "canonical_id": "quran:112:4",
+      "canonical_locator_json": {
+        "surah": 112,
+        "ayah": 4,
+        "surah_name_ar": "الإخلاص",
+        "surah_name_en": "Al-Ikhlas",
+        "juz": 30
+      },
+      "text_canonical": "وَلَمْ يَكُنْ لَهُ كُفُوًا أَحَدٌ",
+      "text_canonical_utf8_sha256": "2aa57861193ef60d42be5c50e6102be830c51f2252cc8aaf32735d837cd6e2df"
+    },
+    {
+      "text_unit_id": "c4d82c70-0360-511b-b65e-5445a93afd56",
+      "source_id": "d23fe651-93a3-590a-8e56-06404aee4ed7",
+      "unit_type": "quran_ayah",
+      "canonical_id": "quran:113:1",
+      "canonical_locator_json": {
+        "surah": 113,
+        "ayah": 1,
+        "surah_name_ar": "الفلق",
+        "surah_name_en": "Al-Falaq",
+        "juz": 30
+      },
+      "text_canonical": "قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ",
+      "text_canonical_utf8_sha256": "316ada7bc8feacaf0b57acb212dc1bad183d3fcdf70d912950a2da6d5a587ce2"
+    },
+    {
+      "text_unit_id": "45dc5658-0bfa-5ebd-8250-b1678fb1399b",
+      "source_id": "d23fe651-93a3-590a-8e56-06404aee4ed7",
+      "unit_type": "quran_ayah",
+      "canonical_id": "quran:113:2",
+      "canonical_locator_json": {
+        "surah": 113,
+        "ayah": 2,
+        "surah_name_ar": "الفلق",
+        "surah_name_en": "Al-Falaq",
+        "juz": 30
+      },
+      "text_canonical": "مِنْ شَرِّ مَا خَلَقَ",
+      "text_canonical_utf8_sha256": "4041b6e5e7447b62e14363f9b45f9143d94525a5dd312089ac23a7511f72d2e4"
+    },
+    {
+      "text_unit_id": "9aa52c66-bdda-55e8-b813-331a493ec619",
+      "source_id": "d23fe651-93a3-590a-8e56-06404aee4ed7",
+      "unit_type": "quran_ayah",
+      "canonical_id": "quran:113:3",
+      "canonical_locator_json": {
+        "surah": 113,
+        "ayah": 3,
+        "surah_name_ar": "الفلق",
+        "surah_name_en": "Al-Falaq",
+        "juz": 30
+      },
+      "text_canonical": "وَمِنْ شَرِّ غَاسِقٍ إِذَا وَقَبَ",
+      "text_canonical_utf8_sha256": "30a8640cc0b5508e607704cec0afbbee730913ffba56da2d7e1daa0eaa6e8253"
+    },
+    {
+      "text_unit_id": "ab6ac4fb-994f-5db4-b63b-6b6be0660217",
+      "source_id": "d23fe651-93a3-590a-8e56-06404aee4ed7",
+      "unit_type": "quran_ayah",
+      "canonical_id": "quran:113:4",
+      "canonical_locator_json": {
+        "surah": 113,
+        "ayah": 4,
+        "surah_name_ar": "الفلق",
+        "surah_name_en": "Al-Falaq",
+        "juz": 30
+      },
+      "text_canonical": "وَمِنْ شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ",
+      "text_canonical_utf8_sha256": "64d3e981500912153c8102537c8c0789c7d92587a39d6c406e04532d73f57d97"
+    },
+    {
+      "text_unit_id": "f9f6dc60-527d-57ee-b293-e149bd5727c5",
+      "source_id": "d23fe651-93a3-590a-8e56-06404aee4ed7",
+      "unit_type": "quran_ayah",
+      "canonical_id": "quran:113:5",
+      "canonical_locator_json": {
+        "surah": 113,
+        "ayah": 5,
+        "surah_name_ar": "الفلق",
+        "surah_name_en": "Al-Falaq",
+        "juz": 30
+      },
+      "text_canonical": "وَمِنْ شَرِّ حَاسِدٍ إِذَا حَسَدَ",
+      "text_canonical_utf8_sha256": "4faefff504413a47f29e54685f1e834418c25eff4f3cb32a14c65e463c67fd7c"
+    },
+    {
+      "text_unit_id": "484e5fe5-5c4f-5d51-a2da-67346eb1647b",
+      "source_id": "d23fe651-93a3-590a-8e56-06404aee4ed7",
+      "unit_type": "quran_ayah",
+      "canonical_id": "quran:114:1",
+      "canonical_locator_json": {
+        "surah": 114,
+        "ayah": 1,
+        "surah_name_ar": "الناس",
+        "surah_name_en": "An-Nas",
+        "juz": 30
+      },
+      "text_canonical": "قُلْ أَعُوذُ بِرَبِّ النَّاسِ",
+      "text_canonical_utf8_sha256": "974c50eb41eb7adc827f2bc407eae145b539e3116026ff16be9a3706cb440ecb"
+    },
+    {
+      "text_unit_id": "58281bbd-169e-59d1-af4f-b1061d67a237",
+      "source_id": "d23fe651-93a3-590a-8e56-06404aee4ed7",
+      "unit_type": "quran_ayah",
+      "canonical_id": "quran:114:2",
+      "canonical_locator_json": {
+        "surah": 114,
+        "ayah": 2,
+        "surah_name_ar": "الناس",
+        "surah_name_en": "An-Nas",
+        "juz": 30
+      },
+      "text_canonical": "مَلِكِ النَّاسِ",
+      "text_canonical_utf8_sha256": "1f7e6053e13f250c93ae641bd8f337c9b6948903a6d8b340c98fcc88b1d9f50f"
+    },
+    {
+      "text_unit_id": "2c1bf9b5-5023-5edf-8f5f-d4fd5c9b2a9a",
+      "source_id": "d23fe651-93a3-590a-8e56-06404aee4ed7",
+      "unit_type": "quran_ayah",
+      "canonical_id": "quran:114:3",
+      "canonical_locator_json": {
+        "surah": 114,
+        "ayah": 3,
+        "surah_name_ar": "الناس",
+        "surah_name_en": "An-Nas",
+        "juz": 30
+      },
+      "text_canonical": "إِلَٰهِ النَّاسِ",
+      "text_canonical_utf8_sha256": "868041b20e17432e4578b7848b76004bec716041c0bdb1d8104499a6a69767ce"
+    },
+    {
+      "text_unit_id": "0cc5aabc-9ea9-5f46-adb0-1196c5cee238",
+      "source_id": "d23fe651-93a3-590a-8e56-06404aee4ed7",
+      "unit_type": "quran_ayah",
+      "canonical_id": "quran:114:4",
+      "canonical_locator_json": {
+        "surah": 114,
+        "ayah": 4,
+        "surah_name_ar": "الناس",
+        "surah_name_en": "An-Nas",
+        "juz": 30
+      },
+      "text_canonical": "مِنْ شَرِّ الْوَسْوَاسِ الْخَنَّاسِ",
+      "text_canonical_utf8_sha256": "2b69adad52467faea4ba7b487a1f0c683223f286957fe8c7837b9ad95c3ef3ae"
+    },
+    {
+      "text_unit_id": "5e869e9e-1300-59c8-8f5d-cb050fdd81ac",
+      "source_id": "d23fe651-93a3-590a-8e56-06404aee4ed7",
+      "unit_type": "quran_ayah",
+      "canonical_id": "quran:114:5",
+      "canonical_locator_json": {
+        "surah": 114,
+        "ayah": 5,
+        "surah_name_ar": "الناس",
+        "surah_name_en": "An-Nas",
+        "juz": 30
+      },
+      "text_canonical": "الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ",
+      "text_canonical_utf8_sha256": "6ef995bfd142214bab35788f4ad777fee8a1ce71f12cdbaf624ff1f917b598ac"
+    },
+    {
+      "text_unit_id": "6adda91b-d75c-5279-bf22-d2306da587cf",
+      "source_id": "d23fe651-93a3-590a-8e56-06404aee4ed7",
+      "unit_type": "quran_ayah",
+      "canonical_id": "quran:114:6",
+      "canonical_locator_json": {
+        "surah": 114,
+        "ayah": 6,
+        "surah_name_ar": "الناس",
+        "surah_name_en": "An-Nas",
+        "juz": 30
+      },
+      "text_canonical": "مِنَ الْجِنَّةِ وَالنَّاسِ",
+      "text_canonical_utf8_sha256": "2685852ed672926b4ff0c45294a855f987140a2a9f94c9ab4ab298ff35dc61af"
+    }
+  ],
+  "count": 23
+}

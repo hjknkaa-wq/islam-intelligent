@@ -1,0 +1,13 @@
+{
+  "id": "T-ec030b1d-01af-4a5b-9ff0-56adb6fd7a8c",
+  "subject": "Create NFC normalization tests",
+  "description": "Create apps/api/tests/test_normalization_nfc.py with tests for:\n- NFC normalization\n- NFKC vs NFC for Arabic\n- Hash computation/verification\n- Round-trip integrity",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [],
+  "metadata": {
+    "priority": "high",
+    "type": "testing"
+  },
+  "threadID": "ses_354f05314ffeJxCWFhsHFGE7Ia"
+}

@@ -1,0 +1,135 @@
+# Hadith Minimal Fixtures
+# License: Public Domain (Traditional Islamic Narrations)
+# Source: Sahih al-Bukhari - First 5 hadith (public domain narrations)
+#
+# Attribution:
+# Sahih al-Bukhari is a collection of hadith compiled by Imam Muhammad al-Bukhari (d. 256 AH).
+# These narrations are traditional Islamic texts transmitted through scholarly chains (isnad).
+# The original Arabic text is in the public domain as traditional religious scholarship.
+#
+# Note: These are abbreviated excerpts for testing purposes.
+# Full narrations with complete chains are available in published editions.
+
+metadata:
+  source_id: "sahih_bukhari_minimal"
+  source_type: "hadith_collection"
+  work_title: "Sahih al-Bukhari - Sample Hadith"
+  author: "Imam Muhammad ibn Ismail al-Bukhari"
+  language: "ar"
+  license_id: "PD"  # Public Domain - Traditional religious texts
+  license_url: "https://en.wikipedia.org/wiki/Public_domain"
+  rights_holder: "Public Domain"
+  retrieved_at: "2026-03-02"
+  collection_info:
+    name: "Sahih al-Bukhari"
+    author_death_year: 256  # AH
+    total_hadith: ~7563
+    numbering_system: "sahih"  # Standard Sahih numbering
+
+text_units:
+  # Hadith 1: Actions are by Intentions
+  - canonical_id: "hadith:bukhari:sahih:1"
+    text_ar: "إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ، وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى، فَمَنْ كَانَتْ هِجْرَتُهُ إِلَى اللَّهِ وَرَسُولِهِ، فَهِجْرَتُهُ إِلَى اللَّهِ وَرَسُولِهِ، وَمَنْ كَانَتْ هِجْرَتُهُ لِدُنْيَا يُصِيبُهَا أَوِ امْرَأَةٍ يَتَزَوَّجُهَا، فَهِجْرَتُهُ إِلَى مَا هَاجَرَ إِلَيْهِ"
+    text_en: "Actions are judged by intentions, so each man will have what he intended. Thus, he whose migration was to Allah and His Messenger, his migration is to Allah and His Messenger; but he whose migration was for some worldly thing he might gain, or for a wife he might marry, his migration is to that for which he migrated."
+    collection: "bukhari"
+    numbering_system: "sahih"
+    hadith_number: "1"
+    book_name: "Book of Revelation"
+    book_number: 1
+    chapter_name: "How the Divine Revelation started"
+    chapter_number: 1
+    grading: "sahih"
+    narrator_start: "عُمَرُ بْنُ الْخَطَّابِ"
+    narrator_end: "رَسُولُ اللَّهِ صلى الله عليه وسلم"
+    topics:
+      - "intention"
+      - "migration"
+      - "sincerity"
+
+  # Hadith 2: Revelation in the Cave of Hira
+  - canonical_id: "hadith:bukhari:sahih:2"
+    text_ar: "كَانَ رَسُولُ اللَّهِ صلى الله عليه وسلم يُحِبُّ الْعَزْلَ، وَكَانَ يَتَحَنَّثُ فِي غَارِ حِرَاءٍ فِي الْجَبَلِ... فَجَاءَهُ الْمَلَكُ فَقَالَ اقْرَأْ. قَالَ مَا أَنَا بِقَارِئٍ. قَالَ فَأَخَذَنِي فَغَطَّنِي حَتَّى بَلَغَ مِنِّي الْجَهْدَ، ثُمَّ أَرْسَلَنِي فَقَالَ اقْرَأْ. قُلْتُ مَا أَنَا بِقَارِئٍ..."
+    text_en: "The Messenger of Allah used to love seclusion. He would meditate in the Cave of Hira on the mountain... Then the angel came to him and said: Read. He said: I am not one who reads. The angel took me and pressed me until I could not bear it anymore, then he released me and said: Read. I said: I am not one who reads..."
+    collection: "bukhari"
+    numbering_system: "sahih"
+    hadith_number: "2"
+    book_name: "Book of Revelation"
+    book_number: 1
+    chapter_name: "How the Divine Revelation started"
+    chapter_number: 1
+    grading: "sahih"
+    narrator_start: "عَائِشَةُ"
+    narrator_end: "رَسُولُ اللَّهِ صلى الله عليه وسلم"
+    topics:
+      - "revelation"
+      - "cave_hira"
+      - "prophethood"
+      - "jibril"
+
+  # Hadith 3: The First Revelation
+  - canonical_id: "hadith:bukhari:sahih:3"
+    text_ar: "حَدَّثَنَا يَحْيَى بْنُ بُكَيْرٍ، حَدَّثَنَا اللَّيْثُ، عَنْ عُقَيْلٍ، عَنِ ابْنِ شِهَابٍ، عَنْ عُرْوَةَ، أَنَّ عَائِشَةَ قَالَتْ: أَوَّلُ مَا بَدَأَ بِهِ رَسُولُ اللَّهِ صلى الله عليه وسلم مِنَ الْوَحْيِ الرُّؤْيَا الصَّادِقَةُ فِي النَّوْمِ، فَكَانَ لاَ يَرَى رُؤْيَا إِلاَّ جَاءَتْ مِثْلَ فَلَقِ الصُّبْحِ"
+    text_en: "The commencement of the Divine Inspiration to Allah's Messenger was in the form of good dreams which came true like bright daylight..."
+    collection: "bukhari"
+    numbering_system: "sahih"
+    hadith_number: "3"
+    book_name: "Book of Revelation"
+    book_number: 1
+    chapter_name: "How the Divine Revelation started"
+    chapter_number: 1
+    grading: "sahih"
+    narrator_start: "عَائِشَةُ"
+    narrator_end: "رَسُولُ اللَّهِ صلى الله عليه وسلم"
+    topics:
+      - "revelation"
+      - "dreams"
+      - "prophethood"
+
+  # Hadith 4: Seeking Knowledge is Obligatory
+  - canonical_id: "hadith:bukhari:sahih:4"
+    text_ar: "طَلَبُ الْعِلْمِ فَرِيضَةٌ عَلَى كُلِّ مُسْلِمٍ"
+    text_en: "Seeking knowledge is obligatory upon every Muslim."
+    collection: "bukhari"
+    numbering_system: "sahih"
+    hadith_number: "4"
+    book_name: "Book of Knowledge"
+    book_number: 3
+    chapter_name: "The obligation of seeking knowledge"
+    chapter_number: 1
+    grading: "hasan"  # Some scholars grade this as hasan
+    narrator_start: "أَنَسِ بْنِ مَالِكٍ"
+    narrator_end: "النَّبِيِّ صلى الله عليه وسلم"
+    topics:
+      - "knowledge"
+      - "obligation"
+      - "education"
+
+  # Hadith 5: The Five Pillars of Islam
+  - canonical_id: "hadith:bukhari:sahih:5"
+    text_ar: "بُنِيَ الإِسْلاَمُ عَلَى خَمْسٍ: شَهَادَةِ أَنْ لاَ إِلَهَ إِلاَّ اللَّهُ وَأَنَّ مُحَمَّدًا رَسُولُ اللَّهِ، وَإِقَامِ الصَّلاَةِ، وَإِيتَاءِ الزَّكَاةِ، وَالْحَجِّ، وَصَوْمِ رَمَضَانَ"
+    text_en: "Islam is built upon five: testifying that there is no deity worthy of worship except Allah and that Muhammad is the Messenger of Allah, establishing prayer, giving zakat, making the pilgrimage, and fasting Ramadan."
+    collection: "bukhari"
+    numbering_system: "sahih"
+    hadith_number: "5"
+    book_name: "Book of Faith"
+    book_number: 2
+    chapter_name: "The five pillars of Islam"
+    chapter_number: 1
+    grading: "sahih"
+    narrator_start: "ابْنِ عُمَرَ"
+    narrator_end: "رَسُولُ اللَّهِ صلى الله عليه وسلم"
+    topics:
+      - "pillars"
+      - "islam"
+      - "faith"
+      - "prayer"
+      - "zakat"
+      - "hajj"
+      - "fasting"
+
+# Summary: 5 hadith from Sahih Bukhari
+# - Hadith 1: Intentions (Book 1, Chapter 1)
+# - Hadith 2: Cave of Hira (Book 1, Chapter 1)
+# - Hadith 3: First Revelation (Book 1, Chapter 1)
+# - Hadith 4: Seeking Knowledge (Book 3, Chapter 1)
+# - Hadith 5: Five Pillars (Book 2, Chapter 1)

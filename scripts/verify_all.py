@@ -21,6 +21,7 @@ from typing import TextIO, cast
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_DB_PATH = ROOT / ".local" / "dev.db"
+DEFAULT_INVARIANTS_DB_PATH = ROOT / ".local" / "verify_invariants.db"
 DEFAULT_EVIDENCE_PATH = ROOT / ".sisyphus" / "evidence" / "task-29-verify-all.txt"
 
 
@@ -156,25 +157,45 @@ def _run_step(emitter: Emitter, step: Step, *, stdout_tail_chars: int) -> int:
     return exit_code
 
 
-def _build_steps(*, db_path: Path, check_invariants: bool, e2e: bool) -> list[Step]:
+def _build_steps(
+    *,
+    db_path: Path,
+    check_invariants: bool,
+    invariants_reset_seed: bool,
+    e2e: bool,
+) -> list[Step]:
     db_path = db_path.resolve()
     db_url = _sqlite_url(db_path)
 
     steps: list[Step] = []
 
     if check_invariants:
-        steps.append(
-            Step(
-                step_id="db_init",
-                title="DB init (migrations)",
-                cmd=[
-                    sys.executable,
-                    str(ROOT / "scripts" / "db_init.py"),
-                    "--sqlite",
-                    str(db_path),
-                ],
+        if invariants_reset_seed:
+            steps.append(
+                Step(
+                    step_id="db_reset_seed",
+                    title="DB reset + seed (invariants)",
+                    cmd=[
+                        sys.executable,
+                        str(ROOT / "scripts" / "dev_reset_and_seed.py"),
+                        "--db-path",
+                        str(db_path),
+                    ],
+                )
             )
-        )
+        else:
+            steps.append(
+                Step(
+                    step_id="db_init",
+                    title="DB init (migrations)",
+                    cmd=[
+                        sys.executable,
+                        str(ROOT / "scripts" / "db_init.py"),
+                        "--sqlite",
+                        str(db_path),
+                    ],
+                )
+            )
     else:
         steps.append(
             Step(
@@ -302,9 +323,19 @@ def main(argv: list[str] | None = None) -> int:
     no_evidence = cast(bool, getattr(args_ns, "no_evidence"))
     stdout_tail_chars = int(cast(int, getattr(args_ns, "stdout_tail_chars")))
 
-    db_path = Path(str(db_path_raw)).expanduser()
-    if not db_path.is_absolute():
-        db_path = (Path.cwd() / db_path).resolve()
+    argv_list = list(sys.argv[1:] if argv is None else argv)
+    db_path_explicit = any(
+        a == "--db-path" or a.startswith("--db-path=") for a in argv_list
+    )
+
+    if check_invariants and not db_path_explicit:
+        db_path = DEFAULT_INVARIANTS_DB_PATH
+        invariants_reset_seed = True
+    else:
+        db_path = Path(str(db_path_raw)).expanduser()
+        if not db_path.is_absolute():
+            db_path = (Path.cwd() / db_path).resolve()
+        invariants_reset_seed = False
 
     evidence_path: Path | None = None
     if not bool(no_evidence):
@@ -318,6 +349,7 @@ def main(argv: list[str] | None = None) -> int:
     steps = _build_steps(
         db_path=db_path,
         check_invariants=bool(check_invariants),
+        invariants_reset_seed=bool(invariants_reset_seed),
         e2e=bool(e2e),
     )
 
@@ -329,6 +361,7 @@ def main(argv: list[str] | None = None) -> int:
             "root": str(ROOT),
             "db_path": str(db_path),
             "check_invariants": bool(check_invariants),
+            "invariants_reset_seed": bool(invariants_reset_seed),
             "e2e": bool(e2e),
         }
     )

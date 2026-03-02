@@ -1,0 +1,11 @@
+{
+  "id": "T-8b01541a-f0c1-4332-9250-66698ceb78e0",
+  "subject": "Create root docker-compose.yml for dev stack",
+  "description": "Add postgres/api/ui services with pgvector-enabled Postgres 15, health checks, networks, and volumes for development.",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [
+    "T-fac45f67-e855-4516-b932-b7fcbbeeb2e7"
+  ],
+  "threadID": "ses_3551c6911ffePP8Ji5QepowPVs"
+}

@@ -1,0 +1,138 @@
+# Golden Evaluation Cases
+# Evidence-first RAG system test suite
+# 
+# These cases test:
+# 1. Citation-required: Every answer statement must have citations
+# 2. Abstention: System must abstain when evidence is insufficient
+# 3. Locator resolution: Citations must resolve to valid evidence spans
+
+# ============================================
+# ANSWERABLE CASES (expected_verdict: answer)
+# ============================================
+
+cases:
+  # Case 1: Simple Quran retrieval
+  - case_id: "quran_001_fatiha_first_verse"
+    query: "What is the first verse of the Quran?"
+    expected_verdict: answer
+    required_citations:
+      - "quran:1:1"
+    notes: |
+      Basic retrieval test. System should find Surah Al-Fatiha, Ayah 1.
+      Expected answer cites quran:1:1 exactly.
+
+  # Case 2: Ayat al-Kursi location
+  - case_id: "quran_002_ayat_kursi_location"
+    query: "Which surah and ayah contains Ayat al-Kursi?"
+    expected_verdict: answer
+    required_citations:
+      - "quran:2:255"
+    notes: |
+      Tests canonical ID knowledge. Ayat al-Kursi is in Surah Al-Baqarah (2), Ayah 255.
+
+  # Case 3: Short surah count
+  - case_id: "quran_003_short_surahs"
+    query: "Name three short surahs from the end of the Quran"
+    expected_verdict: answer
+    required_citations:
+      - "quran:112:1"
+      - "quran:113:1"
+      - "quran:114:1"
+    notes: |
+      Tests retrieval of multiple related texts. Al-Ikhlas, Al-Falaq, An-Nas.
+
+  # Case 4: Hadith on intentions
+  - case_id: "hadith_001_intentions"
+    query: "What did the Prophet say about intentions?"
+    expected_verdict: answer
+    required_citations:
+      - "hadith:bukhari:sahih:1"
+    notes: |
+      Famous hadith: "Actions are by intentions..."
+      First hadith in Sahih Bukhari.
+
+  # Case 5: Hadith on seeking knowledge
+  - case_id: "hadith_002_seeking_knowledge"
+    query: "What is the virtue of seeking knowledge in Islam?"
+    expected_verdict: answer
+    required_citations:
+      - "hadith:"
+    notes: |
+      Multiple hadith may apply. System should cite specific evidence.
+
+# ============================================
+# ABSTENTION CASES (expected_verdict: abstain)
+# ============================================
+
+  # Case 6: Unanswerable - future prediction
+  - case_id: "abstain_001_future_prediction"
+    query: "When will the Day of Judgment occur?"
+    expected_verdict: abstain
+    required_citations: []
+    notes: |
+      This is knowledge of the unseen (ghayb). 
+      No authentic source can answer this.
+      System MUST abstain.
+
+  # Case 7: Unanswerable - outside corpus
+  - case_id: "abstain_002_outside_corpus"
+    query: "What are the details of the Battle of Badr's tactics?"
+    expected_verdict: abstain
+    required_citations: []
+    notes: |
+      Current fixtures only contain Quran and hadith texts.
+      Sirah/battle details not in corpus.
+      System MUST abstain due to insufficient evidence.
+
+  # Case 8: Unanswerable - vague question
+  - case_id: "abstain_003_vague_question"
+    query: "Tell me everything about Islam"
+    expected_verdict: abstain
+    required_citations: []
+    notes: |
+      Too broad to answer with specific citations.
+      System should abstain or request clarification.
+
+  # Case 9: Insufficient evidence - obscure topic
+  - case_id: "abstain_004_obscure_topic"
+    query: "What are the specific rulings on underwater basket weaving?"
+    expected_verdict: abstain
+    required_citations: []
+    notes: |
+      Nonsense question to test abstention on topics
+      completely absent from corpus.
+
+# ============================================
+# CITATION VERIFICATION CASES
+# ============================================
+
+  # Case 10: Citation must resolve
+  - case_id: "citation_001_must_resolve"
+    query: "What does Surah Al-Ikhlas say about Allah?"
+    expected_verdict: answer
+    required_citations:
+      - "quran:112:1"
+      - "quran:112:2"
+      - "quran:112:3"
+      - "quran:112:4"
+    notes: |
+      System must cite all 4 ayahs of Surah Al-Ikhlas.
+      Each citation must resolve to valid evidence span.
+
+  # Case 11: Hash verification
+  - case_id: "citation_002_hash_verification"
+    query: "Quote the last ayah of the Quran"
+    expected_verdict: answer
+    required_citations:
+      - "quran:114:6"
+    notes: |
+      Tests that snippet_utf8_sha256 hash matches the actual bytes.
+      Critical for tamper-evident citations.
+
+metadata:
+  version: "1.0.0"
+  created: "2026-03-02"
+  total_cases: 11
+  answerable_count: 5
+  abstention_count: 4
+  citation_verification_count: 2

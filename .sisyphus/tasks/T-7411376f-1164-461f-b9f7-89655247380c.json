@@ -1,0 +1,13 @@
+{
+  "id": "T-7411376f-1164-461f-b9f7-89655247380c",
+  "subject": "Implement source_registry.py core registry module",
+  "description": "Create apps/api/src/islam_intelligent/ingest/source_registry.py with create_source_document, get_source_document, list_sources, update_source, generate_manifest functions",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [],
+  "metadata": {
+    "plan": "source-registry-apis",
+    "order": 2
+  },
+  "threadID": "ses_354f78917ffez4tVjrc3noScFr"
+}

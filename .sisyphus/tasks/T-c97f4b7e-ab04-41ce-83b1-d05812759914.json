@@ -1,0 +1,13 @@
+{
+  "id": "T-c97f4b7e-ab04-41ce-83b1-d05812759914",
+  "subject": "Create normalizer.py module with NFC/NFKC functions",
+  "description": "Create apps/api/src/islam_intelligent/normalize/normalizer.py with:\n- normalize_storage(text) -> NFC\n- normalize_search(text) -> NFKC\n- compute_hash(text) -> SHA-256\n- verify_hash(text, hash) -> bool",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [],
+  "metadata": {
+    "priority": "high",
+    "type": "implementation"
+  },
+  "threadID": "ses_354f05314ffeJxCWFhsHFGE7Ia"
+}

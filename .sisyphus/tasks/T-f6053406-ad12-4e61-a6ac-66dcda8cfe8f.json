@@ -1,0 +1,9 @@
+{
+  "id": "T-f6053406-ad12-4e61-a6ac-66dcda8cfe8f",
+  "subject": "Implement KG entity_manager",
+  "description": "Add apps/api/src/islam_intelligent/kg/entity_manager.py with create/get/list/search over existing schema; aliases stored as JSON array.",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [],
+  "threadID": "ses_354d68790ffeqwzM9pl9LxGPa8"
+}

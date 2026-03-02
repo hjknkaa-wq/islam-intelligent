@@ -1,0 +1,13 @@
+{
+  "id": "T-277a4330-0a45-49a9-b0cb-f2972f0acd51",
+  "subject": "Create verify_manifest.py script",
+  "description": "Create scripts/verify_manifest.py with --all and --source-id flags to verify manifests and hashes",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [],
+  "metadata": {
+    "plan": "source-registry-apis",
+    "order": 4
+  },
+  "threadID": "ses_354f78917ffez4tVjrc3noScFr"
+}

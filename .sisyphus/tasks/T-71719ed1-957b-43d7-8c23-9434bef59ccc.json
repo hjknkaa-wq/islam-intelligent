@@ -1,0 +1,10 @@
+{
+  "id": "T-71719ed1-957b-43d7-8c23-9434bef59ccc",
+  "subject": "feat(verif provenance): add --check no_broken_links support to verify_provenance.py (stub)",
+  "description": "Add a new verification option 'no_broken_links' to scripts/verify_provenance.py. Implement a stub that returns success. Update help text and usage to reflect new option.",
+  "status": "completed",
+  "activeForm": "update",
+  "blocks": [],
+  "blockedBy": [],
+  "threadID": "ses_3541009faffeNaYf4XguVBOcrD"
+}

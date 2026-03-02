@@ -1,0 +1,13 @@
+{
+  "id": "T-71de9548-e759-4d5b-9fde-7de48e366f3e",
+  "subject": "Create test_text_unit_builder.py",
+  "description": "Create apps/api/tests/test_text_unit_builder.py with tests for:\n- Quran ayah creation with proper canonical ID\n- Hadith item creation with numbering system\n- NFC normalization applied\n- Hash computation",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [],
+  "metadata": {
+    "component": "tests",
+    "file": "test_text_unit_builder.py"
+  },
+  "threadID": "ses_354e8e007ffeSIEWLk5M7tdqmB"
+}

@@ -1,0 +1,15 @@
+{
+  "id": "T-4c0d7a89-645a-4fbf-a31a-50b2e6fd5ed6",
+  "subject": "Create Python validation script",
+  "description": "Create scripts/validate_schemas.py that:\n- Validates all SQL migration files are syntactically correct\n- Validates all JSON schemas are valid JSON Schema Draft 7+\n- Validates sample data against JSON schemas\n- Returns exit code 0 on success, non-zero on failure\n- Provides detailed error messages",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [
+    "T-1",
+    "T-2"
+  ],
+  "metadata": {
+    "type": "validation"
+  },
+  "threadID": "ses_3551073b8ffeWsJ2h2tsMkOFDl"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "T-9bab1706-057b-4132-beab-6a54d6cdad6e",
+  "subject": "Inspect current scripts/set_source_trust.py for SQLAlchemy/version usage",
+  "description": "Read scripts/set_source_trust.py and confirm whether it imports/uses SQLAlchemy or queries ORDER BY version; identify minimal changes needed.",
+  "status": "completed",
+  "activeForm": "Confirmed scripts/set_source_trust.py currently uses SQLAlchemy and queries ORDER BY version; needs sqlite3 rewrite",
+  "blocks": [],
+  "blockedBy": [],
+  "threadID": "ses_353aa5303ffe60iB6odbrWmBan"
+}

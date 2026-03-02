@@ -1,0 +1,37 @@
+[
+  {
+    "entity_id": "ent_allah",
+    "entity_type": "concept",
+    "canonical_name": "Allah",
+    "aliases": ["God"],
+    "description": "The one God in Islam."
+  },
+  {
+    "entity_id": "ent_prophet_muhammad",
+    "entity_type": "person",
+    "canonical_name": "Prophet Muhammad",
+    "aliases": ["Muhammad", "The Prophet"],
+    "description": "Messenger of Allah."
+  },
+  {
+    "entity_id": "ent_quran",
+    "entity_type": "work",
+    "canonical_name": "Quran",
+    "aliases": ["Al-Quran"],
+    "description": "The revealed scripture of Islam."
+  },
+  {
+    "entity_id": "ent_surah_al_fatiha",
+    "entity_type": "chapter",
+    "canonical_name": "Surah Al-Fatiha",
+    "aliases": ["Al-Fatihah", "The Opening"],
+    "description": "The first chapter of the Quran."
+  },
+  {
+    "entity_id": "ent_bismillah",
+    "entity_type": "phrase",
+    "canonical_name": "Bismillah",
+    "aliases": ["In the name of Allah"],
+    "description": "A common opening phrase: 'In the name of Allah'."
+  }
+]

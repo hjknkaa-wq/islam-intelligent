@@ -1,0 +1,9 @@
+{
+  "id": "T-79086f5e-f51d-4350-af63-1a903e431a77",
+  "subject": "Implement KG edge_manager with evidence validation",
+  "description": "Add apps/api/src/islam_intelligent/kg/edge_manager.py with create/get/list; enforce non-empty evidence_span_ids and validate existence.",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [],
+  "threadID": "ses_354d68790ffeqwzM9pl9LxGPa8"
+}

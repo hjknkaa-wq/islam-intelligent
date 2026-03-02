@@ -1,0 +1,13 @@
+{
+  "id": "T-5c04de6b-1a33-4c1d-bdc1-d89bea97e554",
+  "subject": "Implement citation verifier module",
+  "description": "",
+  "status": "completed",
+  "activeForm": "Implementing citation verifier logic",
+  "blocks": [],
+  "blockedBy": [
+    "T-4ece2bf8-6b0d-4cbd-bfd6-48f93ddbd2fd"
+  ],
+  "parentID": "T-7c680268-883d-4c7b-aa3e-f6e82c2c6a2f",
+  "threadID": "ses_3538ac876ffeGcTjvPV5Tt6Z6k"
+}

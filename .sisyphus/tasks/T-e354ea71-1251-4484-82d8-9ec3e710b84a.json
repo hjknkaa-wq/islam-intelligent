@@ -1,0 +1,10 @@
+{
+  "id": "T-e354ea71-1251-4484-82d8-9ec3e710b84a",
+  "subject": "Implement EvidenceHighlight React component with SHA256 span verification",
+  "description": "Create apps/ui/src/components/EvidenceHighlight.tsx using byteOffsetsToStringRange; verify UTF-8 snippet SHA256 via crypto.subtle; highlight only when verified; show badges and RTL support.",
+  "status": "completed",
+  "activeForm": "Created EvidenceHighlight.tsx with UTF-8 byte span verification via SHA-256 and RTL handling; lsp_diagnostics clean.",
+  "blocks": [],
+  "blockedBy": [],
+  "threadID": "ses_3544ba39affeET0qRw2bSBUh5b"
+}

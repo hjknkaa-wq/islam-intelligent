@@ -1,0 +1,22 @@
+{
+  "name": "@islam-intelligent/schemas",
+  "version": "0.1.0",
+  "description": "Shared JSON schemas and SQL migrations for Islam Intelligent platform",
+  "type": "module",
+  "exports": {
+    "./json/*": "./json/*",
+    "./sql/*": "./sql/*"
+  },
+  "scripts": {
+    "validate": "echo 'Schema validation - Task 5 will implement'",
+    "migrate": "echo 'Migration runner - Task 5 will implement'"
+  },
+  "keywords": [
+    "islam",
+    "quran",
+    "hadith",
+    "schema",
+    "migrations"
+  ],
+  "license": "MIT"
+}

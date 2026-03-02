@@ -1,0 +1,13 @@
+{
+  "id": "T-0fce664d-614d-4b19-babe-ed2e05455f89",
+  "subject": "Create normalize package __init__.py",
+  "description": "Create apps/api/src/islam_intelligent/normalize/__init__.py with proper exports",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [],
+  "metadata": {
+    "priority": "high",
+    "type": "implementation"
+  },
+  "threadID": "ses_354f05314ffeJxCWFhsHFGE7Ia"
+}

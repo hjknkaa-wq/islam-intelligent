@@ -1,0 +1,13 @@
+{
+  "id": "T-eaccc06b-59ad-43ac-a863-248c5641f884",
+  "subject": "Integrate verifier into RAG abstain flow",
+  "description": "",
+  "status": "completed",
+  "activeForm": "Integrating verifier into RAG pipeline",
+  "blocks": [],
+  "blockedBy": [
+    "T-5c04de6b-1a33-4c1d-bdc1-d89bea97e554"
+  ],
+  "parentID": "T-7c680268-883d-4c7b-aa3e-f6e82c2c6a2f",
+  "threadID": "ses_3538ac876ffeGcTjvPV5Tt6Z6k"
+}

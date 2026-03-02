@@ -1,0 +1,10 @@
+{
+  "id": "T-30a88475-c93f-4637-abb6-a4a5235359f4",
+  "subject": "Implement trusted-only RAG evidence gating + trust toggle CLI",
+  "description": "Enforce answering only from trusted sources: filter retrieval by source_document.trust_status='trusted', abstain with fail_reason='untrusted_sources' if no trusted evidence, add scripts/set_source_trust.py CLI with --first-fixture and --trusted flags; add required evidence notes; ensure pytest passes.",
+  "status": "completed",
+  "activeForm": "Implement retrieval filter, abstain fail_reason, and trust toggle CLI; run lsp diagnostics + pytest; write evidence files.",
+  "blocks": [],
+  "blockedBy": [],
+  "threadID": "ses_353b4204cffeANB3kgcdruHFyL"
+}

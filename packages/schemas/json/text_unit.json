@@ -1,0 +1,130 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://islam-intelligent.dev/schemas/text_unit.json",
+  "title": "Text Unit",
+  "description": "Schema for canonical text units (Quran ayat, hadith items)",
+  "type": "object",
+  "required": [
+    "text_unit_id",
+    "source_id",
+    "unit_type",
+    "canonical_id",
+    "canonical_locator_json",
+    "text_canonical",
+    "text_canonical_utf8_sha256"
+  ],
+  "properties": {
+    "text_unit_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for the text unit"
+    },
+    "source_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Reference to parent source document"
+    },
+    "unit_type": {
+      "type": "string",
+      "enum": ["quran_ayah", "hadith_item"],
+      "description": "Type of text unit"
+    },
+    "canonical_id": {
+      "type": "string",
+      "description": "Canonical identifier (quran:{surah}:{ayah} or hadith:{collection}:{system}:{number})",
+      "oneOf": [
+        {
+          "pattern": "^quran:([1-9]|[1-9][0-9]|1[0-1][0-9]|11[0-4]):([1-9]|[1-9][0-9]|[1-2][0-9]{2})$",
+          "description": "Quran canonical ID: quran:{surah}:{ayah}"
+        },
+        {
+          "pattern": "^hadith:[a-z]+:[a-z_]+:[1-9][0-9]*$",
+          "description": "Hadith canonical ID: hadith:{collection}:{numbering_system}:{number}"
+        }
+      ]
+    },
+    "canonical_locator_json": {
+      "type": "object",
+      "description": "Structured locator with surah/ayah or collection/book/chapter info",
+      "oneOf": [
+        {
+          "title": "Quran Locator",
+          "required": ["type", "canonical_id", "surah", "ayah"],
+          "properties": {
+            "type": { "const": "quran" },
+            "canonical_id": { "type": "string" },
+            "surah": { "type": "integer", "minimum": 1, "maximum": 114 },
+            "ayah": { "type": "integer", "minimum": 1, "maximum": 286 },
+            "surah_name_ar": { "type": "string" },
+            "surah_name_en": { "type": "string" },
+            "juz": { "type": "integer", "minimum": 1, "maximum": 30 },
+            "hizb": { "type": "integer", "minimum": 1, "maximum": 60 },
+            "rub": { "type": "integer", "minimum": 1, "maximum": 4 }
+          }
+        },
+        {
+          "title": "Hadith Locator",
+          "required": ["type", "canonical_id", "collection", "numbering_system", "hadith_number"],
+          "properties": {
+            "type": { "const": "hadith" },
+            "canonical_id": { "type": "string" },
+            "collection": { "type": "string" },
+            "collection_name_ar": { "type": "string" },
+            "collection_name_en": { "type": "string" },
+            "numbering_system": { "type": "string" },
+            "hadith_number": { "type": "integer", "minimum": 1 },
+            "book_number": { "type": "integer" },
+            "book_name_ar": { "type": "string" },
+            "book_name_en": { "type": "string" },
+            "chapter_number": { "type": "integer" },
+            "chapter_name_ar": { "type": "string" },
+            "chapter_name_en": { "type": "string" },
+            "grade": { "type": "string", "enum": ["sahih", "hasan", "daif", "mawdu", "unknown"] },
+            "narrator_chain": { "type": "array", "items": { "type": "string" } }
+          }
+        }
+      ]
+    },
+    "text_canonical": {
+      "type": "string",
+      "description": "Canonical text in Unicode NFC normalization"
+    },
+    "text_canonical_utf8_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$",
+      "description": "SHA-256 of UTF-8 encoded canonical text"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Creation timestamp"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "unit_type": { "const": "quran_ayah" } }
+      },
+      "then": {
+        "properties": {
+          "canonical_id": {
+            "pattern": "^quran:([1-9]|[1-9][0-9]|1[0-1][0-9]|11[0-4]):([1-9]|[1-9][0-9]|[1-2][0-9]{2})$"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "unit_type": { "const": "hadith_item" } }
+      },
+      "then": {
+        "properties": {
+          "canonical_id": {
+            "pattern": "^hadith:[a-z]+:[a-z_]+:[1-9][0-9]*$"
+          }
+        }
+      }
+    }
+  ],
+  "additionalProperties": false
+}

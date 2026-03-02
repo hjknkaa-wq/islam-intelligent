@@ -1,0 +1,13 @@
+{
+  "id": "T-4fb249fa-48ca-4712-a0cb-aeeacdcab7cf",
+  "subject": "Implement FastAPI routes for sources",
+  "description": "Create apps/api/src/islam_intelligent/api/routes/sources.py with POST /sources, GET /sources/{source_id}, GET /sources, PUT /sources/{source_id} endpoints",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [],
+  "metadata": {
+    "plan": "source-registry-apis",
+    "order": 3
+  },
+  "threadID": "ses_354f78917ffez4tVjrc3noScFr"
+}

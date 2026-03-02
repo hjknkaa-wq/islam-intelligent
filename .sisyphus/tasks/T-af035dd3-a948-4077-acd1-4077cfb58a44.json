@@ -1,0 +1,10 @@
+{
+  "id": "T-af035dd3-a948-4077-acd1-4077cfb58a44",
+  "subject": "Verify eval runner executes and write evidence log",
+  "description": "Run python scripts/run_eval.py --suite golden --output eval/report.json; ensure exit 0; run lsp diagnostics on scripts/run_eval.py; write .sisyphus/evidence/task-18-eval-run.txt with key outputs.",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [],
+  "parentID": "T-3cb7ce3e-cfbd-45c9-bf51-bab04255df1e",
+  "threadID": "ses_3542accc0ffeXWpcZwnKsFCD6X"
+}

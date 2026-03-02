@@ -1,0 +1,10 @@
+{
+  "id": "T-dcfe03f3-5ad1-4532-abe7-c4d51bf2b239",
+  "subject": "Verify with Playwright run and LSP diagnostics",
+  "description": "Run `npx playwright test span-highlight.spec.ts` and ensure LSP diagnostics clean for new test file.",
+  "status": "completed",
+  "activeForm": "Execute test runner; capture failures; fix until passing; then run lsp_diagnostics on new file.",
+  "blocks": [],
+  "blockedBy": [],
+  "threadID": "ses_3543e1aceffeQdYwM1K8rUa3V7"
+}

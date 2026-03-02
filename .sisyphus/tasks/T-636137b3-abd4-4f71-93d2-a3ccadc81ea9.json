@@ -1,0 +1,11 @@
+{
+  "id": "T-636137b3-abd4-4f71-93d2-a3ccadc81ea9",
+  "subject": "Create scripts/security_audit.py CI checks (secrets, no DELETE routes, append-only data) + evidence",
+  "description": "Create scripts/security_audit.py:\n- Scan repo for common secret patterns (api keys, passwords, tokens, private keys)\n- Assert no HTTP DELETE endpoints exist under apps/api/src (esp. apps/api/src/islam_intelligent/api/)\n- Assert data/ usage is append-only (no deletes; no write/truncate modes to data/ paths)\n- Exit 0 on pass, 1 on fail; prints [OK]/[FAIL]\n- Support --simulate-secret to verify detector triggers\n- Produce evidence file at .sisyphus/evidence/task-27-security-audit.txt (run output)\nVerification: python scripts/security_audit.py returns [OK] Security audit passed; lsp_diagnostics clean for scripts/security_audit.py",
+  "status": "completed",
+  "activeForm": "Implement script + run audit + write evidence",
+  "blocks": [],
+  "blockedBy": [],
+  "repoURL": "",
+  "threadID": "ses_35366c481ffe78YnrGhXUIYEgH"
+}

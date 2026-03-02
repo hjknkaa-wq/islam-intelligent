@@ -1,0 +1,225 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://islam-intelligent.dev/schemas/rag_answer.json",
+  "title": "RAG Answer Contract",
+  "description": "Schema for RAG answer output with statement-level citations - enforces evidence-first",
+  "type": "object",
+  "required": [
+    "rag_query_id",
+    "verdict",
+    "answer_json"
+  ],
+  "properties": {
+    "rag_query_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Reference to the originating query"
+    },
+    "verdict": {
+      "type": "string",
+      "enum": ["answer", "abstain"],
+      "description": "Final verdict: answer (with citations) or abstain"
+    },
+    "answer_json": {
+      "type": "object",
+      "description": "Structured answer content",
+      "oneOf": [
+        {
+          "title": "Answer Verdict",
+          "required": ["verdict", "statements"],
+          "properties": {
+            "verdict": { "const": "answer" },
+            "statements": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/statement" },
+              "minItems": 1,
+              "description": "Answer statements, each with required citations"
+            },
+            "retrieved_evidence": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/evidence_summary" },
+              "description": "Summary of evidence retrieved for this query"
+            },
+            "validation": {
+              "$ref": "#/definitions/validation_result"
+            }
+          }
+        },
+        {
+          "title": "Abstain Verdict",
+          "required": ["verdict", "abstain_reason"],
+          "properties": {
+            "verdict": { "const": "abstain" },
+            "abstain_reason": {
+              "type": "string",
+              "enum": [
+                "insufficient_evidence",
+                "all_sources_untrusted",
+                "citation_verification_failed",
+                "other"
+              ],
+              "description": "Reason for abstaining"
+            },
+            "abstain_details": {
+              "type": "string",
+              "description": "Detailed explanation of why system abstained"
+            },
+            "retrieved_evidence": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/evidence_summary" },
+              "description": "Evidence that was retrieved (but deemed insufficient)"
+            },
+            "validation": {
+              "$ref": "#/definitions/validation_result"
+            }
+          }
+        }
+      ]
+    },
+    "statements_count": {
+      "type": "integer",
+      "minimum": 0,
+      "default": 0,
+      "description": "Number of statements in answer"
+    },
+    "citations_count": {
+      "type": "integer",
+      "minimum": 0,
+      "default": 0,
+      "description": "Total number of citations across all statements"
+    },
+    "generation_time_ms": {
+      "type": ["integer", "null"],
+      "minimum": 0,
+      "description": "Time taken to generate answer in milliseconds"
+    },
+    "model_version": {
+      "type": ["string", "null"],
+      "description": "LLM version used for generation (if applicable)"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Creation timestamp"
+    }
+  },
+  "definitions": {
+    "statement": {
+      "type": "object",
+      "required": ["text", "citations"],
+      "properties": {
+        "text": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Statement text"
+        },
+        "citations": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/citation" },
+          "minItems": 1,
+          "description": "EVIDENCE REQUIRED: Every statement must have at least one citation"
+        },
+        "statement_type": {
+          "type": "string",
+          "enum": ["claim", "inference", "quote"],
+          "description": "Type of statement"
+        }
+      },
+      "additionalProperties": false
+    },
+    "citation": {
+      "type": "object",
+      "required": [
+        "evidence_span_id",
+        "source_id",
+        "canonical_id",
+        "start_byte",
+        "end_byte",
+        "snippet_utf8_sha256"
+      ],
+      "properties": {
+        "evidence_span_id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Reference to evidence span"
+        },
+        "source_id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Reference to source document"
+        },
+        "canonical_id": {
+          "type": "string",
+          "description": "Canonical ID (e.g., quran:2:255 or hadith:bukhari:sahih:1)"
+        },
+        "start_byte": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Start byte offset"
+        },
+        "end_byte": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "End byte offset"
+        },
+        "snippet_text": {
+          "type": "string",
+          "description": "Text snippet from the span"
+        },
+        "snippet_utf8_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$",
+          "description": "Hash for verification"
+        },
+        "license_id": {
+          "type": "string",
+          "description": "License identifier of source"
+        },
+        "work_title": {
+          "type": "string",
+          "description": "Title of source work"
+        },
+        "edition": {
+          "type": ["string", "null"],
+          "description": "Edition information"
+        }
+      },
+      "additionalProperties": false
+    },
+    "evidence_summary": {
+      "type": "object",
+      "properties": {
+        "evidence_span_id": { "type": "string", "format": "uuid" },
+        "canonical_id": { "type": "string" },
+        "rank": { "type": "integer", "minimum": 1 },
+        "score_final": { "type": "number", "minimum": 0, "maximum": 1 },
+        "snippet_text": { "type": "string" }
+      },
+      "required": ["evidence_span_id", "canonical_id"]
+    },
+    "validation_result": {
+      "type": "object",
+      "required": ["sufficiency_score", "threshold_tau", "verdict"],
+      "properties": {
+        "sufficiency_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Score indicating evidence sufficiency"
+        },
+        "threshold_tau": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Threshold that sufficiency_score must exceed"
+        },
+        "verdict": {
+          "type": "string",
+          "enum": ["pass", "fail"],
+          "description": "Validation verdict"
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}
