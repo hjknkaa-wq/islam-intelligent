@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { queryRAG } from '@/lib/api';
 import { AnswerContract } from '@/types/api';
 import { AnswerDisplay } from './AnswerDisplay';
@@ -11,6 +11,11 @@ export function QueryForm() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<AnswerContract | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  useEffect(() => {
+    setIsHydrated(true);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,10 +46,11 @@ export function QueryForm() {
             placeholder="Ask about Islam..."
             className="flex-1 p-4 border rounded-lg text-lg"
             dir="auto"
+            disabled={!isHydrated || loading}
           />
           <button
             type="submit"
-            disabled={loading || !query.trim()}
+            disabled={!isHydrated || loading || !query.trim()}
             className="px-6 py-4 bg-blue-600 text-white rounded-lg disabled:bg-gray-400"
           >
             {loading ? 'Loading...' : 'Ask'}
