@@ -38,6 +38,7 @@ venv/
 
 # Local tool/runtime folders
 .local/
+.opencode/
 # IDE/editor and OS files
 .vscode/
 .idea/
