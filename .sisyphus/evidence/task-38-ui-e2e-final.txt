@@ -1,0 +1,10 @@
+Command: npm --prefix "apps/ui" run test:e2e
+Timestamp: 2026-03-03 (Asia/Jakarta)
+
+Result: PASS
+
+Key output:
+- Running 21 tests using 16 workers
+- 21 passed (12.6s)
+- Confirmed previously failing WebKit case now passes:
+  [webkit] tests/e2e/citations.spec.ts - answer view shows citations
