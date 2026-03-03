@@ -17,6 +17,6 @@
 - [x] Run `npm --prefix apps/ui run test:e2e` and save evidence output.
 
 ## Milestone 4 - Closeout
-- [ ] Update checklist and status docs with final results.
-- [ ] Create atomic milestone commits with clear messages.
-- [ ] Produce final change summary, test results, and residual risks.
+- [x] Update checklist and status docs with final results.
+- [x] Create atomic milestone commits with clear messages.
+- [x] Produce final change summary, test results, and residual risks.
