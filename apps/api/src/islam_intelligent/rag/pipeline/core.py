@@ -9,8 +9,9 @@ This module implements the core evidence-first RAG flow:
 
 from dataclasses import dataclass
 from collections.abc import Mapping, Sequence
-from typing import TypedDict
+from typing import Protocol, TypedDict
 
+from ..generator import LLMGenerator
 from ..retrieval.hybrid import search_hybrid
 from ..verify import CitationVerifier
 
@@ -35,6 +36,12 @@ class AnswerContract(TypedDict):
     sufficiency_score: float
 
 
+class GeneratorProtocol(Protocol):
+    def generate(
+        self, query: str, evidence: list[dict[str, object]], min_citations: int = 1
+    ) -> list[dict[str, object]]: ...
+
+
 @dataclass
 class RAGConfig:
     """Configuration for RAG pipeline."""
@@ -42,6 +49,11 @@ class RAGConfig:
     sufficiency_threshold: float = 0.6
     max_retrieval: int = 10
     min_citations_per_statement: int = 1
+    enable_llm: bool = False
+    llm_model: str = "gpt-4o-mini"
+    llm_temperature: float = 0.2
+    llm_seed: int = 42
+    llm_base_url: str = ""
 
 
 class RAGPipeline:
@@ -51,10 +63,17 @@ class RAGPipeline:
         self,
         config: RAGConfig | None = None,
         citation_verifier: CitationVerifier | None = None,
+        generator: GeneratorProtocol | None = None,
     ):
         self.config: RAGConfig = config or RAGConfig()
         self._citation_verifier: CitationVerifier = (
             citation_verifier or CitationVerifier()
+        )
+        self._generator: GeneratorProtocol = generator or LLMGenerator(
+            model=self.config.llm_model,
+            temperature=self.config.llm_temperature,
+            seed=self.config.llm_seed,
+            base_url=self.config.llm_base_url,
         )
 
     def retrieve(self, query: str) -> Sequence[Mapping[str, object]]:
@@ -131,9 +150,8 @@ class RAGPipeline:
                 sufficiency_score=sufficiency_score,
             )
 
-        # Step 3: Generate (simplified mock for now)
-        # In production, this would call an LLM with the retrieved evidence
-        statements = self._mock_generate(query, retrieved)
+        # Step 3: Generate
+        statements = self._generate_statements(query, retrieved)
 
         # Step 4: Post-generation verification
         if not self._verify_statements(statements, retrieved):
@@ -165,6 +183,53 @@ class RAGPipeline:
             retrieved_count=len(retrieved),
             sufficiency_score=sufficiency_score,
         )
+
+    def _generate_statements(
+        self, query: str, retrieved: list[dict[str, object]]
+    ) -> list[Statement]:
+        """Generate statements using LLM when enabled, otherwise use mock.
+
+        LLM path is optional and fail-safe. Any generation error falls back to
+        deterministic mock generation so existing behavior remains stable.
+        """
+        if not self.config.enable_llm:
+            return self._mock_generate(query, retrieved)
+
+        try:
+            raw_statements = self._generator.generate(
+                query,
+                retrieved,
+                min_citations=self.config.min_citations_per_statement,
+            )
+            statements: list[Statement] = []
+            for item in raw_statements:
+                text = str(item.get("text", "")).strip()
+                citations_raw = item.get("citations", [])
+                citations: list[Citation] = []
+                if isinstance(citations_raw, list):
+                    for citation in citations_raw:
+                        if not isinstance(citation, dict):
+                            continue
+                        citations.append(
+                            Citation(
+                                evidence_span_id=str(
+                                    citation.get("evidence_span_id", "")
+                                ),
+                                canonical_id=str(
+                                    citation.get("canonical_id", "unknown")
+                                ),
+                                snippet=str(citation.get("snippet", "")),
+                            )
+                        )
+                if text:
+                    statements.append(Statement(text=text, citations=citations))
+            if statements:
+                return statements
+        except Exception:
+            # Fail-safe fallback preserves deterministic behavior.
+            pass
+
+        return self._mock_generate(query, retrieved)
 
     def _mock_generate(
         self, _query: str, retrieved: list[dict[str, object]]

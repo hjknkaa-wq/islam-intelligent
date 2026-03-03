@@ -15,6 +15,7 @@ export interface AnswerContract {
   verdict: 'answer' | 'abstain';
   statements: Statement[];
   abstain_reason: string | null;
+  fail_reason: string | null;
   retrieved_count: number;
   sufficiency_score: number;
 }

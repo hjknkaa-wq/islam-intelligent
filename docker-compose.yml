@@ -14,6 +14,12 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      RAG_ENABLE_LLM: ${RAG_ENABLE_LLM:-false}
+      RAG_LLM_MODEL: ${RAG_LLM_MODEL:-gpt-4o-mini}
+      RAG_LLM_TEMPERATURE: ${RAG_LLM_TEMPERATURE:-0.2}
+      RAG_LLM_SEED: ${RAG_LLM_SEED:-42}
+      RAG_LLM_BASE_URL: ${RAG_LLM_BASE_URL:-}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
     ports:
       - "${POSTGRES_PORT:-5432}:5432"
     volumes:
@@ -84,71 +90,6 @@ services:
     networks:
       - dev
 
-  ingest:
-    build:
-      context: ./services/ingest
-    container_name: islam-intelligent-ingest
-    environment:
-      APP_ENV: ${APP_ENV:-development}
-      DATABASE_URL: ${DATABASE_URL}
-      POSTGRES_HOST: postgres
-      POSTGRES_PORT: "5432"
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    command: >
-      python -m uvicorn src.main:app
-      --host 0.0.0.0
-      --port 8001
-      --reload
-    ports:
-      - "${INGEST_PORT:-8001}:8001"
-    volumes:
-      - ./services/ingest:/app
-    depends_on:
-      postgres:
-        condition: service_healthy
-    healthcheck:
-      test: ["CMD-SHELL", "python -c \"import sys,urllib.request; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8001/health').status == 200 else 1)\""]
-      interval: 15s
-      timeout: 5s
-      retries: 5
-      start_period: 20s
-    networks:
-      - dev
-
-  rag:
-    build:
-      context: ./services/rag
-    container_name: islam-intelligent-rag
-    environment:
-      APP_ENV: ${APP_ENV:-development}
-      DATABASE_URL: ${DATABASE_URL}
-      POSTGRES_HOST: postgres
-      POSTGRES_PORT: "5432"
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    command: >
-      python -m uvicorn src.main:app
-      --host 0.0.0.0
-      --port 8002
-      --reload
-    ports:
-      - "${RAG_PORT:-8002}:8002"
-    volumes:
-      - ./services/rag:/app
-    depends_on:
-      postgres:
-        condition: service_healthy
-    healthcheck:
-      test: ["CMD-SHELL", "python -c \"import sys,urllib.request; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8002/health').status == 200 else 1)\""]
-      interval: 15s
-      timeout: 5s
-      retries: 5
-      start_period: 20s
-    networks:
-      - dev
 
   ui:
     build:

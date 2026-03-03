@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Load Quran and Hadith fixtures into database.
 
+Database seeding utility - direct DB access is OK for initial data loading.
+
 This script:
 1. Creates source documents for Quran and Hadith collections
 2. Creates text_unit records for each ayah and hadith

@@ -7,6 +7,7 @@ from typing import Any, cast
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
 
+from ...config import settings
 from ...rag.pipeline import RAGConfig, RAGPipeline
 
 router = APIRouter(prefix="/rag", tags=["rag"])
@@ -24,7 +25,15 @@ def get_pipeline() -> RAGPipeline:
     if _pipeline is None:
         with _pipeline_lock:
             if _pipeline is None:
-                _pipeline = RAGPipeline(RAGConfig())
+                _pipeline = RAGPipeline(
+                    RAGConfig(
+                        enable_llm=settings.rag_enable_llm,
+                        llm_model=settings.rag_llm_model,
+                        llm_temperature=settings.rag_llm_temperature,
+                        llm_seed=settings.rag_llm_seed,
+                        llm_base_url=settings.rag_llm_base_url,
+                    )
+                )
     return _pipeline
 
 

@@ -4,23 +4,23 @@ Provides endpoints for creating, retrieving, and verifying EvidenceSpan records
 that cite exact byte ranges within TextUnit documents.
 """
 
+from collections.abc import Generator
 from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Query
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 from sqlalchemy.orm import Session
 
 from ...db.engine import SessionLocal
 from ...domain.models import TextUnit
 from ...domain.span_builder import create_span, verify_span_hash
-from islam_intelligent.domain.models import TextUnit
-from islam_intelligent.domain.span_builder import create_span, verify_span_hash
+from ...kg.models import EvidenceSpan
 
 router = APIRouter(prefix="/spans", tags=["spans"])
 
 
 # Dependency
-def get_db() -> Session:
+def get_db() -> Generator[Session, None, None]:
     """Get database session."""
     db = SessionLocal()
     try:
@@ -51,8 +51,7 @@ class SpanResponse(BaseModel):
     suffix: str
     verified: bool
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class SpanVerificationRequest(BaseModel):
@@ -80,31 +79,28 @@ class SpanListResponse(BaseModel):
     offset: int
 
 
-# In-memory storage for spans (replace with database in production)
-_spans: dict[str, dict] = {}
-_span_counter: int = 0
-
-
-def _generate_span_id() -> str:
-    """Generate unique span ID."""
-    global _span_counter
-    _span_counter += 1
-    return f"span_{_span_counter:08d}"
-
-
-def _to_response(span: dict, verified: bool = False) -> SpanResponse:
-    """Convert span dict to response model."""
+def _to_response(span: EvidenceSpan, verified: bool = False) -> SpanResponse:
+    """Convert EvidenceSpan ORM object to response model."""
     return SpanResponse(
-        span_id=span.get("span_id", ""),
-        text_unit_id=span["text_unit_id"],
-        start_byte=span["start_byte"],
-        end_byte=span["end_byte"],
-        snippet_text=span["snippet_text"],
-        snippet_hash=span["snippet_hash"],
-        prefix=span["prefix"],
-        suffix=span["suffix"],
+        span_id=span.evidence_span_id,
+        text_unit_id=span.text_unit_id,
+        start_byte=span.start_byte,
+        end_byte=span.end_byte,
+        snippet_text=span.snippet_text or "",
+        snippet_hash=span.snippet_utf8_sha256,
+        prefix=span.prefix_text or "",
+        suffix=span.suffix_text or "",
         verified=verified,
     )
+
+
+def _to_verification_payload(span: EvidenceSpan) -> dict[str, str | int]:
+    """Convert EvidenceSpan ORM object to verify_span_hash payload."""
+    return {
+        "start_byte": span.start_byte,
+        "end_byte": span.end_byte,
+        "snippet_hash": span.snippet_utf8_sha256,
+    }
 
 
 @router.post("", response_model=SpanResponse, status_code=201)
@@ -152,12 +148,20 @@ async def create_span_endpoint(
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
-    # Assign span ID and store
-    span_id = _generate_span_id()
-    span_data["span_id"] = span_id
-    _spans[span_id] = span_data
+    span = EvidenceSpan(
+        text_unit_id=span_data["text_unit_id"],
+        start_byte=span_data["start_byte"],
+        end_byte=span_data["end_byte"],
+        snippet_text=span_data["snippet_text"],
+        snippet_utf8_sha256=span_data["snippet_hash"],
+        prefix_text=span_data["prefix"],
+        suffix_text=span_data["suffix"],
+    )
+    db.add(span)
+    db.commit()
+    db.refresh(span)
 
-    return _to_response(span_data, verified=True)
+    return _to_response(span, verified=True)
 
 
 @router.get("/{span_id}", response_model=SpanResponse)
@@ -170,21 +174,24 @@ async def get_span(
 
     Returns the span with optional hash verification against the source TextUnit.
     """
-    if span_id not in _spans:
+    span = (
+        db.query(EvidenceSpan).filter(EvidenceSpan.evidence_span_id == span_id).first()
+    )
+    if span is None:
         raise HTTPException(status_code=404, detail=f"Span {span_id} not found")
-
-    span = _spans[span_id]
 
     # Optionally verify the span
     verified = False
     if verify:
         text_unit = (
             db.query(TextUnit)
-            .filter(TextUnit.text_unit_id == span["text_unit_id"])
+            .filter(TextUnit.text_unit_id == span.text_unit_id)
             .first()
         )
         if text_unit:
-            is_valid, _ = verify_span_hash(span, text_unit.text_canonical)
+            is_valid, _ = verify_span_hash(
+                _to_verification_payload(span), text_unit.text_canonical
+            )
             verified = is_valid
 
     return _to_response(span, verified=verified)
@@ -194,17 +201,21 @@ async def get_span(
 async def verify_span(
     span_id: str,
     data: SpanVerificationRequest,
+    db: Session = Depends(get_db),
 ) -> SpanVerificationResponse:
     """Verify an evidence span's hash against provided text.
 
     Recomputes the hash of the cited byte range and compares it to the stored hash.
     """
-    if span_id not in _spans:
+    span = (
+        db.query(EvidenceSpan).filter(EvidenceSpan.evidence_span_id == span_id).first()
+    )
+    if span is None:
         raise HTTPException(status_code=404, detail=f"Span {span_id} not found")
 
-    span = _spans[span_id]
-
-    is_valid, message = verify_span_hash(span, data.text_unit_text)
+    is_valid, message = verify_span_hash(
+        _to_verification_payload(span), data.text_unit_text
+    )
 
     return SpanVerificationResponse(
         span_id=span_id,
@@ -218,21 +229,23 @@ async def list_spans(
     text_unit_id: Optional[str] = Query(None, description="Filter by TextUnit ID"),
     limit: int = Query(100, ge=1, le=1000, description="Maximum results"),
     offset: int = Query(0, ge=0, description="Offset for pagination"),
+    db: Session = Depends(get_db),
 ) -> SpanListResponse:
     """List evidence spans with optional filters.
 
     Returns a paginated list of spans. Optionally filter by TextUnit ID.
     """
-    # Filter spans
-    filtered_spans = list(_spans.values())
+    query = db.query(EvidenceSpan)
     if text_unit_id:
-        filtered_spans = [
-            s for s in filtered_spans if s["text_unit_id"] == text_unit_id
-        ]
+        query = query.filter(EvidenceSpan.text_unit_id == text_unit_id)
 
-    # Apply pagination
-    total = len(filtered_spans)
-    paginated = filtered_spans[offset : offset + limit]
+    total = query.count()
+    paginated = (
+        query.order_by(EvidenceSpan.created_at, EvidenceSpan.evidence_span_id)
+        .offset(offset)
+        .limit(limit)
+        .all()
+    )
 
     return SpanListResponse(
         items=[_to_response(s) for s in paginated],

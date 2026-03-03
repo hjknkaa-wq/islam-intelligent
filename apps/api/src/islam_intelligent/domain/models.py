@@ -1,5 +1,7 @@
 """Domain model scaffolding."""
 
+# pyright: reportDeprecated=false, reportImplicitOverride=false
+
 from __future__ import annotations
 
 from datetime import datetime
@@ -37,8 +39,10 @@ class SourceDocument(Base):
     version: Mapped[int] = mapped_column(Integer, nullable=False, default=1)
 
     # Chain link: which source document this supersedes
+    # NOTE: source_document.source_id is not unique (versioned), so a strict FK is
+    # not portable across SQLite. We keep this as an application-level reference.
     supersedes_source_id: Mapped[Optional[str]] = mapped_column(
-        String(64), ForeignKey("source_document.source_id"), nullable=True, index=True
+        String(64), nullable=True, index=True
     )
 
     # Which version this supersedes
@@ -84,16 +88,8 @@ class SourceDocument(Base):
     # Relationships
     prov_entity: Mapped[Optional["ProvEntity"]] = relationship("ProvEntity")
 
-    # Self-referential relationship for version chain
-    superseded_by: Mapped[Optional["SourceDocument"]] = relationship(
-        "SourceDocument",
-        primaryjoin=(
-            "and_(SourceDocument.source_id==remote(SourceDocument.supersedes_source_id), "
-            + "SourceDocument.version==remote(SourceDocument.supersedes_version))"
-        ),
-        remote_side=[source_id, version],
-        uselist=False,
-    )
+    # Self-referential relationship for version chain intentionally omitted in the
+    # SQLite scaffold (requires a composite FK/unique constraint to be enforceable).
 
     def __repr__(self) -> str:
         return f"<SourceDocument(source_id={self.source_id}, version={self.version})>"
@@ -114,9 +110,9 @@ class TextUnit(Base):
     )
 
     # Foreign key to source document
-    source_id: Mapped[str] = mapped_column(
-        String(64), ForeignKey("source_document.source_id"), nullable=False, index=True
-    )
+    # NOTE: source_document.source_id is versioned (non-unique), so a strict FK is
+    # not portable across SQLite. Use joins by source_id + version when needed.
+    source_id: Mapped[str] = mapped_column(String(64), nullable=False, index=True)
 
     # Type of unit
     unit_type: Mapped[str] = mapped_column(String(64), nullable=False, index=True)
@@ -144,8 +140,7 @@ class TextUnit(Base):
         DateTime(timezone=True), server_default=func.now(), nullable=False
     )
 
-    # Relationship to source document
-    source: Mapped["SourceDocument"] = relationship("SourceDocument")
+    # Relationship to source document intentionally omitted (ambiguous across versions).
 
     def __repr__(self) -> str:
         return f"<TextUnit(canonical_id={self.canonical_id}, type={self.unit_type})>"

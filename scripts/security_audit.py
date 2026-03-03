@@ -122,6 +122,39 @@ def _redact(value: str) -> str:
     return v[:4] + "..." + v[-4:]
 
 
+def _looks_like_placeholder_secret(raw_value: str) -> bool:
+    v = raw_value.strip().strip("\"'").lower()
+    if not v:
+        return True
+
+    if v in {
+        "xxx",
+        "xxxx",
+        "token",
+        "secret",
+        "password",
+        "api_key",
+        "apikey",
+        "openai_api_key",
+    }:
+        return True
+
+    normalized = re.sub(r"[^a-z0-9]", "", v)
+    placeholder_markers = (
+        "your",
+        "replace",
+        "example",
+        "sample",
+        "dummy",
+        "placeholder",
+        "changeme",
+    )
+    if any(marker in normalized for marker in placeholder_markers):
+        return True
+
+    return False
+
+
 def _scan_for_secrets(*, root: Path, max_file_bytes: int) -> list[Finding]:
     # NOTE: skip this audit script to avoid self-matches.
     self_path = (root / "scripts" / "security_audit.py").resolve()
@@ -195,6 +228,8 @@ def _scan_for_secrets(*, root: Path, max_file_bytes: int) -> list[Finding]:
                 continue
             if placeholder.search(raw_val):
                 continue
+            if _looks_like_placeholder_secret(raw_val):
+                continue
             # Heuristics: require some entropy-ish variety.
             if len(raw_val) < 12:
                 continue
@@ -221,6 +256,8 @@ def _scan_for_secrets(*, root: Path, max_file_bytes: int) -> list[Finding]:
                 if not raw_val:
                     continue
                 if placeholder.search(raw_val):
+                    continue
+                if _looks_like_placeholder_secret(raw_val):
                     continue
                 if len(raw_val) < 12:
                     continue

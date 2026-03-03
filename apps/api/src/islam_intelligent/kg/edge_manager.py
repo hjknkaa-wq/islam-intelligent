@@ -65,17 +65,19 @@ def create_edge(
     predicate: str,
     object_entity_id: str | None = None,
     object_literal: str | None = None,
-    evidence_span_ids: list[str] = _DEFAULT_EVIDENCE_SPAN_IDS,
+    evidence_span_ids: list[str] | None = _DEFAULT_EVIDENCE_SPAN_IDS,
     confidence: float = 1.0,
 ) -> str:
     _ensure_tables()
 
-    if len(evidence_span_ids) == 0:
+    if not isinstance(evidence_span_ids, list) or len(evidence_span_ids) == 0:
         raise ValueError("evidence_span_ids must be a non-empty list")
+
+    evidence_span_ids_list = evidence_span_ids
 
     unique_evidence_span_ids: list[str] = []
     seen: set[str] = set()
-    for es_id in evidence_span_ids:
+    for es_id in evidence_span_ids_list:
         if not es_id.strip():
             raise ValueError("evidence_span_ids must contain non-empty strings")
         if es_id in seen:

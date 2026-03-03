@@ -5,13 +5,14 @@ from __future__ import annotations
 # pyright: reportMissingImports=false, reportUnknownVariableType=false, reportUnknownMemberType=false, reportUnusedFunction=false, reportUnusedImport=false
 
 import hashlib
+import json
 
 import pytest
 
 from islam_intelligent.provenance import models as _prov_models  # noqa: F401
 
 from islam_intelligent.db.engine import SessionLocal, engine
-from islam_intelligent.domain.models import Base
+from islam_intelligent.domain.models import Base, SourceDocument, TextUnit
 from islam_intelligent.kg import edge_manager, entity_manager
 from islam_intelligent.kg.models import EvidenceSpan
 
@@ -24,16 +25,49 @@ def _reset_db():
 
 
 def _insert_evidence_span(evidence_span_id: str = "es_test_001") -> str:
-    snippet_hash = hashlib.sha256(b"evidence").hexdigest()
+    text = "evidence"
+    text_bytes = text.encode("utf-8")
+    snippet_hash = hashlib.sha256(text_bytes).hexdigest()
+    text_hash = hashlib.sha256(text_bytes).hexdigest()
+    content_hash = hashlib.sha256(b"{}").hexdigest()
+    manifest_hash = hashlib.sha256(b"manifest").hexdigest()
     db = SessionLocal()
     try:
+        # Satisfy EvidenceSpan(text_unit_id) FK -> TextUnit(text_unit_id) FK -> SourceDocument(source_id)
+        source_id = "src_test_001"
+        db.add(
+            SourceDocument(
+                source_id=source_id,
+                version=1,
+                source_type="quran",
+                trust_status="trusted",
+                title="test",
+                author="test",
+                language="en",
+                content_json=json.dumps({"text": text}),
+                content_sha256=content_hash,
+                manifest_sha256=manifest_hash,
+            )
+        )
+        db.add(
+            TextUnit(
+                text_unit_id="tu_test_001",
+                source_id=source_id,
+                unit_type="quran_ayah",
+                canonical_id="quran:1:1",
+                canonical_locator_json="{}",
+                text_canonical=text,
+                text_canonical_utf8_sha256=text_hash,
+            )
+        )
+        db.flush()
         db.add(
             EvidenceSpan(
                 evidence_span_id=evidence_span_id,
                 text_unit_id="tu_test_001",
                 start_byte=0,
-                end_byte=8,
-                snippet_text="evidence",
+                end_byte=len(text_bytes),
+                snippet_text=text,
                 snippet_utf8_sha256=snippet_hash,
                 prefix_text="",
                 suffix_text="",

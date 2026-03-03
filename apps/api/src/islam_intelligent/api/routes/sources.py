@@ -1,20 +1,21 @@
 """FastAPI routes for source document management."""
 
+from collections.abc import Generator
 from typing import Any, Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Query
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 from sqlalchemy.orm import Session
 
-from islam_intelligent.db.engine import SessionLocal
-from islam_intelligent.ingest import source_registry
-from islam_intelligent.domain.models import SourceDocument
+from ...db.engine import SessionLocal
+from ...domain.models import SourceDocument
+from ...ingest import source_registry
 
 router = APIRouter(prefix="/sources", tags=["sources"])
 
 
 # Dependency
-def get_db() -> Session:
+def get_db() -> Generator[Session, None, None]:
     """Get database session."""
     db = SessionLocal()
     try:
@@ -64,8 +65,7 @@ class SourceResponse(BaseModel):
     supersedes_source_id: Optional[str]
     supersedes_version: Optional[int]
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class SourceListResponse(BaseModel):
@@ -104,7 +104,7 @@ def _to_response(doc: SourceDocument) -> SourceResponse:
         source_type=doc.source_type,
         title=doc.title,
         author=doc.author,
-        language=doc.language,
+        language=doc.language or "ar",
         content_sha256=doc.content_sha256,
         manifest_sha256=doc.manifest_sha256,
         created_at=doc.created_at.isoformat() if doc.created_at else "",
@@ -198,7 +198,7 @@ async def update_source(
     via the version number. The new version links to the old via
     supersedes_source_id.
     """
-    update_data = {"content": data.content}
+    update_data: dict[str, Any] = {"content": data.content}
     if data.title is not None:
         update_data["title"] = data.title
     if data.author is not None:

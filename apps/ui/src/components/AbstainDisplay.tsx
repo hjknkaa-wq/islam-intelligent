@@ -7,6 +7,11 @@ interface AbstainDisplayProps {
 }
 
 export function AbstainDisplay({ answer }: AbstainDisplayProps) {
+  const abstainReason =
+    answer.abstain_reason === 'insufficient_evidence'
+      ? 'Not enough relevant evidence found'
+      : answer.abstain_reason;
+
   return (
     <div className="p-6 bg-amber-50 border-2 border-amber-200 rounded-lg">
       <div className="flex items-center gap-2 mb-4">
@@ -26,10 +31,10 @@ export function AbstainDisplay({ answer }: AbstainDisplayProps) {
         <h4 className="font-semibold text-gray-800 mb-2">Details:</h4>
         <ul className="space-y-2 text-sm text-gray-600">
           <li>
-            <strong>Reason:</strong> {' '}
-            {answer.abstain_reason === 'insufficient_evidence' 
-              ? 'Not enough relevant evidence found' 
-              : answer.abstain_reason}
+            <strong>Abstain reason:</strong> {abstainReason ?? 'N/A'}
+          </li>
+          <li>
+            <strong>Fail reason:</strong> {answer.fail_reason ?? 'N/A'}
           </li>
           <li>
             <strong>Evidence retrieved:</strong> {answer.retrieved_count}

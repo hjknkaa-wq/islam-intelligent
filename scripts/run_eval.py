@@ -14,15 +14,19 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import ast
 import datetime as _dt
 import hashlib
 import http.client
 import json
+import os
 import re
 import sys
+import trace
 import urllib.error
 import urllib.request
 from dataclasses import dataclass
+from collections.abc import Mapping
 from pathlib import Path
 from typing import cast
 
@@ -31,6 +35,7 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 EVAL_CASES_DIR = ROOT / "eval" / "cases"
+DEFAULT_EVAL_DB_PATH = ROOT / ".local" / "eval.db"
 
 
 def _json_dumps(obj: object) -> str:
@@ -134,6 +139,164 @@ def _parse_assertions(raw: list[str]) -> list[Assertion]:
     return out
 
 
+def _rag_src_dir() -> Path:
+    return ROOT / "apps" / "api" / "src" / "islam_intelligent" / "rag"
+
+
+def _docstring_lines_for_file(path: Path) -> set[int]:
+    """Return 1-based line numbers that are docstrings.
+
+    We exclude docstring ranges so a coverage threshold isn't penalized by
+    documentation blocks that will never execute.
+    """
+
+    try:
+        src = path.read_text(encoding="utf-8")
+    except Exception:
+        return set()
+
+    try:
+        tree = ast.parse(src)
+    except Exception:
+        return set()
+
+    out: set[int] = set()
+
+    def _mark_docstring(node: ast.AST) -> None:
+        body = getattr(node, "body", None)
+        if not isinstance(body, list) or not body:
+            return
+        first = body[0]
+        if not isinstance(first, ast.Expr):
+            return
+        value = first.value
+        if not isinstance(value, ast.Constant) or not isinstance(value.value, str):
+            return
+        start = getattr(first, "lineno", None)
+        end = getattr(first, "end_lineno", None)
+        if isinstance(start, int) and isinstance(end, int) and start <= end:
+            out.update(range(start, end + 1))
+
+    _mark_docstring(tree)
+    for n in ast.walk(tree):
+        if isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
+            _mark_docstring(n)
+
+    return out
+
+
+def _countable_code_lines(path: Path) -> set[int]:
+    """Heuristic set of countable (non-empty, non-comment, non-docstring) lines."""
+
+    try:
+        lines = path.read_text(encoding="utf-8").splitlines()
+    except Exception:
+        return set()
+
+    doc_lines = _docstring_lines_for_file(path)
+    out: set[int] = set()
+    for idx, line in enumerate(lines, start=1):
+        if idx in doc_lines:
+            continue
+        s = line.strip()
+        if not s:
+            continue
+        if s.startswith("#"):
+            continue
+        out.add(idx)
+    return out
+
+
+def _run_pytest_and_trace_counts(
+    pytest_args: list[str],
+) -> tuple[int, dict[tuple[str, int], int]]:
+    """Run pytest in apps/api, returning (exit_code, trace_counts)."""
+
+    try:
+        import pytest  # type: ignore
+    except Exception as e:  # pragma: no cover
+        raise RuntimeError(f"pytest import failed: {type(e).__name__}: {e}")
+
+    api_dir = ROOT / "apps" / "api"
+    api_src = api_dir / "src"
+
+    cwd_before = Path.cwd()
+    sys_path_before = list(sys.path)
+
+    def _run_pytest() -> int:
+        os.chdir(api_dir)
+        sys.path.insert(0, str(api_src))
+        return int(pytest.main(pytest_args))
+
+    tracer = trace.Trace(count=True, trace=False)
+    try:
+        exit_code = int(tracer.runfunc(_run_pytest))
+        results = tracer.results()
+        return exit_code, dict(results.counts)
+    finally:
+        os.chdir(cwd_before)
+        sys.path[:] = sys_path_before
+
+
+def _compute_rag_coverage_from_trace(
+    trace_counts: Mapping[tuple[str, int], int],
+) -> dict[str, object]:
+    rag_dir = _rag_src_dir().resolve()
+    files = sorted(p for p in rag_dir.rglob("*.py") if p.is_file())
+
+    per_file: list[dict[str, object]] = []
+    total_lines = 0
+    total_hit = 0
+
+    for path in files:
+        p_resolved = path.resolve()
+        countable = _countable_code_lines(p_resolved)
+        if not countable:
+            per_file.append(
+                {
+                    "file": str(p_resolved.relative_to(ROOT)),
+                    "covered": 0,
+                    "total": 0,
+                    "coverage": 1.0,
+                }
+            )
+            continue
+
+        hits: set[int] = set()
+        for (fname, lineno), cnt in trace_counts.items():
+            if cnt <= 0:
+                continue
+            try:
+                if Path(fname).resolve() == p_resolved:
+                    hits.add(int(lineno))
+            except Exception:
+                continue
+
+        covered = len(countable.intersection(hits))
+        total = len(countable)
+        cov = covered / total if total else 1.0
+
+        per_file.append(
+            {
+                "file": str(p_resolved.relative_to(ROOT)),
+                "covered": covered,
+                "total": total,
+                "coverage": cov,
+            }
+        )
+
+        total_lines += total
+        total_hit += covered
+
+    overall = total_hit / total_lines if total_lines else 1.0
+    return {
+        "overall": overall,
+        "total_covered": total_hit,
+        "total_lines": total_lines,
+        "files": per_file,
+    }
+
+
 def _normalize_reason(value: object) -> str | None:
     if not isinstance(value, str):
         return None
@@ -226,9 +389,18 @@ def _ensure_import_path() -> None:
     sys.path.insert(0, str(api_src))
 
 
+def _configure_local_eval_db() -> None:
+    db_path = DEFAULT_EVAL_DB_PATH.resolve()
+    db_path.parent.mkdir(parents=True, exist_ok=True)
+    if db_path.exists():
+        db_path.unlink()
+    os.environ["DATABASE_URL"] = f"sqlite+pysqlite:///{db_path.as_posix()}"
+
+
 def _init_db_and_load_fixtures() -> None:
     """Create tables, load fixtures, and create resolvable evidence spans."""
 
+    _configure_local_eval_db()
     _ensure_import_path()
 
     from islam_intelligent.db.engine import SessionLocal, engine
@@ -245,6 +417,7 @@ def _init_db_and_load_fixtures() -> None:
         validate_canonical_id,
     )
 
+    Base.metadata.drop_all(bind=engine)
     Base.metadata.create_all(bind=engine)
 
     fixtures_dir = ROOT / "data" / "fixtures"
@@ -796,6 +969,38 @@ def main(argv: list[str] | None = None) -> int:
         default=None,
         help="If set, POST to {base}/rag/query and resolve via {base}/evidence/{id}",
     )
+
+    # Optional: run pytest + (trace-based) coverage for RAG modules.
+    _ = parser.add_argument(
+        "--run-pytest",
+        action="store_true",
+        help="Run pytest in apps/api; optionally enforce RAG coverage.",
+    )
+    _ = parser.add_argument(
+        "--pytest-arg",
+        dest="pytest_args",
+        action="append",
+        default=[],
+        help="Extra argument to pass to pytest (repeatable).",
+    )
+    _ = parser.add_argument(
+        "--rag-coverage",
+        dest="rag_coverage",
+        action="store_true",
+        default=True,
+        help="Compute and enforce RAG module coverage (default: enabled for --run-pytest).",
+    )
+    _ = parser.add_argument(
+        "--no-rag-coverage",
+        dest="rag_coverage",
+        action="store_false",
+        help="Disable RAG coverage computation for --run-pytest.",
+    )
+    _ = parser.add_argument(
+        "--rag-coverage-threshold",
+        default="0.80",
+        help="Minimum acceptable RAG coverage (0.0-1.0).",
+    )
     _ = parser.add_argument(
         "--assert",
         dest="assertions",
@@ -817,6 +1022,50 @@ def main(argv: list[str] | None = None) -> int:
     )
 
     args_ns = parser.parse_args(argv)
+
+    run_pytest = cast(bool, getattr(args_ns, "run_pytest"))
+    pytest_args = cast(list[str], getattr(args_ns, "pytest_args"))
+    rag_coverage = cast(bool, getattr(args_ns, "rag_coverage"))
+    rag_coverage_threshold_raw = cast(str, getattr(args_ns, "rag_coverage_threshold"))
+    try:
+        rag_threshold = float(rag_coverage_threshold_raw)
+    except Exception:
+        print("FAIL: --rag-coverage-threshold must be numeric", file=sys.stderr)
+        return 2
+
+    if run_pytest:
+        # Default to running the entire test suite under apps/api.
+        base_pytest_args = ["-q"]
+        base_pytest_args.extend(pytest_args)
+
+        exit_code, counts = _run_pytest_and_trace_counts(base_pytest_args)
+
+        if rag_coverage:
+            cov = _compute_rag_coverage_from_trace(counts)
+            overall_raw = cov.get("overall")
+            covered_raw = cov.get("total_covered")
+            total_raw = cov.get("total_lines")
+            try:
+                overall = float(str(overall_raw)) if overall_raw is not None else 0.0
+            except Exception:
+                overall = 0.0
+            try:
+                covered = int(str(covered_raw)) if covered_raw is not None else 0
+            except Exception:
+                covered = 0
+            try:
+                total = int(str(total_raw)) if total_raw is not None else 0
+            except Exception:
+                total = 0
+            print(f"RAG coverage: {overall:.1%} ({covered}/{total})")
+            if overall < rag_threshold:
+                print(
+                    f"FAIL: RAG coverage {overall:.1%} < {rag_threshold:.0%}",
+                    file=sys.stderr,
+                )
+                return 1 if exit_code == 0 else exit_code
+
+        return int(exit_code)
     suite = cast(str, getattr(args_ns, "suite"))
     output = cast(str, getattr(args_ns, "output"))
     api_base_url = cast(str | None, getattr(args_ns, "api_base_url")) or None

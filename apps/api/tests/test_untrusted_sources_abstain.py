@@ -113,6 +113,68 @@ def _set_trust_status(
         )
 
 
+def _is_seeded_for_untrusted_sources_test(conn: sqlite3.Connection) -> bool:
+    """Return True if dev.db looks like it was seeded with evidence spans.
+
+    This test is intended to run against a seeded developer DB. Other unit tests may
+    create an empty dev.db file (schema-only), which would make this integration test
+    fail with false negatives.
+    """
+
+    try:
+        row = cast(
+            tuple[object] | None,
+            conn.execute(
+                "SELECT 1 FROM sqlite_master WHERE type='table' AND name='text_unit'"
+            ).fetchone(),
+        )
+        if row is None:
+            return False
+        row = cast(
+            tuple[object] | None,
+            conn.execute(
+                "SELECT 1 FROM sqlite_master WHERE type='table' AND name='evidence_span'"
+            ).fetchone(),
+        )
+        if row is None:
+            return False
+
+        # Evidence spans must exist and be resolvable by evidence_span_id==text_unit_id
+        span_count = cast(
+            tuple[object] | None,
+            conn.execute("SELECT COUNT(1) FROM evidence_span").fetchone(),
+        )
+        if span_count is None or int(str(span_count[0] or 0)) == 0:
+            return False
+        resolvable = cast(
+            tuple[object] | None,
+            conn.execute(
+                """
+                SELECT COUNT(1)
+                FROM evidence_span es
+                JOIN text_unit tu ON tu.text_unit_id = es.text_unit_id
+                WHERE es.evidence_span_id = tu.text_unit_id
+                """
+            ).fetchone(),
+        )
+        if resolvable is None or int(str(resolvable[0] or 0)) == 0:
+            return False
+
+        # Must contain at least one Bukhari-like hadith canonical_id for the query.
+        hadith = cast(
+            tuple[object] | None,
+            conn.execute(
+                "SELECT COUNT(1) FROM text_unit WHERE canonical_id LIKE 'hadith:%' AND canonical_id LIKE '%bukhari%'"
+            ).fetchone(),
+        )
+        if hadith is None or int(str(hadith[0] or 0)) == 0:
+            return False
+
+        return True
+    except Exception:
+        return False
+
+
 def test_untrusted_sources_abstain_dev_db() -> None:
     if not DEV_DB_PATH.exists():
         pytest.skip("Missing .local/dev.db; run scripts/dev_reset_and_seed.py")
@@ -126,6 +188,10 @@ def test_untrusted_sources_abstain_dev_db() -> None:
     pipeline = DevDBPipeline(RAGConfig(sufficiency_threshold=0.1))
 
     with sqlite3.connect(str(DEV_DB_PATH)) as conn:
+        if not _is_seeded_for_untrusted_sources_test(conn):
+            pytest.skip(
+                "dev.db present but not seeded with resolvable evidence spans; run scripts/dev_reset_and_seed.py"
+            )
         source_id = _get_first_hadith_source_id(conn)
         original = _get_trust_status(conn, source_id)
 

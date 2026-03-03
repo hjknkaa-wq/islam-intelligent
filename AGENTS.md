@@ -80,14 +80,14 @@ NO claim without explicit pointer to source document
 ### Custom OMO Categories
 | Category | Purpose | Model |
 |----------|---------|-------|
-| `islam-etl` | Ingestion + normalization (Quran/Hadith/Tafsir/Fiqh) | kimi-for-coding/k2p5 |
+| `islam-etl` | Ingestion + normalization (Quran/Hadith/Tafsir/Fiqh) | omniroute/qw/qwen3-coder-flash |
 | `islam-kg` | Ontology + Knowledge Graph modeling | openai/gpt-5.2 |
 | `islam-rag` | Multi-hop RAG + grounded generation | openai/gpt-5.3-codex |
 | `islam-eval` | Evaluation harness + hallucination checks | openai/gpt-5.2 |
 | `islam-security` | Threat modeling + audit logs | openai/gpt-5.2 |
 
 ### Agent Hierarchy
-- **Sisyphus:** Main orchestrator (kimi-for-coding/k2p5)
+- **Sisyphus:** Main orchestrator (openai/gpt-5.3-codex, variant: xhigh)
 - **Prometheus:** Planner — strict milestones + acceptance criteria
 - **Hephaestus:** Heavy coding/refactor (gpt-5.3-codex)
 - **Oracle:** Read-only architecture consultant
@@ -158,3 +158,4 @@ To answer accurately, I need:
 
 Shall I search for these sources first?"
 ```
+

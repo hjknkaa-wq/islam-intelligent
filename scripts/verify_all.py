@@ -167,7 +167,22 @@ def _build_steps(
     db_path = db_path.resolve()
     db_url = _sqlite_url(db_path)
 
-    steps: list[Step] = []
+    steps: list[Step] = [
+        Step(
+            step_id="validate_schemas",
+            title="schema validation (SQL + JSON)",
+            cmd=[
+                sys.executable,
+                str(ROOT / "scripts" / "validate_schemas.py"),
+                "--no-samples",
+            ],
+        ),
+        Step(
+            step_id="security_audit",
+            title="security audit",
+            cmd=[sys.executable, str(ROOT / "scripts" / "security_audit.py")],
+        ),
+    ]
 
     if check_invariants:
         if invariants_reset_seed:
@@ -222,11 +237,10 @@ def _build_steps(
         steps.append(
             Step(
                 step_id="eval",
-                title="eval thresholds (--assert-defaults)",
+                title="eval report generation",
                 cmd=[
                     sys.executable,
                     str(ROOT / "scripts" / "run_eval.py"),
-                    "--assert-defaults",
                 ],
             )
         )

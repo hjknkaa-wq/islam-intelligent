@@ -1,0 +1,41 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "permission": {
+    "task": "allow",
+    "webfetch": "allow",
+    "external_directory": "allow"
+  },
+  "tools": {
+    "task_*": true,
+    "todoread": true,
+    "todowrite": true
+  },
+  "provider": {
+    "omniroute": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "OmniRoute",
+      "options": {
+        "baseURL": "https://cctqbgybmcze.sg-members-1.clawcloudrun.com/v1"
+      },
+      "models": {
+        "qw/qwen3-coder-plus": { "name": "Qwen3 Coder Plus" },
+        "qw/qwen3-coder-flash": { "name": "Qwen3 Coder Flash" },
+        "qw/vision-model": { "name": "Qwen Vision Model" },
+        "cx/gpt-5.3-codex": { "name": "GPT-5.3 Codex" },
+        "cx/gpt-5.3-codex-xhigh": { "name": "GPT-5.3 Codex (XHigh)" },
+        "cx/gpt-5.3-codex-high": { "name": "GPT-5.3 Codex (High)" },
+        "cx/gpt-5.3-codex-low": { "name": "GPT-5.3 Codex (Low)" },
+        "cx/gpt-5.3-codex-none": { "name": "GPT-5.3 Codex (None)" },
+        "cx/gpt-5.1-codex-mini": { "name": "GPT-5.1 Codex Mini" },
+        "cx/gpt-5.1-codex-mini-high": { "name": "GPT-5.1 Codex Mini (High)" },
+        "cx/gpt-5.2-codex": { "name": "GPT-5.2 Codex" },
+        "cx/gpt-5.2": { "name": "GPT-5.2" },
+        "cx/gpt-5.1-codex-max": { "name": "GPT-5.1 Codex Max" },
+        "cx/gpt-5.1-codex": { "name": "GPT-5.1 Codex" },
+        "cx/gpt-5.1": { "name": "GPT-5.1" },
+        "cx/gpt-5-codex": { "name": "GPT-5 Codex" },
+        "cx/gpt-5-codex-mini": { "name": "GPT-5 Codex Mini" }
+      }
+    }
+  }
+}
