@@ -39,6 +39,16 @@ venv/
 # Local tool/runtime folders
 .local/
 .opencode/
+
+# Local orchestrator/runtime state
+opencode.json
+.sisyphus/drafts/
+.sisyphus/run-continuation/
+apps/api/.coverage
+
+# External research clones (local-only)
+faithful_rag_repo/
+ground_cite_repo/
 # IDE/editor and OS files
 .vscode/
 .idea/
