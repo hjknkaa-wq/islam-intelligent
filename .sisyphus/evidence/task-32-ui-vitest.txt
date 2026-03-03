@@ -1,0 +1,14 @@
+Command: npm --prefix "apps/ui" test -- --run
+Timestamp: 2026-03-03 (Asia/Jakarta)
+
+Output:
+> @islam-intelligent/ui@0.1.0 test
+> vitest --run
+
+RUN v1.6.1 C:/Users/barka/project_all/1/untuk-belajar/18-PROYEK-ORKRESTASI-/oh-my-opencode/islam-intelligent/apps/ui
+
+  ✓ src/lib/spanHighlighter.test.ts (2 tests) 2ms
+
+Test Files  1 passed (1)
+Tests       2 passed (2)
+Duration    282ms

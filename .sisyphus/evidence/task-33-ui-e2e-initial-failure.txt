@@ -1,0 +1,18 @@
+Command: npm --prefix "apps/ui" run test:e2e
+Timestamp: 2026-03-03 (Asia/Jakarta)
+
+Result: FAILED (1 failed, 20 passed)
+
+Failing test:
+- [webkit] tests/e2e/citations.spec.ts:4:7 - UI Citation Requirements - answer view shows citations
+
+Failure details:
+- Test timeout of 30000ms exceeded.
+- page.click('button:has-text("Ask")') timed out.
+- Locator resolved to disabled button:
+  <button disabled type="submit" class="px-6 py-4 bg-blue-600 text-white rounded-lg disabled:bg-gray-400">Ask</button>
+
+Call log excerpt:
+- waiting for locator('button:has-text("Ask")')
+- element is not enabled
+- retrying click action (multiple times)

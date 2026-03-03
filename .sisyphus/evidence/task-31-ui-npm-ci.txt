@@ -1,0 +1,15 @@
+Command: npm --prefix "apps/ui" ci
+Timestamp: 2026-03-03 (Asia/Jakarta)
+
+Output:
+added 179 packages, and audited 180 packages in 10s
+
+46 packages are looking for funding
+  run `npm fund` for details
+
+5 vulnerabilities (4 moderate, 1 high)
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
