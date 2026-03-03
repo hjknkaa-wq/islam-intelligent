@@ -1,0 +1,16 @@
+Command: npm --prefix "apps/ui" audit --json
+Timestamp: 2026-03-03 (Asia/Jakarta)
+
+Summary:
+- Total vulnerabilities: 5
+- High: 1
+- Moderate: 4
+
+Notable advisories:
+- next (high): HTTP request deserialization DoS in vulnerable ranges (<15.0.8)
+- next (moderate): Image optimizer remotePatterns DoS (<15.5.10)
+- esbuild/vite/vitest chain (moderate): dev server request issue via esbuild
+
+Recommended upgrade paths (from npm audit):
+- next -> 16.1.6 (semver-major)
+- vitest -> 4.0.18 (semver-major)
