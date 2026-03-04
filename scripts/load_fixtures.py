@@ -345,20 +345,6 @@ def main():
         except Exception as e:
             print(f"ERROR: Failed to initialize database: {e}")
             return 2
-    # Create a new Session with the current engine
-    Session = sessionmaker(bind=engine, autoflush=False, autocommit=False)
-    if args.db_path:
-        db_path = Path(args.db_path).resolve()
-        db_url = f"sqlite+pysqlite:///{db_path.as_posix()}"
-        engine = create_engine(db_url, future=True)
-        print(f"[INFO] Using database: {db_path}")
-
-    # Initialize database
-    try:
-        init_database()
-    except Exception as e:
-        print(f"ERROR: Failed to initialize database: {e}")
-        return 2
 
     # Create a new Session with the current engine
     Session = sessionmaker(bind=engine, autoflush=False, autocommit=False)

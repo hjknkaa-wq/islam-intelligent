@@ -35,7 +35,22 @@ def _ensure_sqlite_parent_dir(db_url: str) -> None:
 
 _ensure_sqlite_parent_dir(DATABASE_URL)
 
-engine = create_engine(DATABASE_URL, future=True)
+# For in-memory SQLite, use StaticPool so all threads share the same connection.
+# This is required when the ASGI test client runs in a separate thread (e.g.
+# Starlette/FastAPI TestClient) and is the standard FastAPI testing pattern.
+_is_memory = ":memory:" in DATABASE_URL
+if _is_memory:
+    from sqlalchemy.pool import StaticPool
+
+    engine = create_engine(
+        DATABASE_URL,
+        connect_args={"check_same_thread": False},
+        poolclass=StaticPool,
+        future=True,
+    )
+else:
+    engine = create_engine(DATABASE_URL, future=True)
+
 SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
 
 # Enable SQLite foreign key enforcement
