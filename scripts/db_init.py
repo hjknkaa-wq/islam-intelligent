@@ -307,10 +307,14 @@ def _convert_create_table_for_sqlite(statement: str) -> str:
     return rewritten
 
 
+_PG_INDEX_TYPES = {"GIN", "GIST", "HNSW", "BRIN", "SPGIST"}
+
+
 def _is_pg_only_statement(upper: str) -> bool:
     """Return True if the statement uses PostgreSQL-only features unsupported by SQLite."""
     # PostgreSQL-specific index types (GIN, GiST, HNSW, BRIN, etc.)
-    if re.search(r"USING\s+(GIN|GIST|HNSW|BRIN|SPGIST)\b", upper):
+    pg_types_pattern = "|".join(_PG_INDEX_TYPES)
+    if re.search(rf"USING\s+({pg_types_pattern})\b", upper):
         return True
     # tsvector / tsquery types or to_tsvector / to_tsquery functions
     if re.search(r"\bTSVECTOR\b|\bTSQUERY\b|\bTO_TSVECTOR\b|\bTO_TSQUERY\b", upper):
@@ -318,8 +322,8 @@ def _is_pg_only_statement(upper: str) -> bool:
     # pgvector column type: vector(N)
     if re.search(r"\bVECTOR\s*\(\s*\d+\s*\)", upper):
         return True
-    # PostgreSQL cast operator ::
-    if "::" in upper:
+    # PostgreSQL cast operator (e.g. ::TEXT, ::INTEGER, ::VECTOR)
+    if re.search(r"::[A-Z_]+\b", upper):
         return True
     # IS DISTINCT FROM (not supported in SQLite)
     if "IS DISTINCT FROM" in upper:
