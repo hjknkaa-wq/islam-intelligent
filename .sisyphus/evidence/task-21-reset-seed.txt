@@ -1,10 +1,10 @@
 Task: dev_reset_and_seed.py
-Timestamp: 2026-03-05T07:38:54.248932Z
-Status: FAILED
+Timestamp: 2026-03-05T08:14:42.434443Z
+Status: SUCCESS
 Database: /home/runner/work/islam-intelligent/islam-intelligent/.local/dev.db
 
 Execution Steps:
-1. Database deletion: SKIPPED
-2. Schema initialization: FAILED
-3. Fixture loading: FAILED
-4. Smoke checks: FAILED
+1. Database deletion: COMPLETED
+2. Schema initialization: SUCCESS
+3. Fixture loading: SUCCESS
+4. Smoke checks: SUCCESS

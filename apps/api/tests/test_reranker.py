@@ -86,6 +86,8 @@ class CrossEncoderReranker:
                 self._available = True
             except ImportError:
                 pass  # Will be unavailable
+            except Exception:
+                pass  # Model download/load failed; will be unavailable
 
     def is_available(self) -> bool:
         """Check if reranker is available and ready."""
