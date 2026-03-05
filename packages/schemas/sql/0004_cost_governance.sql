@@ -3,9 +3,13 @@
 -- Created: 2026-03-05
 
 -- ============================================
+-- IDEMPOTENT MIGRATION (Safe to run multiple times)
+-- ============================================
+
+-- ============================================
 -- COST USAGE LOGS (PER QUERY)
 -- ============================================
-CREATE TABLE cost_usage_log (
+CREATE TABLE IF NOT EXISTS cost_usage_log (
     cost_usage_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     rag_query_id UUID REFERENCES rag_query(rag_query_id) ON DELETE SET NULL,
     query_hash_sha256 TEXT NOT NULL CHECK (query_hash_sha256 ~ '^[a-f0-9]{64}$'),
@@ -26,9 +30,9 @@ CREATE TABLE cost_usage_log (
     created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
 );
 
-CREATE INDEX idx_cost_usage_log_created ON cost_usage_log(created_at);
-CREATE INDEX idx_cost_usage_log_query ON cost_usage_log(rag_query_id);
-CREATE INDEX idx_cost_usage_log_total ON cost_usage_log(total_cost_usd DESC);
+CREATE INDEX IF NOT EXISTS idx_cost_usage_log_created ON cost_usage_log(created_at);
+CREATE INDEX IF NOT EXISTS idx_cost_usage_log_query ON cost_usage_log(rag_query_id);
+CREATE INDEX IF NOT EXISTS idx_cost_usage_log_total ON cost_usage_log(total_cost_usd DESC);
 
 COMMENT ON TABLE cost_usage_log IS 'Per-query usage cost tracking for embeddings + LLM generation';
 COMMENT ON COLUMN cost_usage_log.total_cost_usd IS 'Total query cost in USD';
@@ -37,7 +41,7 @@ COMMENT ON COLUMN cost_usage_log.degradation_mode IS 'Routing mode: none, budget
 -- ============================================
 -- COST ALERT EVENTS
 -- ============================================
-CREATE TABLE cost_alert_event (
+CREATE TABLE IF NOT EXISTS cost_alert_event (
     cost_alert_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     alert_type TEXT NOT NULL,
     period TEXT NOT NULL CHECK (period IN ('daily', 'weekly')),
@@ -49,14 +53,14 @@ CREATE TABLE cost_alert_event (
     created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
 );
 
-CREATE INDEX idx_cost_alert_event_created ON cost_alert_event(created_at);
-CREATE INDEX idx_cost_alert_event_period ON cost_alert_event(period);
-CREATE INDEX idx_cost_alert_event_type ON cost_alert_event(alert_type);
+CREATE INDEX IF NOT EXISTS idx_cost_alert_event_created ON cost_alert_event(created_at);
+CREATE INDEX IF NOT EXISTS idx_cost_alert_event_period ON cost_alert_event(period);
+CREATE INDEX IF NOT EXISTS idx_cost_alert_event_type ON cost_alert_event(alert_type);
 
 COMMENT ON TABLE cost_alert_event IS 'Budget threshold/exceeded alerts for cost governance';
 
 -- ============================================
 -- MIGRATION METADATA
 -- ============================================
-INSERT INTO schema_migrations (version, applied_at, description)
-VALUES ('0004_cost_governance', NOW(), 'Add cost usage and alert event tables for budget governance');
+INSERT OR IGNORE INTO schema_migrations (version, applied_at, description)
+VALUES ('0004_cost_governance', datetime('now'), 'Add cost usage and alert event tables for budget governance');

@@ -3,9 +3,13 @@
 -- Created: 2026-03-05
 
 -- ============================================
+-- IDEMPOTENT MIGRATION (Safe to run multiple times)
+-- ============================================
+
+-- ============================================
 -- RAG METRICS LOG (PER QUERY)
 -- ============================================
-CREATE TABLE rag_metrics_log (
+CREATE TABLE IF NOT EXISTS rag_metrics_log (
     metrics_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     query_id TEXT NOT NULL,
     query_text TEXT NOT NULL,
@@ -35,9 +39,9 @@ CREATE TABLE rag_metrics_log (
     created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
 );
 
-CREATE INDEX idx_rag_metrics_log_query_id ON rag_metrics_log(query_id);
-CREATE INDEX idx_rag_metrics_log_created_at ON rag_metrics_log(created_at);
-CREATE INDEX idx_rag_metrics_log_verdict ON rag_metrics_log(verdict);
+CREATE INDEX IF NOT EXISTS idx_rag_metrics_log_query_id ON rag_metrics_log(query_id);
+CREATE INDEX IF NOT EXISTS idx_rag_metrics_log_created_at ON rag_metrics_log(created_at);
+CREATE INDEX IF NOT EXISTS idx_rag_metrics_log_verdict ON rag_metrics_log(verdict);
 
 COMMENT ON TABLE rag_metrics_log IS 'Per-query observability log with latency, cost, verdict, and RAGAS metrics';
 COMMENT ON COLUMN rag_metrics_log.ragas_faithfulness IS 'RAGAS faithfulness score in range [0,1]';
@@ -48,7 +52,7 @@ COMMENT ON COLUMN rag_metrics_log.ragas_recall IS 'RAGAS context recall score in
 -- ============================================
 -- DASHBOARD VIEW (DAILY AGGREGATE)
 -- ============================================
-CREATE VIEW v_rag_metrics_dashboard_daily AS
+CREATE VIEW IF NOT EXISTS v_rag_metrics_dashboard_daily AS
 SELECT
     DATE(created_at) AS day,
     COUNT(*) AS queries_per_day,
@@ -64,5 +68,5 @@ COMMENT ON VIEW v_rag_metrics_dashboard_daily IS 'Daily dashboard series: query 
 -- ============================================
 -- MIGRATION METADATA
 -- ============================================
-INSERT INTO schema_migrations (version, applied_at, description)
-VALUES ('0005_observability_metrics', NOW(), 'Add RAG observability metrics table and daily dashboard view');
+INSERT OR IGNORE INTO schema_migrations (version, applied_at, description)
+VALUES ('0005_observability_metrics', datetime('now'), 'Add RAG observability metrics table and daily dashboard view');

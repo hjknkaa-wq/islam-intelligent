@@ -3,22 +3,21 @@
 -- Created: 2026-03-04
 --
 -- ============================================
--- DATABASE-SPECIFIC SETUP
+-- IDEMPOTENT MIGRATION (Safe to run multiple times)
 -- ============================================
--- This migration is designed to work with both PostgreSQL (with pgvector)
--- and SQLite. For PostgreSQL, it attempts to use pgvector extension.
--- For SQLite, it uses standard BLOB storage.
 
 -- ============================================
 -- EMBEDDING COLUMN FOR text_unit TABLE
 -- ============================================
 
 -- Add embedding column (BLOB/BYTEA for cross-database compatibility)
+-- Using SQLite-compatible syntax
 ALTER TABLE text_unit ADD COLUMN embedding BLOB;
 
 -- ============================================
 -- ADD EMBEDDING METADATA COLUMNS
 -- ============================================
+
 -- Track embedding model/version for reproducibility
 ALTER TABLE text_unit ADD COLUMN embedding_model TEXT;
 ALTER TABLE text_unit ADD COLUMN embedding_version TEXT;
@@ -27,12 +26,13 @@ ALTER TABLE text_unit ADD COLUMN embedding_generated_at TIMESTAMP WITH TIME ZONE
 -- ============================================
 -- ADD INDEXES FOR EMBEDDING QUERIES
 -- ============================================
+
 -- Standard index on embedding column
-CREATE INDEX idx_text_unit_embedding ON text_unit(embedding);
+CREATE INDEX IF NOT EXISTS idx_text_unit_embedding ON text_unit(embedding);
 
 -- Index for filtering by embedding model (useful for model migrations)
 -- Note: SQLite supports partial indexes with WHERE clause (3.8.0+)
-CREATE INDEX idx_text_unit_embedding_model ON text_unit(embedding_model)
+CREATE INDEX IF NOT EXISTS idx_text_unit_embedding_model ON text_unit(embedding_model)
     WHERE embedding_model IS NOT NULL;
 
 -- ============================================
@@ -48,5 +48,5 @@ CREATE INDEX idx_text_unit_embedding_model ON text_unit(embedding_model)
 -- ============================================
 -- MIGRATION METADATA
 -- ============================================
-INSERT INTO schema_migrations (version, applied_at, description)
-VALUES ('0002_add_embeddings', NOW(), 'Add embedding column to text_unit table for similarity search');
+INSERT OR IGNORE INTO schema_migrations (version, applied_at, description)
+VALUES ('0002_add_embeddings', datetime('now'), 'Add embedding column to text_unit table for similarity search');
