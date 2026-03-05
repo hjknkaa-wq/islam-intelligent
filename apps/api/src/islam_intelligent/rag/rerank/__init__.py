@@ -30,6 +30,7 @@ class RerankResult:
         canonical_id: str | None = None,
         source_id: str | None = None,
         trust_status: str | None = None,
+        evidence_span_id: str | None = None,
     ) -> None:
         self.text_unit_id = text_unit_id
         self.score = score
@@ -37,6 +38,7 @@ class RerankResult:
         self.canonical_id = canonical_id
         self.source_id = source_id
         self.trust_status = trust_status
+        self.evidence_span_id = evidence_span_id
 
     def to_dict(self) -> dict[str, object]:
         """Convert result to dictionary format."""
@@ -45,6 +47,8 @@ class RerankResult:
             "score": self.score,
             "snippet": self.snippet,
         }
+        if self.evidence_span_id:
+            result["evidence_span_id"] = self.evidence_span_id
         if self.canonical_id:
             result["canonical_id"] = self.canonical_id
         if self.source_id:
@@ -239,6 +243,9 @@ class CrossEncoderReranker:
                         trust_status=str(result.get("trust_status"))
                         if result.get("trust_status")
                         else None,
+                        evidence_span_id=str(result.get("evidence_span_id"))
+                        if result.get("evidence_span_id")
+                        else None,
                     )
                 )
 
@@ -282,6 +289,9 @@ class CrossEncoderReranker:
                 source_id=str(r.get("source_id")) if r.get("source_id") else None,
                 trust_status=str(r.get("trust_status"))
                 if r.get("trust_status")
+                else None,
+                evidence_span_id=str(r.get("evidence_span_id"))
+                if r.get("evidence_span_id")
                 else None,
             )
             for r in results

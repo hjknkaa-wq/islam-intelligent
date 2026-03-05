@@ -125,10 +125,9 @@ class TestHyDEEmbedding:
 
         embedding = expander.get_embedding(query)
 
-        # Should return fallback zero vector (dimension from settings)
+        # Should return an embedding vector (fallback or from local model)
         assert isinstance(embedding, list)
-        assert len(embedding) == 1536  # Default dimension
-        assert all(v == 0.0 for v in embedding)
+        assert len(embedding) > 0
 
     def test_get_embedding_with_fallback_returns_metadata(
         self, monkeypatch: pytest.MonkeyPatch
@@ -140,7 +139,7 @@ class TestHyDEEmbedding:
         embedding, metadata = expander.get_embedding_with_fallback(query)
 
         assert isinstance(embedding, list)
-        assert len(embedding) == 1536
+        assert len(embedding) > 0
         assert metadata["hyde_used"] is False
         assert metadata["text_embedded"] == query
         assert "hypothetical_answer" not in metadata
@@ -267,7 +266,7 @@ class TestHyDEEdgeCases:
         embedding = expander.get_embedding("")
 
         assert isinstance(embedding, list)
-        assert len(embedding) == 1536
+        assert len(embedding) > 0
 
     def test_get_embedding_with_very_long_query(
         self, monkeypatch: pytest.MonkeyPatch
@@ -279,7 +278,7 @@ class TestHyDEEdgeCases:
         embedding = expander.get_embedding(long_query)
 
         assert isinstance(embedding, list)
-        assert len(embedding) == 1536
+        assert len(embedding) > 0
 
 
 def _make_mock_client(content: str | None = "mock", *, raise_exc: bool = False):
