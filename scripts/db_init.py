@@ -287,6 +287,12 @@ def _rewrite_types_for_sqlite(statement: str) -> str:
     rewritten = re.sub(
         r"\bNOW\s*\(\s*\)", "CURRENT_TIMESTAMP", rewritten, flags=re.IGNORECASE
     )
+    # Convert PostgreSQL vector(N) type to TEXT for SQLite
+    rewritten = re.sub(
+        r"\bvector\s*\(\s*\d+\s*\)", "TEXT", rewritten, flags=re.IGNORECASE
+    )
+    # Convert PostgreSQL tsvector type to TEXT for SQLite
+    rewritten = re.sub(r"\btsvector\b", "TEXT", rewritten, flags=re.IGNORECASE)
     return rewritten
 
 
@@ -307,30 +313,6 @@ def _convert_create_table_for_sqlite(statement: str) -> str:
     return rewritten
 
 
-_PG_INDEX_TYPES = {"GIN", "GIST", "HNSW", "BRIN", "SPGIST"}
-
-
-def _is_pg_only_statement(upper: str) -> bool:
-    """Return True if the statement uses PostgreSQL-only features unsupported by SQLite."""
-    # PostgreSQL-specific index types (GIN, GiST, HNSW, BRIN, etc.)
-    pg_types_pattern = "|".join(_PG_INDEX_TYPES)
-    if re.search(rf"USING\s+({pg_types_pattern})\b", upper):
-        return True
-    # tsvector / tsquery types or to_tsvector / to_tsquery functions
-    if re.search(r"\bTSVECTOR\b|\bTSQUERY\b|\bTO_TSVECTOR\b|\bTO_TSQUERY\b", upper):
-        return True
-    # pgvector column type: vector(N)
-    if re.search(r"\bVECTOR\s*\(\s*\d+\s*\)", upper):
-        return True
-    # PostgreSQL cast operator (e.g. ::TEXT, ::INTEGER, ::VECTOR)
-    if re.search(r"::[A-Z_]+\b", upper):
-        return True
-    # IS DISTINCT FROM (not supported in SQLite)
-    if "IS DISTINCT FROM" in upper:
-        return True
-    return False
-
-
 def _convert_statement_for_sqlite(statement: str) -> str | None:
     stripped = statement.strip()
     upper = stripped.upper()
@@ -341,12 +323,72 @@ def _convert_statement_for_sqlite(statement: str) -> str | None:
         return None
     if upper.startswith("COMMENT ON"):
         return None
+    # Skip PostgreSQL-specific ALTER TABLE statements for vector/tsvector columns
+    # These columns are added for pgvector/full-text search which aren't supported in SQLite
+    if upper.startswith("ALTER TABLE"):
+        if re.search(r"\bvector\s*\(", stripped, re.IGNORECASE):
+            return None
+        if re.search(r"\btsvector\b", stripped, re.IGNORECASE):
+            return None
+    # Skip UPDATE statements that reference vector/tsvector types
+    if upper.startswith("UPDATE"):
+        if re.search(r"::\s*vector", stripped, re.IGNORECASE):
+            return None
+        if re.search(r"\bto_tsvector\b", stripped, re.IGNORECASE):
+            return None
+    # Skip CREATE INDEX statements using GIN or HNSW (PostgreSQL-specific)
+    if upper.startswith("CREATE INDEX") or upper.startswith("CREATE UNIQUE INDEX"):
+        if re.search(r"USING\s+(gin|hnsw)", stripped, re.IGNORECASE):
+            return None
 
-    # Skip statements that use PostgreSQL-only features that cannot be
-    # meaningfully converted to SQLite (e.g. tsvector, pgvector, GIN/HNSW
-    # indexes, :: casts).  The schema_migrations INSERT is always kept so
-    # that the migration is recorded even when its DDL is PG-only.
-    if not upper.startswith("INSERT") and _is_pg_only_statement(upper):
+    rewritten = stripped
+
+    if upper.startswith("CREATE TABLE"):
+        rewritten = _convert_create_table_for_sqlite(rewritten)
+    elif upper.startswith("CREATE UNIQUE INDEX"):
+        rewritten = re.sub(
+            r"^\s*CREATE\s+UNIQUE\s+INDEX\s+(?!IF\s+NOT\s+EXISTS)",
+            "CREATE UNIQUE INDEX IF NOT EXISTS ",
+            rewritten,
+            count=1,
+            flags=re.IGNORECASE,
+        )
+    elif upper.startswith("CREATE INDEX"):
+        rewritten = re.sub(
+            r"^\s*CREATE\s+INDEX\s+(?!IF\s+NOT\s+EXISTS)",
+            "CREATE INDEX IF NOT EXISTS ",
+            rewritten,
+            count=1,
+            flags=re.IGNORECASE,
+        )
+    elif upper.startswith("CREATE VIEW"):
+        rewritten = re.sub(
+            r"^\s*CREATE\s+VIEW\s+(?!IF\s+NOT\s+EXISTS)",
+            "CREATE VIEW IF NOT EXISTS ",
+            rewritten,
+            count=1,
+            flags=re.IGNORECASE,
+        )
+    elif upper.startswith("INSERT INTO SCHEMA_MIGRATIONS"):
+        rewritten = re.sub(
+            r"^\s*INSERT\s+INTO\s+schema_migrations",
+            "INSERT OR IGNORE INTO schema_migrations",
+            rewritten,
+            count=1,
+            flags=re.IGNORECASE,
+        )
+
+    rewritten = _rewrite_types_for_sqlite(rewritten)
+    rewritten = re.sub(r",\s*\)", "\n)", rewritten)
+    return rewritten.strip() or None
+    stripped = statement.strip()
+    upper = stripped.upper()
+
+    if upper.startswith("CREATE EXTENSION"):
+        return None
+    if upper.startswith("CREATE TYPE"):
+        return None
+    if upper.startswith("COMMENT ON"):
         return None
 
     rewritten = stripped

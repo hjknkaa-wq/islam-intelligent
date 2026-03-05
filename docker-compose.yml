@@ -1,4 +1,5 @@
-postgres:
+services:
+  postgres:
     image: islam-intelligent-postgres:15-pgvector
     build:
       context: .
@@ -39,7 +40,6 @@ postgres:
       LANGFUSE_PUBLIC_KEY: ${LANGFUSE_PUBLIC_KEY:-}
       LANGFUSE_SECRET_KEY: ${LANGFUSE_SECRET_KEY:-}
       LANGFUSE_HOST: ${LANGFUSE_HOST:-https://cloud.langfuse.com}
-#WJ|    ports:
     ports:
       - "${POSTGRES_PORT:-5432}:5432"
     volumes:
@@ -119,7 +119,6 @@ postgres:
       LANGFUSE_PUBLIC_KEY: ${LANGFUSE_PUBLIC_KEY:-}
       LANGFUSE_SECRET_KEY: ${LANGFUSE_SECRET_KEY:-}
       LANGFUSE_HOST: ${LANGFUSE_HOST:-https://cloud.langfuse.com}
-#YR|    command:
     command: >
       python -m uvicorn islam_intelligent.api.main:app
       --host 0.0.0.0
