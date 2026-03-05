@@ -8,6 +8,8 @@ import hashlib
 import json
 
 import pytest
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
 from islam_intelligent.provenance import models as _prov_models  # noqa: F401
 
@@ -19,12 +21,67 @@ from islam_intelligent.kg.models import EvidenceSpan
 
 @pytest.fixture(autouse=True)
 def _reset_db():
-    Base.metadata.drop_all(engine)
-    Base.metadata.create_all(engine)
-    yield
+    """
+    Temporarily replace global database and manager engines/sessions with an in-memory SQLite instance for tests.
+    
+    Sets up an in-memory SQLite engine and SessionLocal, assigns them to the module-level `engine`/`SessionLocal` and to `edge_manager`/`entity_manager`, creates all tables on the test engine, then yields to run the test. After the yield, restores the original engines, session factories, and table-initialized flags, and disposes the test engine.
+    
+    Yields:
+        None: fixture yield point; original configuration is restored after the yield.
+    """
+    global SessionLocal, engine
+
+    original_engine = engine
+    original_session_local = SessionLocal
+    original_edge_engine = edge_manager.engine
+    original_edge_session_local = edge_manager.SessionLocal
+    original_entity_engine = entity_manager.engine
+    original_entity_session_local = entity_manager.SessionLocal
+    original_edge_tables_initialized = edge_manager._tables_initialized
+    original_entity_tables_initialized = entity_manager._tables_initialized
+
+    test_engine = create_engine("sqlite+pysqlite:///:memory:", future=True)
+    test_session_local = sessionmaker(
+        bind=test_engine, autoflush=False, autocommit=False
+    )
+
+    engine = test_engine
+    SessionLocal = test_session_local
+    edge_manager.engine = test_engine
+    edge_manager.SessionLocal = test_session_local
+    entity_manager.engine = test_engine
+    entity_manager.SessionLocal = test_session_local
+    edge_manager._tables_initialized = False
+    entity_manager._tables_initialized = False
+
+    Base.metadata.create_all(bind=test_engine)
+
+    try:
+        yield
+    finally:
+        SessionLocal = original_session_local
+        engine = original_engine
+        edge_manager.engine = original_edge_engine
+        edge_manager.SessionLocal = original_edge_session_local
+        entity_manager.engine = original_entity_engine
+        entity_manager.SessionLocal = original_entity_session_local
+        edge_manager._tables_initialized = original_edge_tables_initialized
+        entity_manager._tables_initialized = original_entity_tables_initialized
+        test_engine.dispose()
 
 
 def _insert_evidence_span(evidence_span_id: str = "es_test_001") -> str:
+    """
+    Create and persist a minimal EvidenceSpan and its required parent records for use in tests.
+    
+    This helper inserts a SourceDocument and a TextUnit, then creates an EvidenceSpan tied to that TextUnit so foreign-key constraints are satisfied in test scenarios. The function opens a new session, commits the records, closes the session, and returns the evidence span identifier.
+    
+    Parameters:
+        evidence_span_id (str): The identifier to assign to the created EvidenceSpan.
+    
+    Returns:
+        str: The same `evidence_span_id` that was created and persisted.
+    """
     text = "evidence"
     text_bytes = text.encode("utf-8")
     snippet_hash = hashlib.sha256(text_bytes).hexdigest()
