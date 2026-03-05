@@ -1,0 +1,38 @@
+{
+  "id": "T-f4b5db58-4429-42c3-b96e-d2df24a29879",
+  "subject": "Milestone 5: Clean Up UI for Official RAG Path",
+  "description": "Rapikan UI untuk memanggil jalur RAG resmi dan menampilkan citations dengan benar. Update components dan types.",
+  "status": "pending",
+  "blocks": [],
+  "blockedBy": [],
+  "metadata": {
+    "milestone": 5,
+    "files_touched": [
+      "apps/ui/src/lib/api.ts",
+      "apps/ui/src/types/api.ts",
+      "apps/ui/src/components/QueryForm.tsx",
+      "apps/ui/src/components/AnswerDisplay.tsx",
+      "apps/ui/src/components/CitationLink.tsx",
+      "apps/ui/src/components/AbstainDisplay.tsx"
+    ],
+    "acceptance_criteria": [
+      "UI memanggil /rag/query endpoint yang benar",
+      "Typescript types match API contract",
+      "AnswerDisplay menampilkan statements dengan citations",
+      "AbstainDisplay menampilkan abstain_reason",
+      "CitationLink navigates ke evidence span",
+      "UI handles loading dan error states"
+    ],
+    "agent_category": "visual-engineering",
+    "agent_model": "openai/gpt-5.2",
+    "priority": "medium",
+    "blockedBy": [
+      "M3",
+      "M4"
+    ],
+    "blocks": [
+      "M6"
+    ]
+  },
+  "threadID": "ses_352686818ffeQlPPnHDPMf2FO4"
+}

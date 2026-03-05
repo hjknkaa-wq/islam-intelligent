@@ -1,0 +1,10 @@
+{
+  "id": "T-248e1dc0-c4d3-47bb-8597-66129c53e88c",
+  "subject": "Refactor spans route to database-backed EvidenceSpan",
+  "description": "Replace in-memory _spans and counter with SQLAlchemy EvidenceSpan CRUD operations",
+  "status": "in_progress",
+  "activeForm": "Refactoring spans route to use database-backed EvidenceSpan",
+  "blocks": [],
+  "blockedBy": [],
+  "threadID": "ses_3525c7f55ffe2uhHdkq3eU4uOb"
+}

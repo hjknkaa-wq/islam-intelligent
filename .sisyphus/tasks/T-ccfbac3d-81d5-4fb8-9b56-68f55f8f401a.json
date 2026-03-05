@@ -1,0 +1,33 @@
+{
+  "id": "T-ccfbac3d-81d5-4fb8-9b56-68f55f8f401a",
+  "subject": "Milestone 2: Evidence Span Database Persistence",
+  "description": "Pindahkan evidence span dari in-memory (_spans dict) ke tabel evidence_span di database. Update spans.py routes untuk menggunakan SQLAlchemy model.",
+  "status": "pending",
+  "blocks": [],
+  "blockedBy": [],
+  "metadata": {
+    "milestone": 2,
+    "files_touched": [
+      "apps/api/src/islam_intelligent/api/routes/spans.py",
+      "apps/api/src/islam_intelligent/kg/models.py",
+      "apps/api/tests/test_span_*.py"
+    ],
+    "acceptance_criteria": [
+      "_spans dict di spans.py dihapus",
+      "Semua CRUD operations menggunakan EvidenceSpan SQLAlchemy model",
+      "Unit tests diperbarui untuk test database persistence",
+      "Span ID menggunakan UUID dari database, bukan counter"
+    ],
+    "agent_category": "islam-etl",
+    "agent_model": "kimi-for-coding/k2p5",
+    "priority": "high",
+    "blockedBy": [
+      "M1"
+    ],
+    "blocks": [
+      "M3",
+      "M4"
+    ]
+  },
+  "threadID": "ses_352686818ffeQlPPnHDPMf2FO4"
+}

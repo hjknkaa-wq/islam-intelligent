@@ -1,0 +1,10 @@
+{
+  "id": "T-ba615b42-403b-4e80-af53-d187c06e0fc4",
+  "subject": "Run diagnostics, tests, and coverage verification",
+  "description": "Run lsp_diagnostics on changed files, execute pytest suite, and ensure coverage > 80% for RAG modules; fix failures if any.",
+  "status": "completed",
+  "activeForm": "Execute verification commands and adjust tests or code to meet acceptance criteria.",
+  "blocks": [],
+  "blockedBy": [],
+  "threadID": "ses_352565f5dffePaLSSU1igyLYsw"
+}

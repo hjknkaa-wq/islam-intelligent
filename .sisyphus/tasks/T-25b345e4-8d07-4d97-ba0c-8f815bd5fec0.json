@@ -1,0 +1,10 @@
+{
+  "id": "T-25b345e4-8d07-4d97-ba0c-8f815bd5fec0",
+  "subject": "Add retrieval tests (10+ cases)",
+  "description": "Create apps/api/tests/test_rag_retrieval.py with >=10 cases across lexical/vector/hybrid retrieval and trust filtering behaviors.",
+  "status": "completed",
+  "activeForm": "Implement retrieval tests with deterministic fixtures/stubs; ensure they run without external services.",
+  "blocks": [],
+  "blockedBy": [],
+  "threadID": "ses_352565f5dffePaLSSU1igyLYsw"
+}

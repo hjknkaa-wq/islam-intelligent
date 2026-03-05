@@ -1,0 +1,22 @@
+{
+  "id": "T-87686a02-9e68-440d-9fec-c361caa73367",
+  "subject": "Integrate LLM for RAG Answer Generation",
+  "description": "Implement real LLM integration to replace mock generator in RAG pipeline. Use OpenAI API with proper prompt engineering for Islamic knowledge.",
+  "status": "pending",
+  "blocks": [],
+  "blockedBy": [],
+  "metadata": {
+    "priority": "critical",
+    "phase": "Phase 2",
+    "estimated_hours": 8,
+    "category": "ai-integration",
+    "acceptance_criteria": [
+      "LLM generates real answers",
+      "Answers cite evidence correctly",
+      "Abstention still works",
+      "Prompt is Islamic knowledge-focused",
+      "Tests updated to mock LLM"
+    ]
+  },
+  "threadID": "ses_352686818ffeQlPPnHDPMf2FO4"
+}

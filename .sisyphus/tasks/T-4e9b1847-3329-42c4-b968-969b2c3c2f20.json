@@ -1,0 +1,32 @@
+{
+  "id": "T-4e9b1847-3329-42c4-b968-969b2c3c2f20",
+  "subject": "Milestone 1: Unify Ingestion Pipeline",
+  "description": "Satukan ingestion dari scripts/load_fixtures.py, services/ingest, dan apps/api routes. Hapus duplikasi, buat satu jalur ingestion resmi.",
+  "status": "pending",
+  "blocks": [],
+  "blockedBy": [],
+  "metadata": {
+    "milestone": 1,
+    "files_touched": [
+      "scripts/load_fixtures.py",
+      "services/ingest/src/ingest.py",
+      "services/ingest/src/main.py",
+      "apps/api/src/islam_intelligent/ingest/",
+      "apps/api/src/islam_intelligent/api/routes/sources.py"
+    ],
+    "acceptance_criteria": [
+      "Hanya ada 1 jalur ingestion resmi: apps/api/src/islam_intelligent/ingest/",
+      "services/ingest/ dihapus atau di-refactor jadi client-only",
+      "scripts/load_fixtures.py menggunakan API ingestion resmi",
+      "Semua ingestion menggunakan text_unit_builder dan validasi canonical_id yang konsisten"
+    ],
+    "agent_category": "islam-etl",
+    "agent_model": "kimi-for-coding/k2p5",
+    "priority": "high",
+    "blocks": [
+      "M2",
+      "M3"
+    ]
+  },
+  "threadID": "ses_352686818ffeQlPPnHDPMf2FO4"
+}

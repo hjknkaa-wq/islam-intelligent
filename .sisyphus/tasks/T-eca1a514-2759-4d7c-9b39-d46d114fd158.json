@@ -1,0 +1,28 @@
+{
+  "id": "T-eca1a514-2759-4d7c-9b39-d46d114fd158",
+  "subject": "REVISED M6: Comprehensive Evaluation Suite",
+  "description": "Build comprehensive eval suite for RAG pipeline.\n\nAPPROACH:\n1. Create test cases for abstain gate (insufficient evidence, untrusted sources)\n2. Create test cases for citation verification\n3. Create test cases for retrieval\n4. Build eval runner in scripts/run_eval.py\n5. Target 80%+ coverage for RAG modules\n\nACCEPTANCE:\n- 10+ abstain gate test cases\n- 10+ citation verification test cases\n- 10+ retrieval test cases\n- Eval runner executable\n- Coverage > 80%",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [
+    "REVISED-M3",
+    "REVISED-M5"
+  ],
+  "metadata": {
+    "milestone": 6,
+    "category": "islam-eval",
+    "files": [
+      "apps/api/tests/test_rag_*.py",
+      "scripts/run_eval.py",
+      "data/eval/"
+    ],
+    "priority": "medium",
+    "acceptance_criteria": [
+      "30+ test cases total",
+      "Eval runner works",
+      "Coverage > 80%"
+    ],
+    "agent": "islam-eval (gpt-5.2)"
+  },
+  "threadID": "ses_352686818ffeQlPPnHDPMf2FO4"
+}

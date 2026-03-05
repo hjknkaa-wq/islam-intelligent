@@ -38,6 +38,7 @@ REQUIRED_TABLES = (
     "rag_retrieval_result",
     "rag_validation",
     "rag_answer",
+    "rag_metrics_log",
     "schema_migrations",
 )
 

@@ -1,8 +1,10 @@
 # ISLAM INTELLIGENT - COMPREHENSIVE CODEBASE ASSESSMENT
 
-**Assessment Date:** 2026-03-02  
+**Assessment Date:** 2026-03-02 (archived baseline)  
 **Assessor:** Sisyphus (AI Architect)  
 **Scope:** Full codebase review, architecture analysis, bug identification  
+
+> Update note (2026-03-04): This assessment is a historical snapshot. Since this report, full Quran ingestion pathway was implemented via `scripts/ingest_quran_tanzil.py` and `make ingest:quran_full`; full hadith ingestion remains pending.
 
 ---
 
@@ -251,14 +253,16 @@ def is_vector_available() -> bool:
 
 ## 📦 DATA INGESTION CAPABILITIES
 
-### Current Status
-**Data Sources Available:**
-- ✅ Quran minimal (7 ayat)
-- ✅ Hadith minimal (3 hadith)
-- ❌ Full Quran (not ingested)
-- ❌ Full Hadith collections (not ingested)
-- ❌ Tafsir (not implemented)
-- ❌ Fiqh (not implemented)
+### Current Status (as-of 2026-03-02 snapshot)
+**Data Sources Available at snapshot time:**
+- ✅ Quran minimal fixtures only
+- ✅ Hadith minimal fixtures only
+- ❌ Full Quran workflow not yet implemented at snapshot time
+- ❌ Full Hadith collections not ingested
+- ❌ Tafsir not implemented
+- ❌ Fiqh not implemented
+
+**Update (2026-03-04):** Full Quran ingestion pathway is now implemented via `scripts/ingest_quran_tanzil.py` and `make ingest:quran_full`; full hadith ingestion remains pending.
 
 ### Ingestion Pipeline
 - ✅ NFC normalization
@@ -332,7 +336,7 @@ def is_vector_available() -> bool:
 
 ---
 
-## 📋 TECHNICAL DEBT REGISTER
+## 📋 TECHNICAL DEBT REGISTER (snapshot)
 
 | Item | Location | Severity | Effort | Priority |
 |------|----------|----------|--------|----------|

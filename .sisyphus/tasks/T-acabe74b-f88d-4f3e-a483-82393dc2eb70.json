@@ -1,0 +1,11 @@
+{
+  "id": "T-acabe74b-f88d-4f3e-a483-82393dc2eb70",
+  "subject": "Delete services/rag directory",
+  "description": "Remove all files under services/rag and remove now-empty directory tree.",
+  "status": "completed",
+  "activeForm": "Deleting obsolete services/rag stub directory.",
+  "blocks": [],
+  "blockedBy": [],
+  "parentID": "T-e299b0d8-a1f6-48f4-86e0-d8c66988ac01",
+  "threadID": "ses_3525e8555ffeREr6BhsaN66Dja"
+}

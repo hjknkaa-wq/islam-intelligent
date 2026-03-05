@@ -1,0 +1,30 @@
+{
+  "id": "T-0c5f86bb-78d2-4bbc-85c9-037caffd5525",
+  "subject": "REVISED M5: Fix UI-API Contract (Add fail_reason)",
+  "description": "CRITICAL FIX: API has fail_reason field but UI types don't include it. Also need to ensure UI calls correct endpoint.\n\nAPPROACH:\n1. Update apps/ui/src/types/api.ts to include fail_reason\n2. Verify apps/ui/src/lib/api.ts calls /rag/query correctly\n3. Update AnswerDisplay and AbstainDisplay components\n4. Ensure CitationLink works with evidence spans\n\nACCEPTANCE:\n- TypeScript types match API exactly (including fail_reason)\n- UI calls correct RAG endpoint\n- AnswerDisplay shows statements + citations\n- AbstainDisplay shows abstain_reason AND fail_reason\n- CitationLink navigates to evidence",
+  "status": "completed",
+  "blocks": [
+    "REVISED-M6"
+  ],
+  "blockedBy": [
+    "REVISED-M2",
+    "REVISED-M4"
+  ],
+  "metadata": {
+    "milestone": 5,
+    "category": "visual-engineering",
+    "files": [
+      "apps/ui/src/types/api.ts",
+      "apps/ui/src/lib/api.ts",
+      "apps/ui/src/components/*.tsx"
+    ],
+    "priority": "high",
+    "acceptance_criteria": [
+      "Types match API",
+      "Correct endpoint",
+      "Components display all fields"
+    ],
+    "agent": "visual-engineering (gpt-5.2)"
+  },
+  "threadID": "ses_352686818ffeQlPPnHDPMf2FO4"
+}

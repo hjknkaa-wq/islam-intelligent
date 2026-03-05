@@ -7,6 +7,7 @@ For production, upgrade to FTS5 or Postgres tsvector.
 from typing import TypedDict
 
 from sqlalchemy import func, select
+from sqlalchemy.exc import OperationalError
 
 # Import provenance models to ensure all relationships are registered
 from ...provenance.models import ProvEntity  # noqa: F401
@@ -78,7 +79,10 @@ def search_lexical(query: str, limit: int = 10) -> list[SearchResult]:
             .limit(limit * 2)
         )
 
-        rows = db.execute(stmt).all()
+        try:
+            rows = db.execute(stmt).all()
+        except OperationalError:
+            return []
 
         # Score and rank results
         scored_results = []

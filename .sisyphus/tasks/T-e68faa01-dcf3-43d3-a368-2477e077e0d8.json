@@ -1,0 +1,10 @@
+{
+  "id": "T-e68faa01-dcf3-43d3-a368-2477e077e0d8",
+  "subject": "Inspect current span storage and model usage",
+  "description": "Review spans route implementation and EvidenceSpan SQLAlchemy model fields before refactor",
+  "status": "completed",
+  "activeForm": "Inspecting current span storage and model usage",
+  "blocks": [],
+  "blockedBy": [],
+  "threadID": "ses_3525c7f55ffe2uhHdkq3eU4uOb"
+}

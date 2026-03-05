@@ -1,0 +1,10 @@
+{
+  "id": "T-baf67d00-bbeb-458c-9465-0f773fca6939",
+  "subject": "Verify refactor with diagnostics and tests",
+  "description": "Run diagnostics and relevant tests to ensure endpoints still work after DB migration",
+  "status": "pending",
+  "activeForm": "Verifying refactor with diagnostics and tests",
+  "blocks": [],
+  "blockedBy": [],
+  "threadID": "ses_3525c7f55ffe2uhHdkq3eU4uOb"
+}

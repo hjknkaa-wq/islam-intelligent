@@ -15,6 +15,7 @@ SAFE_LICENSES = {
     "CC-BY-3.0",
     "CC-BY-4.0",
     "CC0-1.0",
+    "UNLICENSE",
     "PD",
     "MIT",
     "Apache-2.0",
@@ -122,18 +123,18 @@ def main():
 
     args = parser.parse_args()
 
-    print("🔍 Verifying license gate...")
+    print("[INFO] Verifying license gate...")
     print(f"   Database: {args.db}")
     print()
 
     passed, violations = verify_license_gate(args.db)
 
     if passed:
-        print("✅ License gate PASSED")
+        print("[OK] License gate PASSED")
         print("   All sources have acceptable licenses")
         sys.exit(0)
     else:
-        print("❌ License gate FAILED")
+        print("[FAIL] License gate FAILED")
         print(f"   {len(violations)} violation(s) found:")
         for v in violations:
             print(f"   - {v}")

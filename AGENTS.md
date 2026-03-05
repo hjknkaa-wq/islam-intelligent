@@ -2,7 +2,7 @@
 
 **Project:** Provenance-first Islamic knowledge intelligence platform
 **Focus:** Deterministic pipelines, explicit citations, no hallucinated sources
-**Updated:** 2026-03-03
+**Updated:** 2026-03-04
 
 ---
 
@@ -124,6 +124,8 @@ make up
 make down
 make migrate
 make ingest:quran_sample
+make ingest:quran_full
+make ingest:hadith_full
 make test
 make logs
 ```

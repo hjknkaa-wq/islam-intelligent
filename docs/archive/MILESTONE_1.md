@@ -3,6 +3,8 @@
 **Completed**: 2026-03-02  
 **Status**: ✅ COMPLETE
 
+> Update note (2026-03-04): This document records Milestone 1 only. Full Quran ingestion pathway was added later via `scripts/ingest_quran_tanzil.py` and `make ingest:quran_full`; full hadith ingestion is still pending.
+
 ## Deliverables
 
 ### 1. Documentation (Wave 1)

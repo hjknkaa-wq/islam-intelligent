@@ -145,8 +145,8 @@ class TestLexicalSearch:
 
 
 class TestVectorSearch:
-    def test_vector_placeholder_disabled(self) -> None:
-        assert is_vector_available() is False
+    def test_vector_placeholder_enabled_with_fallback(self) -> None:
+        assert is_vector_available() is True
         assert search_vector("anything", limit=5) == []
 
 

@@ -1,0 +1,33 @@
+{
+  "id": "T-05db1f94-fa38-45ba-8a02-a5154be6e827",
+  "subject": "Milestone 4: Strengthen KG-Evidence Integration",
+  "description": "Perkuat integrasi KG dengan evidence. Pastikan kg_edge SELALU punya kg_edge_evidence. Update edge_manager dan tests.",
+  "status": "pending",
+  "blocks": [],
+  "blockedBy": [],
+  "metadata": {
+    "milestone": 4,
+    "files_touched": [
+      "apps/api/src/islam_intelligent/kg/edge_manager.py",
+      "apps/api/src/islam_intelligent/kg/models.py",
+      "apps/api/tests/test_kg_edge_requires_evidence*.py"
+    ],
+    "acceptance_criteria": [
+      "Semua kg_edge memiliki minimal 1 kg_edge_evidence",
+      "Edge creation rejects edges tanpa evidence",
+      "Database-level constraint jika memungkinkan",
+      "Semua existing tests pass",
+      "Edge manager menghasilkan error jika evidence span tidak valid"
+    ],
+    "agent_category": "islam-kg",
+    "agent_model": "openai/gpt-5.2",
+    "priority": "high",
+    "blockedBy": [
+      "M2"
+    ],
+    "blocks": [
+      "M5"
+    ]
+  },
+  "threadID": "ses_352686818ffeQlPPnHDPMf2FO4"
+}

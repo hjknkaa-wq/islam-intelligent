@@ -21,6 +21,7 @@ Exit codes:
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import sqlite3
 import subprocess
@@ -29,13 +30,14 @@ import uuid
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import cast
+from typing import Any, cast
 
 import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_DB_PATH = ROOT / ".local" / "dev.db"
 DB_INIT_SCRIPT = ROOT / "scripts" / "db_init.py"
+HADITH_INGEST_SCRIPT = ROOT / "scripts" / "ingest_hadith_api.py"
 FIXTURES_DIR = ROOT / "data" / "fixtures"
 
 # Smoke check thresholds
@@ -47,6 +49,12 @@ MIN_HADITH_ITEM = 1
 class CliArgs:
     db_path: Path
     verbose: bool
+    quran_mode: str
+    quran_variant: str
+    hadith_mode: str
+    hadith_edition: str
+    hadith_all_supported_arabic: bool
+    hadith_api_ref: str
 
 
 def _parse_args() -> CliArgs:
@@ -63,10 +71,54 @@ def _parse_args() -> CliArgs:
         action="store_true",
         help="Enable verbose output",
     )
+    parser.add_argument(
+        "--quran-mode",
+        choices=["minimal", "tanzil"],
+        default="minimal",
+        help="Quran ingestion mode: minimal fixtures or full Tanzil corpus",
+    )
+    parser.add_argument(
+        "--quran-variant",
+        choices=["uthmani", "simple", "simple_clean"],
+        default="uthmani",
+        help="Tanzil variant used when --quran-mode=tanzil",
+    )
+    parser.add_argument(
+        "--hadith-mode",
+        choices=["minimal", "api"],
+        default="minimal",
+        help="Hadith ingestion mode: minimal fixtures or hadith-api ingestion",
+    )
+    parser.add_argument(
+        "--hadith-edition",
+        type=str,
+        default="ara-bukhari",
+        help="Hadith edition used when --hadith-mode=api",
+    )
+    parser.add_argument(
+        "--hadith-all-supported-arabic",
+        action="store_true",
+        help=(
+            "When --hadith-mode=api, ingest all supported Arabic major collections "
+            "instead of a single --hadith-edition"
+        ),
+    )
+    parser.add_argument(
+        "--hadith-api-ref",
+        type=str,
+        default="1",
+        help="hadith-api ref (tag/branch/commit) used when --hadith-mode=api",
+    )
     parsed = parser.parse_args()
     return CliArgs(
         db_path=_resolve_path(cast(str, parsed.db_path)),
         verbose=cast(bool, parsed.verbose),
+        quran_mode=cast(str, parsed.quran_mode),
+        quran_variant=cast(str, parsed.quran_variant),
+        hadith_mode=cast(str, parsed.hadith_mode),
+        hadith_edition=cast(str, parsed.hadith_edition),
+        hadith_all_supported_arabic=cast(bool, parsed.hadith_all_supported_arabic),
+        hadith_api_ref=cast(str, parsed.hadith_api_ref),
     )
 
 
@@ -129,7 +181,7 @@ def _run_db_init(db_path: Path, verbose: bool = False) -> bool:
         return False
 
 
-def _load_yaml_fixture(file_path: Path) -> dict:
+def _load_yaml_fixture(file_path: Path) -> dict[str, Any]:
     """Load a YAML fixture file."""
     with open(file_path, encoding="utf-8") as f:
         return yaml.safe_load(f)
@@ -159,8 +211,6 @@ def _seed_quran_fixtures(conn: sqlite3.Connection, fixtures_dir: Path) -> int:
         print(f"  Source already exists: {metadata['source_id']}")
     else:
         all_text = "\n".join(u.get("text", "") for u in text_units)
-        import hashlib
-
         content_hash = hashlib.sha256(all_text.encode("utf-8")).hexdigest()
 
         conn.execute(
@@ -261,8 +311,6 @@ def _seed_hadith_fixtures(conn: sqlite3.Connection, fixtures_dir: Path) -> int:
         print(f"  Source already exists: {metadata['source_id']}")
     else:
         all_text = "\n".join(u.get("text_ar", "") for u in text_units)
-        import hashlib
-
         content_hash = hashlib.sha256(all_text.encode("utf-8")).hexdigest()
 
         conn.execute(
@@ -343,13 +391,122 @@ def _seed_hadith_fixtures(conn: sqlite3.Connection, fixtures_dir: Path) -> int:
     return created_count
 
 
-def _seed_fixtures(db_path: Path, verbose: bool = False) -> bool:
+def _seed_quran_tanzil(
+    db_path: Path, quran_variant: str, verbose: bool = False
+) -> bool:
+    """Load full Quran corpus from Tanzil using dedicated script."""
+    script = ROOT / "scripts" / "ingest_quran_tanzil.py"
+    cmd = [
+        sys.executable,
+        str(script),
+        "--db-path",
+        str(db_path),
+        "--variant",
+        quran_variant,
+    ]
+
+    if verbose:
+        print(f"[INFO] Running: {' '.join(cmd)}")
+
+    try:
+        result = subprocess.run(cmd, capture_output=True, text=True, check=True)
+        print(result.stdout)
+        if result.stderr:
+            print(result.stderr, file=sys.stderr)
+        return True
+    except subprocess.CalledProcessError as exc:
+        print(
+            f"[ERROR] ingest_quran_tanzil.py failed with exit code {exc.returncode}",
+            file=sys.stderr,
+        )
+        print(exc.stdout, file=sys.stderr)
+        print(exc.stderr, file=sys.stderr)
+        return False
+
+
+def _seed_hadith_api(
+    db_path: Path,
+    *,
+    hadith_edition: str,
+    hadith_all_supported_arabic: bool,
+    hadith_api_ref: str,
+    verbose: bool = False,
+) -> bool:
+    """Load hadith corpus from hadith-api using dedicated script."""
+    cmd = [
+        sys.executable,
+        str(HADITH_INGEST_SCRIPT),
+        "--db-path",
+        str(db_path),
+        "--api-ref",
+        hadith_api_ref,
+    ]
+    if hadith_all_supported_arabic:
+        cmd.append("--all-supported-arabic")
+    else:
+        cmd.extend(["--edition", hadith_edition])
+
+    if verbose:
+        print(f"[INFO] Running: {' '.join(cmd)}")
+
+    try:
+        result = subprocess.run(cmd, capture_output=True, text=True, check=True)
+        print(result.stdout)
+        if result.stderr:
+            print(result.stderr, file=sys.stderr)
+        return True
+    except subprocess.CalledProcessError as exc:
+        print(
+            f"[ERROR] ingest_hadith_api.py failed with exit code {exc.returncode}",
+            file=sys.stderr,
+        )
+        print(exc.stdout, file=sys.stderr)
+        print(exc.stderr, file=sys.stderr)
+        return False
+
+
+def _seed_fixtures(
+    db_path: Path,
+    *,
+    quran_mode: str,
+    quran_variant: str,
+    hadith_mode: str,
+    hadith_edition: str,
+    hadith_all_supported_arabic: bool,
+    hadith_api_ref: str,
+    verbose: bool = False,
+) -> bool:
     """Load fixtures directly into database."""
     try:
         conn = sqlite3.connect(db_path)
 
-        quran_count = _seed_quran_fixtures(conn, FIXTURES_DIR)
-        hadith_count = _seed_hadith_fixtures(conn, FIXTURES_DIR)
+        if quran_mode == "minimal":
+            quran_count = _seed_quran_fixtures(conn, FIXTURES_DIR)
+        else:
+            quran_ok = _seed_quran_tanzil(db_path, quran_variant, verbose=verbose)
+            if not quran_ok:
+                conn.close()
+                return False
+            quran_count = conn.execute(
+                "SELECT COUNT(*) FROM text_unit WHERE unit_type = 'quran_ayah'"
+            ).fetchone()[0]
+
+        if hadith_mode == "minimal":
+            hadith_count = _seed_hadith_fixtures(conn, FIXTURES_DIR)
+        else:
+            hadith_ok = _seed_hadith_api(
+                db_path,
+                hadith_edition=hadith_edition,
+                hadith_all_supported_arabic=hadith_all_supported_arabic,
+                hadith_api_ref=hadith_api_ref,
+                verbose=verbose,
+            )
+            if not hadith_ok:
+                conn.close()
+                return False
+            hadith_count = conn.execute(
+                "SELECT COUNT(*) FROM text_unit WHERE unit_type = 'hadith_item'"
+            ).fetchone()[0]
 
         # Print summary
         print("\n" + "=" * 60)
@@ -501,6 +658,16 @@ def main() -> int:
 
     print(f"\nDatabase path: {args.db_path}")
     print(f"Idempotent: Yes (safe to run multiple times)")
+    print(f"Quran mode: {args.quran_mode}")
+    if args.quran_mode == "tanzil":
+        print(f"Quran variant: {args.quran_variant}")
+    print(f"Hadith mode: {args.hadith_mode}")
+    if args.hadith_mode == "api":
+        print(f"Hadith API ref: {args.hadith_api_ref}")
+        if args.hadith_all_supported_arabic:
+            print("Hadith editions: all supported Arabic major collections")
+        else:
+            print(f"Hadith edition: {args.hadith_edition}")
 
     # Step 1: Delete existing database
     print("\n[STEP 1] Deleting existing database...")
@@ -516,7 +683,16 @@ def main() -> int:
 
     # Step 3: Load fixtures
     print("\n[STEP 3] Loading fixtures...")
-    if not _seed_fixtures(args.db_path, verbose=args.verbose):
+    if not _seed_fixtures(
+        args.db_path,
+        quran_mode=args.quran_mode,
+        quran_variant=args.quran_variant,
+        hadith_mode=args.hadith_mode,
+        hadith_edition=args.hadith_edition,
+        hadith_all_supported_arabic=args.hadith_all_supported_arabic,
+        hadith_api_ref=args.hadith_api_ref,
+        verbose=args.verbose,
+    ):
         _write_evidence(args.db_path, success=False)
         return 2
 

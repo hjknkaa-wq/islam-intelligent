@@ -1,0 +1,28 @@
+{
+  "id": "T-b45778d1-4d12-49f9-aa3f-abb7cc2f77ea",
+  "subject": "REVISED M4: Strengthen KG-Evidence Integration",
+  "description": "KG edge already requires evidence_span_ids, but need to ensure cascade behavior and add any missing constraints.\n\nAPPROACH:\n1. Review edge_manager.py - already enforces evidence requirement\n2. Add ON DELETE CASCADE or appropriate behavior for evidence spans\n3. Ensure kg_edge_evidence table has proper FK constraints\n4. Add tests for edge cases (deleting evidence with existing edges)\n\nACCEPTANCE:\n- Edge creation requires evidence (already done)\n- Proper cascade behavior defined\n- Tests for evidence deletion scenarios\n- All KG tests pass",
+  "status": "completed",
+  "blocks": [
+    "REVISED-M5"
+  ],
+  "blockedBy": [
+    "REVISED-M3"
+  ],
+  "metadata": {
+    "milestone": 4,
+    "category": "islam-kg",
+    "files": [
+      "apps/api/src/islam_intelligent/kg/edge_manager.py",
+      "apps/api/src/islam_intelligent/kg/models.py"
+    ],
+    "priority": "high",
+    "acceptance_criteria": [
+      "Evidence requirement enforced",
+      "Cascade behavior defined",
+      "Edge deletion tests pass"
+    ],
+    "agent": "islam-kg (gpt-5.2)"
+  },
+  "threadID": "ses_352686818ffeQlPPnHDPMf2FO4"
+}
