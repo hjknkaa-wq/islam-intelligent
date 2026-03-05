@@ -333,7 +333,7 @@ class TestHyDEIntegration:
         assert metadata["hyde_used"] is False  # Not used when unavailable
 
     def test_hyde_embedding_dimensions(self, monkeypatch):
-        """Test that HyDE returns embeddings with valid dimensions."""
+        """Test that HyDE returns non-empty embeddings with valid dimensions."""
         monkeypatch.delenv("OPENAI_API_KEY", raising=False)
         from islam_intelligent.rag.retrieval.hyde import HyDEQueryExpander
 

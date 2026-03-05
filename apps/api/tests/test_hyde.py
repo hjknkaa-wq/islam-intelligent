@@ -125,7 +125,8 @@ class TestHyDEEmbedding:
 
         embedding = expander.get_embedding(query)
 
-        # Should return an embedding vector (fallback or from local model)
+        # Should return an embedding vector; dimension depends on which
+        # embedding model is available (e.g. 1536 for OpenAI, 768 for LaBSE)
         assert isinstance(embedding, list)
         assert len(embedding) > 0
 
