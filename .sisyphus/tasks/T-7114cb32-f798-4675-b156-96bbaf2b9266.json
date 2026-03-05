@@ -1,0 +1,12 @@
+{
+  "id": "T-7114cb32-f798-4675-b156-96bbaf2b9266",
+  "subject": "Summarize codebase architecture and workflows for user",
+  "description": "Synthesize findings into a concise explanation of structure, responsibilities, and how to navigate the repo.",
+  "status": "pending",
+  "activeForm": "Summarizing codebase architecture and workflows for user",
+  "blocks": [],
+  "blockedBy": [
+    "T-bae4fb80-d6eb-47e6-aeec-6f84741b9475"
+  ],
+  "threadID": "ses_351295d1affetrHHEHR5A40vYP"
+}

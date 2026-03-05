@@ -1,0 +1,11 @@
+{
+  "id": "T-3d90f539-bc22-4cdf-abe1-faad4b8c1701",
+  "subject": "Verify real RAG pipeline implementation in apps/api",
+  "description": "Confirm core.py exists at apps/api/src/islam_intelligent/rag/pipeline/core.py and contains RAGPipeline class.",
+  "status": "completed",
+  "activeForm": "Verifying apps/api RAGPipeline implementation exists.",
+  "blocks": [],
+  "blockedBy": [],
+  "parentID": "T-e299b0d8-a1f6-48f4-86e0-d8c66988ac01",
+  "threadID": "ses_3525e8555ffeREr6BhsaN66Dja"
+}

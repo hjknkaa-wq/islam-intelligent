@@ -1,0 +1,10 @@
+{
+  "id": "T-2427b5df-a030-4ad2-bd33-40bd6bbf40c1",
+  "subject": "Expand abstain gate tests (10+ cases)",
+  "description": "Add/expand apps/api/tests/test_rag_abstain_gate.py with >=10 cases covering insufficient_evidence, untrusted_sources, verification_failed, citation_verification_failed.",
+  "status": "completed",
+  "activeForm": "Implement deterministic abstain gate tests with fixtures/mocks as needed.",
+  "blocks": [],
+  "blockedBy": [],
+  "threadID": "ses_352565f5dffePaLSSU1igyLYsw"
+}

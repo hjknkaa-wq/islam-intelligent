@@ -1,5 +1,6 @@
 """FastAPI routes for source document management."""
 
+import logging
 from collections.abc import Generator
 from typing import Any, Optional
 
@@ -12,6 +13,8 @@ from ...domain.models import SourceDocument
 from ...ingest import source_registry
 
 router = APIRouter(prefix="/sources", tags=["sources"])
+
+logger = logging.getLogger(__name__)
 
 
 # Dependency
@@ -168,15 +171,19 @@ async def list_sources(
     Returns a paginated list of sources. By default, only returns the
     latest version of each source.
     """
-    docs = source_registry.list_sources(
-        db=db,
-        source_type=source_type,
-        author=author,
-        language=language,
-        limit=limit,
-        offset=offset,
-        latest_only=latest_only,
-    )
+    try:
+        docs = source_registry.list_sources(
+            db=db,
+            source_type=source_type,
+            author=author,
+            language=language,
+            limit=limit,
+            offset=offset,
+            latest_only=latest_only,
+        )
+    except Exception:
+        logger.exception("Failed to list sources")
+        raise HTTPException(status_code=500, detail="Internal server error")
 
     return SourceListResponse(
         items=[_to_response(d) for d in docs],

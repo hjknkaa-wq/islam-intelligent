@@ -8,7 +8,9 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import cast
 from collections.abc import Mapping, Sequence
-from islam_intelligent.db.engine import DATABASE_URL
+from ...db.engine import DATABASE_URL
+
+from .faithfulness import CitationFaithfulnessVerifier, FaithfulnessResult
 
 
 @dataclass(frozen=True)
@@ -18,13 +20,17 @@ class CitationVerificationResult:
     verified: bool
     reason: str | None
     checked_citation_count: int
+    faithfulness_score: float | None = None
+    faithfulness_threshold: float | None = None
+    faithfulness_flagged: bool = False
+    unsupported_claim_count: int = 0
 
 
 def _default_dev_db_path() -> Path:
     """Use DATABASE_URL from engine module to ensure consistency with API."""
     db_url = DATABASE_URL
-    if isinstance(db_url, str) and db_url.startswith("sqlite+pysqlite:///"):
-        path_str = db_url[len("sqlite+pysqlite:///"):]
+    if db_url.startswith("sqlite+pysqlite:///"):
+        path_str = db_url[len("sqlite+pysqlite:///") :]
         if path_str:
             return Path(path_str)
     # Fallback to default path
@@ -35,13 +41,35 @@ def _default_dev_db_path() -> Path:
 class CitationVerifier:
     """Verifies that citations are resolvable and cryptographically consistent."""
 
-    def __init__(self, db_path: str | Path | None = None):
+    db_path: Path
+    faithfulness_threshold: float
+    faithfulness_action: str
+    _faithfulness_verifier: CitationFaithfulnessVerifier
+
+    def __init__(
+        self,
+        db_path: str | Path | None = None,
+        *,
+        faithfulness_threshold: float = 0.0,
+        faithfulness_action: str = "abstain",
+        faithfulness_verifier: CitationFaithfulnessVerifier | None = None,
+    ):
         self.db_path: Path = (
             Path(db_path) if db_path is not None else _default_dev_db_path()
         )
+        self.faithfulness_threshold = _coerce_non_negative_float(faithfulness_threshold)
+        clean_action = str(faithfulness_action).strip().lower()
+        self.faithfulness_action = (
+            clean_action if clean_action in {"abstain", "flag"} else "abstain"
+        )
+        self._faithfulness_verifier = (
+            faithfulness_verifier or CitationFaithfulnessVerifier()
+        )
 
     def verify_citations(
-        self, statements: Sequence[Mapping[str, object]]
+        self,
+        statements: Sequence[Mapping[str, object]],
+        retrieved_context: Sequence[Mapping[str, object]] | None = None,
     ) -> CitationVerificationResult:
         """Verify all citations in statement payloads.
 
@@ -49,6 +77,9 @@ class CitationVerifier:
         1) evidence_span_id exists
         2) span resolves to text_unit + source_document
         3) hash(UTF-8 bytes slice) == snippet_utf8_sha256
+
+        Optional faithfulness check:
+        4) each claim is supported by cited retrieved context (0-10 score)
         """
         citations: list[str] = []
         for statement in statements:
@@ -97,10 +128,51 @@ class CitationVerifier:
                         checked_citation_count=idx - 1,
                     )
 
+        faithfulness_result = self._verify_faithfulness(statements, retrieved_context)
+        if (
+            faithfulness_result is not None
+            and faithfulness_result.overall_score < self.faithfulness_threshold
+        ):
+            if self.faithfulness_action == "abstain":
+                return CitationVerificationResult(
+                    verified=False,
+                    reason="low_faithfulness",
+                    checked_citation_count=len(citations),
+                    faithfulness_score=faithfulness_result.overall_score,
+                    faithfulness_threshold=self.faithfulness_threshold,
+                    faithfulness_flagged=True,
+                    unsupported_claim_count=faithfulness_result.unsupported_claim_count,
+                )
+
+            return CitationVerificationResult(
+                verified=True,
+                reason=None,
+                checked_citation_count=len(citations),
+                faithfulness_score=faithfulness_result.overall_score,
+                faithfulness_threshold=self.faithfulness_threshold,
+                faithfulness_flagged=True,
+                unsupported_claim_count=faithfulness_result.unsupported_claim_count,
+            )
+
         return CitationVerificationResult(
             verified=True,
             reason=None,
             checked_citation_count=len(citations),
+            faithfulness_score=(
+                faithfulness_result.overall_score
+                if faithfulness_result is not None
+                else None
+            ),
+            faithfulness_threshold=(
+                self.faithfulness_threshold
+                if self.faithfulness_threshold > 0.0
+                else None
+            ),
+            unsupported_claim_count=(
+                faithfulness_result.unsupported_claim_count
+                if faithfulness_result is not None
+                else 0
+            ),
         )
 
     def _verify_single_citation(
@@ -148,3 +220,23 @@ class CitationVerifier:
             return "hash_mismatch"
 
         return None
+
+    def _verify_faithfulness(
+        self,
+        statements: Sequence[Mapping[str, object]],
+        retrieved_context: Sequence[Mapping[str, object]] | None,
+    ) -> FaithfulnessResult | None:
+        if self.faithfulness_threshold <= 0.0:
+            return None
+        return self._faithfulness_verifier.evaluate(statements, retrieved_context)
+
+
+def _coerce_non_negative_float(value: object) -> float:
+    if isinstance(value, (int, float)):
+        return max(0.0, float(value))
+    if isinstance(value, str):
+        try:
+            return max(0.0, float(value))
+        except ValueError:
+            return 0.0
+    return 0.0

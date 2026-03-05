@@ -1,0 +1,14 @@
+{
+  "id": "T-c9b32e5c-d6c1-4b08-b4fc-a15be88b388d",
+  "subject": "Remove ingest service from docker-compose.yml",
+  "description": "Update docker-compose.yml to remove the ingest service block",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [],
+  "metadata": {
+    "step": 2,
+    "type": "edit",
+    "file": "docker-compose.yml"
+  },
+  "threadID": "ses_352606915ffehWYaIfoB69ZutB"
+}

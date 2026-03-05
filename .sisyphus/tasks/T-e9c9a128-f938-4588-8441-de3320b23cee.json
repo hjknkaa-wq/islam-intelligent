@@ -1,0 +1,20 @@
+{
+  "id": "T-e9c9a128-f938-4588-8441-de3320b23cee",
+  "subject": "Create Milestone 2 Specification for islam-intelligent",
+  "description": "Create comprehensive Milestone 2 specification document focusing on:\n1. evidence_span generation (byte offsets + sha256)\n2. retrieval returns evidence_span_id + snippet\n3. citation verifier works end-to-end in docker-compose (postgres)\n4. update eval so answerable cases pass, abstention cases remain abstain\n\nOutput should include: detailed task list + acceptance criteria + tests to add",
+  "status": "pending",
+  "blocks": [],
+  "blockedBy": [],
+  "metadata": {
+    "plan": "islam-intelligent-milestone-2",
+    "type": "specification",
+    "priority": "high",
+    "features": [
+      "evidence_span",
+      "retrieval",
+      "citation_verifier",
+      "eval_update"
+    ]
+  },
+  "threadID": "ses_3529e8022ffemiW3uefujwWGd2"
+}

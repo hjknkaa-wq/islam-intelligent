@@ -1,5 +1,7 @@
 # ISLAM CERDAS — Aturan Proyek (Berdasarkan Desain)
 
+> Legacy note: this file is kept for historical Indonesian guidance. Active repository operating guide is `AGENTS.md`.
+
 ## Hal yang Tidak Dapat Ditawar
 - TIDAK BOLEH BERHALUSINASI: Jika bukti tidak ada, jangan berikan bukti dan mintalah sumber tambahan.
 - Bukti sumber wajib: setiap klaim harus menyertakan penunjuk ke sumber (ID dokumen + lokasi).

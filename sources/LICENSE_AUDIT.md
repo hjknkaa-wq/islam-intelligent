@@ -2,7 +2,7 @@
 
 Hard gate: no ingestion unless a source is explicitly SAFE here.
 
-Last reviewed: 2026-03-01
+Last reviewed: 2026-03-04
 
 ## Status definitions
 
@@ -17,6 +17,7 @@ These are the only sources in this list that are safe to use for MVP fixtures wi
 1) tanzil_quran_text_uthmani (verbatim only)
 2) tanzil_quran_text_simple (verbatim only)
 3) tanzil_quran_text_simple_clean (verbatim only)
+4) hadith_api_fawazahmed_v1 (Unlicense; pinned API ref)
 
 ## Source inventory
 
@@ -143,6 +144,18 @@ Qur'an Translation taken by open licence from the English Translation of the Hol
   - Provided under GNU GPL, which imposes copyleft conditions; combined with non-commercial constraint this is not suitable for broad redistribution in this repo.
 
 ### Hadith / Sunnah collections
+
+#### hadith_api_fawazahmed_v1
+
+- status: SAFE
+- license_url: https://raw.githubusercontent.com/fawazahmed0/hadith-api/1/LICENSE
+- license_url_alt: https://github.com/fawazahmed0/hadith-api/blob/a07cb47397dc36d0a238bfad9419c725b268a38c/LICENSE
+- rights_holder: hadith-api contributors (public domain dedication via The Unlicense)
+- attribution_text: Optional attribution recommended - "Source: fawazahmed0/hadith-api"
+- notes:
+  - API endpoint format: `https://cdn.jsdelivr.net/gh/fawazahmed0/hadith-api@{ref}/...`
+  - Ingestion MUST pin `ref` to a stable tag/commit and store retrieved content hash.
+  - This source entry approves ingestion of hadith-api distributions under the declared repository license.
 
 #### sunnah_com_hadith_collections
 

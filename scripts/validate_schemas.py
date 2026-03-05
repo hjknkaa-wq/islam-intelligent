@@ -94,15 +94,15 @@ def validate_sql_syntax(sql_content: str, filename: str) -> Tuple[bool, List[str
         errors.append(f"{filename}: Unbalanced parentheses (net: {paren_count})")
 
     # Check for required keywords in migration
-    required_patterns = [
-        (r"CREATE\s+(TABLE|TYPE|INDEX|VIEW)", "No CREATE TABLE/TYPE/INDEX/VIEW found"),
-        (r"\buuid_generate_v4\(\)", "Uses uuid_generate_v4()"),
-    ]
-
-    for pattern, description in required_patterns:
-        if not re.search(pattern, sql_content, re.IGNORECASE):
-            errors.append(f"{filename}: {description}")
-
+    # uuid_generate_v4() is only required in CREATE TABLE migrations, not ALTER TABLE
+    has_create_table = re.search(r"CREATE\s+TABLE", sql_content, re.IGNORECASE)
+    
+    if not re.search(r"CREATE\s+(TABLE|TYPE|INDEX|VIEW)", sql_content, re.IGNORECASE):
+        errors.append(f"{filename}: No CREATE TABLE/TYPE/INDEX/VIEW found")
+    
+    # Only check for uuid_generate_v4() in migrations that CREATE tables
+    if has_create_table and not re.search(r"\buuid_generate_v4\(\)", sql_content, re.IGNORECASE):
+        errors.append(f"{filename}: CREATE TABLE without uuid_generate_v4()")
     # Check for common SQL syntax errors
     syntax_checks = [
         (r",\s*\)", "Trailing comma before closing paren"),

@@ -1,0 +1,14 @@
+{
+  "id": "T-75400ae8-b7f8-4c05-9dc6-328f3f43c215",
+  "subject": "Add docstring to load_fixtures.py",
+  "description": "Add docstring at top of scripts/load_fixtures.py explaining it's a database seeding utility",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [],
+  "metadata": {
+    "step": 3,
+    "type": "edit",
+    "file": "scripts/load_fixtures.py"
+  },
+  "threadID": "ses_352606915ffehWYaIfoB69ZutB"
+}

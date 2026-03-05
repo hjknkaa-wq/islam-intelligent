@@ -1,8 +1,8 @@
 # ISLAM INTELLIGENT — Project Proposal
 
-**Tanggal / Date:** 2026-03-03  
-**Versi / Version:** 1.0  
-**Status:** Draft
+**Tanggal / Date:** 2026-03-04  
+**Versi / Version:** 1.1  
+**Status:** Active (Quran full-ingestion pathway implemented, hadith full-ingestion pending)
 
 ---
 
@@ -67,7 +67,7 @@ The demand for accurate, verifiable Islamic information continues to grow, yet m
 | Backend API | Python 3.12 + FastAPI | ✅ Berjalan |
 | Frontend UI | Next.js 14 + TypeScript | ✅ Berjalan |
 | Database | SQLite (dev) / PostgreSQL + pgvector (prod) | ✅ Dev aktif |
-| Ingesti | Python ETL idempoten | ✅ Quran minimal (23 ayat) |
+| Ingesti | Python ETL idempoten | 🟡 Quran full pathway tersedia (6.236 ayat), hadith masih minimal |
 | RAG | Lexical retrieval + mock LLM | ⚠️ Mock only |
 | Vector Search | pgvector (dinonaktifkan) | ❌ Belum aktif |
 | Knowledge Graph | SQLAlchemy + provenance | ✅ Berjalan |
@@ -96,11 +96,11 @@ Setiap klaim yang dihasilkan sistem **harus** menyertakan:
 | **Milestone 1** | Foundation: schemas, fixtures (23 ayat), API scaffold, UI | Selesai | ✅ DONE |
 | **Milestone 2** | Perbaikan bug kritis, migrasi DB, sinkronisasi UI-API | Selesai | ✅ DONE |
 | **Milestone 3** | Integrasi LLM nyata + vector search | 1-2 minggu | 🔲 TODO |
-| **Milestone 4** | Ingesti penuh Al-Quran (6.236 ayat) + Hadits utama | 2 minggu | 🔲 TODO |
+| **Milestone 4** | Ingesti penuh Al-Quran (6.236 ayat) + Hadits utama | 2 minggu | 🟡 IN PROGRESS (Quran pathway ✅, Hadits 🔲) |
 | **Milestone 5** | Cakupan uji 90%+, hardening keamanan, dokumentasi | 1 minggu | 🔲 TODO |
 | **Milestone 6** | Deployment produksi + CI/CD | 1 minggu | 🔲 TODO |
 
-Rincian lengkap tersedia di [`REMEDIATION_PLAN.md`](./REMEDIATION_PLAN.md) dan [`PROJECT_STATUS.md`](./PROJECT_STATUS.md).
+Rincian baseline historis tersedia di [`docs/archive/REMEDIATION_PLAN.md`](./docs/archive/REMEDIATION_PLAN.md) dan [`docs/archive/PROJECT_STATUS.md`](./docs/archive/PROJECT_STATUS.md).
 
 ---
 
@@ -108,13 +108,13 @@ Rincian lengkap tersedia di [`REMEDIATION_PLAN.md`](./REMEDIATION_PLAN.md) dan [
 
 | Sumber | Lisensi | Jumlah | Status |
 |--------|---------|--------|--------|
-| Al-Quran (Tanzil Project) | CC-BY-3.0 | 6.236 ayat | ⚠️ 23 ayat tersedia |
-| Sahih Bukhari (sunnah.com API) | Terbuka | ~7.000 hadits | 🔲 Belum diingesti |
-| Sahih Muslim | Terbuka | ~7.500 hadits | 🔲 Belum diingesti |
-| Sunan Abu Dawud | Terbuka | ~4.800 hadits | 🔲 Belum diingesti |
-| Jāmiʿ at-Tirmidhī | Terbuka | ~3.900 hadits | 🔲 Belum diingesti |
-| Sunan an-Nasāʾī | Terbuka | ~5.700 hadits | 🔲 Belum diingesti |
-| Sunan Ibn Mājah | Terbuka | ~4.300 hadits | 🔲 Belum diingesti |
+| Al-Quran (Tanzil Project) | CC-BY-3.0 | 6.236 ayat | ✅ Pathway ingest penuh tersedia (`make ingest:quran_full`) |
+| Sahih Bukhari | UNKNOWN/RESTRICTED (lihat audit) | ~7.000 hadits | 🔲 Belum diingesti |
+| Sahih Muslim | UNKNOWN/RESTRICTED (lihat audit) | ~7.500 hadits | 🔲 Belum diingesti |
+| Sunan Abu Dawud | UNKNOWN/RESTRICTED (lihat audit) | ~4.800 hadits | 🔲 Belum diingesti |
+| Jāmiʿ at-Tirmidhī | UNKNOWN/RESTRICTED (lihat audit) | ~3.900 hadits | 🔲 Belum diingesti |
+| Sunan an-Nasāʾī | UNKNOWN/RESTRICTED (lihat audit) | ~5.700 hadits | 🔲 Belum diingesti |
+| Sunan Ibn Mājah | UNKNOWN/RESTRICTED (lihat audit) | ~4.300 hadits | 🔲 Belum diingesti |
 | Tafsir Ibn Kathir (en) | Domain publik | Per surah | 🔲 Belum diimplementasi |
 
 Semua sumber eksternal diperlakukan sebagai **tidak tepercaya** hingga dikurasi dan diverifikasi. Lihat [`sources/LICENSE_AUDIT.md`](./sources/LICENSE_AUDIT.md) untuk audit lengkap.
@@ -123,7 +123,7 @@ Semua sumber eksternal diperlakukan sebagai **tidak tepercaya** hingga dikurasi 
 
 ## 7. Kriteria Keberhasilan / Success Criteria
 
-- [ ] Semua 6.236 ayat Al-Quran berhasil diingesti dengan canonical ID benar (`quran:1:1` — `quran:114:6`)
+- [x] Pathway ingesti penuh 6.236 ayat Al-Quran tersedia dengan canonical ID benar (`quran:1:1` — `quran:114:6`)
 - [ ] Koleksi Hadits utama diingesti dengan grading dan sanad tersedia
 - [ ] LLM menghasilkan jawaban nyata dengan kutipan bukti yang terverifikasi
 - [ ] Vector search aktif dan hybrid search berfungsi
@@ -172,7 +172,10 @@ make up
 # 2. Run database migrations
 make migrate
 
-# 3. Load Quran fixture data
+# 3. Load full Quran pathway (Tanzil)
+make ingest:quran_full
+
+# 3b. Optional: load minimal fixtures only
 make ingest:quran_sample
 
 # 4. Run tests
@@ -204,10 +207,10 @@ npm run dev
 |---------|-----------|
 | [`AGENTS.md`](./AGENTS.md) | Aturan agen, standar kutipan, anti-pola |
 | [`AGENT.md`](./AGENT.md) | Aturan proyek (Bahasa Indonesia) |
-| [`MILESTONE_1.md`](./MILESTONE_1.md) | Detail Milestone 1 yang sudah selesai |
-| [`CODEBASE_ASSESSMENT.md`](./CODEBASE_ASSESSMENT.md) | Analisis komprehensif codebase |
-| [`REMEDIATION_PLAN.md`](./REMEDIATION_PLAN.md) | Rencana perbaikan 2-3 minggu |
-| [`PROJECT_STATUS.md`](./PROJECT_STATUS.md) | Status proyek terkini |
+| [`docs/archive/MILESTONE_1.md`](./docs/archive/MILESTONE_1.md) | Detail Milestone 1 yang sudah selesai |
+| [`docs/archive/CODEBASE_ASSESSMENT.md`](./docs/archive/CODEBASE_ASSESSMENT.md) | Analisis komprehensif codebase (arsip) |
+| [`docs/archive/REMEDIATION_PLAN.md`](./docs/archive/REMEDIATION_PLAN.md) | Rencana perbaikan baseline (arsip) |
+| [`docs/archive/PROJECT_STATUS.md`](./docs/archive/PROJECT_STATUS.md) | Snapshot status historis (arsip) |
 | [`docs/TECH_STACK.md`](./docs/TECH_STACK.md) | Keputusan tumpukan teknologi MVP |
 | [`docs/CANONICAL_IDS.md`](./docs/CANONICAL_IDS.md) | Spesifikasi ID kanonik Quran dan Hadits |
 | [`sources/LICENSE_AUDIT.md`](./sources/LICENSE_AUDIT.md) | Audit lisensi sumber data |

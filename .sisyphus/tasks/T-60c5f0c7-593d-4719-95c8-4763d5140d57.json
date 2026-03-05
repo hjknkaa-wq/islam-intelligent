@@ -1,0 +1,10 @@
+{
+  "id": "T-60c5f0c7-593d-4719-95c8-4763d5140d57",
+  "subject": "Verify/enhance scripts/run_eval.py for comprehensive suite",
+  "description": "Ensure scripts/run_eval.py runs the evaluation suite (pytest + coverage for RAG modules), supports selecting categories, and produces actionable output.",
+  "status": "completed",
+  "activeForm": "Enhance eval runner to orchestrate tests/coverage and validate thresholds.",
+  "blocks": [],
+  "blockedBy": [],
+  "threadID": "ses_352565f5dffePaLSSU1igyLYsw"
+}

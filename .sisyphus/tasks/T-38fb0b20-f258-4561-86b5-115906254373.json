@@ -1,0 +1,29 @@
+{
+  "id": "T-38fb0b20-f258-4561-86b5-115906254373",
+  "subject": "REVISED M3: Fix Evidence Span Storage (In-Memory → DB)",
+  "description": "CRITICAL FIX: EvidenceSpan model exists in DB but spans.py uses _spans dict (in-memory). This is a major inconsistency.\n\nAPPROACH:\n1. Rewrite apps/api/src/islam_intelligent/api/routes/spans.py to use EvidenceSpan SQLAlchemy model\n2. Remove _spans dict and _span_counter\n3. Use database UUIDs, not generated IDs\n4. Update all span tests to use DB\n\nACCEPTANCE:\n- No in-memory _spans dict\n- All span CRUD uses EvidenceSpan model\n- UUIDs from database\n- Tests updated for DB persistence\n- Span routes work with evidence.py (which already uses DB)",
+  "status": "completed",
+  "blocks": [
+    "REVISED-M4"
+  ],
+  "blockedBy": [
+    "REVISED-M2"
+  ],
+  "metadata": {
+    "milestone": 3,
+    "category": "islam-etl",
+    "files": [
+      "apps/api/src/islam_intelligent/api/routes/spans.py",
+      "apps/api/tests/test_span_*.py"
+    ],
+    "priority": "critical",
+    "acceptance_criteria": [
+      "_spans dict removed",
+      "EvidenceSpan model used throughout",
+      "UUID from database",
+      "Tests pass with DB"
+    ],
+    "agent": "islam-etl (kimi-for-coding/k2p5)"
+  },
+  "threadID": "ses_352686818ffeQlPPnHDPMf2FO4"
+}

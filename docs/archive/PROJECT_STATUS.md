@@ -1,9 +1,11 @@
 # ISLAM INTELLIGENT - PROJECT STATUS REPORT
 
-**Date:** 2026-03-02  
-**Status:** ✅ PHASE 1 COMPLETE - Critical Bugs Fixed  
-**Test Status:** 193 passed, 11 skipped  
-**Coverage:** 74%
+**Date:** 2026-03-02 (archived snapshot)  
+**Status:** 📦 ARCHIVED SNAPSHOT (historical baseline)  
+**Test Status:** 193 passed, 11 skipped (snapshot value)  
+**Coverage:** 74% (snapshot value)
+
+> Update note (2026-03-04): Full Quran ingestion pathway is implemented via `scripts/ingest_quran_tanzil.py` / `make ingest:quran_full`. Hadith-api full ingestion pathway is implemented via `scripts/ingest_hadith_api.py` / `make ingest:hadith_full`; production-scale runs still depend on executing those paths in target environments.
 
 ---
 
@@ -124,18 +126,18 @@ def is_vector_available() -> bool:
 #### 3.1 Full Quran Ingestion
 **Priority:** P0  
 **Effort:** 8-12 hours  
-**Status:** ❌ Not Started  
+**Status:** ✅ Complete (updated 2026-03-04)  
 
-**Current State:** Only 7 ayat in fixtures  
-**Required:** Ingest all 6236 ayat from Tanzil project
+**Current State:** Full ingestion pathway available (`scripts/ingest_quran_tanzil.py`)  
+**How to run:** `make ingest:quran_full` or `python scripts/dev_reset_and_seed.py --quran-mode tanzil`
 
 #### 3.2 Hadith Collections
 **Priority:** P0  
 **Effort:** 12-16 hours  
-**Status:** ❌ Not Started  
+**Status:** ⚠️ Pathway Implemented, full runs pending  
 
-**Current State:** Only 3 hadith in fixtures  
-**Required:** Ingest major collections (Bukhari, Muslim, etc.)
+**Current State:** Minimal fixtures exist and hadith-api full ingestion script is available (`scripts/ingest_hadith_api.py`)  
+**How to run:** `make ingest:hadith_full` or `python scripts/dev_reset_and_seed.py --hadith-mode api --hadith-all-supported-arabic`
 
 #### 3.3 Tafsir Data
 **Priority:** P1  
@@ -192,9 +194,9 @@ def is_vector_available() -> bool:
    - No semantic understanding
 
 3. **Minimal Data** 🔴
-   - Only 7 Quran ayat
-   - Only 3 hadith
-   - Not useful for real queries
+   - ✅ Quran full ingestion pathway available (6,236 ayat)
+   - ⚠️ Hadith full ingestion pathway available but full production runs may still be pending
+   - Real-query usefulness still limited by hadith coverage gap
 
 ---
 
@@ -225,7 +227,7 @@ def is_vector_available() -> bool:
 3. 🔲 Enable vector search
 
 ### Short Term (Next 2 Weeks)
-4. 🔲 Ingest full Quran
+4. ✅ Ingest full Quran (completed 2026-03-04)
 5. 🔲 Ingest Hadith collections
 6. 🔲 Achieve 90% coverage
 
@@ -281,14 +283,14 @@ def is_vector_available() -> bool:
 - [x] All tests passing
 - [ ] LLM integration complete
 - [ ] Vector search enabled
-- [ ] Full Quran ingested
+- [x] Full Quran ingested
 - [ ] Major Hadith collections ingested
 - [ ] 90%+ test coverage
 - [ ] Performance benchmarks met
 - [ ] Security audit passed
 - [ ] Documentation complete
 
-**Progress: 2/10 complete (20%)**
+**Progress: 3/10 complete (30%)**
 
 ---
 

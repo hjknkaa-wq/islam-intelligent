@@ -1,0 +1,10 @@
+{
+  "id": "T-e299b0d8-a1f6-48f4-86e0-d8c66988ac01",
+  "subject": "Execute REVISED M2: unify RAG pipeline cleanup",
+  "description": "Delete services/rag stub directory, remove rag service from docker-compose.yml, and verify real RAGPipeline in apps/api/src/islam_intelligent/rag/pipeline/core.py.",
+  "status": "completed",
+  "activeForm": "Executing revised M2 cleanup and verification with no changes to apps/api/rag implementation.",
+  "blocks": [],
+  "blockedBy": [],
+  "threadID": "ses_3525e8555ffeREr6BhsaN66Dja"
+}

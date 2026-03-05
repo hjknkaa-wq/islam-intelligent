@@ -1,0 +1,10 @@
+{
+  "id": "T-5e98ed12-2976-4cf9-9f1c-f3082d5d7512",
+  "subject": "Inspect current RAG pipeline, tests, and eval harness",
+  "description": "Review apps/api RAG modules, existing test_rag_*.py tests, and scripts/run_eval.py to design expanded evaluation suite and coverage targets.",
+  "status": "completed",
+  "activeForm": "Inspect repo state and identify RAG modules/interfaces for testing.",
+  "blocks": [],
+  "blockedBy": [],
+  "threadID": "ses_352565f5dffePaLSSU1igyLYsw"
+}

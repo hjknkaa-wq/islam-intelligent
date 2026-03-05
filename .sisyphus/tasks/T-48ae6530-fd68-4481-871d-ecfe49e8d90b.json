@@ -1,0 +1,11 @@
+{
+  "id": "T-48ae6530-fd68-4481-871d-ecfe49e8d90b",
+  "subject": "Remove rag service from docker-compose.yml",
+  "description": "Delete the rag service section from docker-compose.yml and ensure no services/rag references remain.",
+  "status": "completed",
+  "activeForm": "Editing docker-compose.yml to remove rag service.",
+  "blocks": [],
+  "blockedBy": [],
+  "parentID": "T-e299b0d8-a1f6-48f4-86e0-d8c66988ac01",
+  "threadID": "ses_3525e8555ffeREr6BhsaN66Dja"
+}

@@ -1,0 +1,31 @@
+{
+  "id": "T-2f1b3cfb-7a3c-4152-90a2-ddce17258c4f",
+  "subject": "Milestone 6: Add Basic Evaluation & QA",
+  "description": "Tambahkan evaluasi dan QA dasar. Setup test harness untuk RAG evaluation dan quality assurance.",
+  "status": "pending",
+  "blocks": [],
+  "blockedBy": [],
+  "metadata": {
+    "milestone": 6,
+    "files_touched": [
+      "apps/api/tests/test_rag_*.py",
+      "scripts/run_eval.py",
+      "data/eval/"
+    ],
+    "acceptance_criteria": [
+      "Test suite untuk RAG pipeline (retrieval, abstention, citation)",
+      "Minimal 10 test cases untuk abstain gate",
+      "Minimal 10 test cases untuk citation verification",
+      "Eval runner script yang executable",
+      "Test coverage > 80% untuk RAG modules"
+    ],
+    "agent_category": "islam-eval",
+    "agent_model": "openai/gpt-5.2",
+    "priority": "medium",
+    "blockedBy": [
+      "M3",
+      "M5"
+    ]
+  },
+  "threadID": "ses_352686818ffeQlPPnHDPMf2FO4"
+}

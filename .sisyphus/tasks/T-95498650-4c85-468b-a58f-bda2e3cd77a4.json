@@ -1,0 +1,28 @@
+{
+  "id": "T-95498650-4c85-468b-a58f-bda2e3cd77a4",
+  "subject": "REVISED M1: Unify Ingestion (Fix Direct DB Access)",
+  "description": "CRITICAL FIX: scripts/load_fixtures.py does DIRECT database access, bypassing API. services/ingest is a stub microservice. Need to establish ONE official ingestion path.\n\nAPPROACH:\n1. Keep apps/api/src/islam_intelligent/ingest/ as official\n2. Remove services/ingest/ (delete, not refactor - it's a stub)\n3. Update scripts/load_fixtures.py to use API client OR make it a db_init utility\n4. Ensure text_unit_builder and source_registry are the only ingestion logic\n\nACCEPTANCE:\n- services/ingest/ directory DELETED\n- Only one ingestion path: apps/api/src/islam_intelligent/ingest/\n- scripts/load_fixtures.py documented as \"db_init utility\" (direct access OK for seeding)\n- All ingestion uses text_unit_builder + canonical_id validation",
+  "status": "completed",
+  "blocks": [
+    "REVISED-M2"
+  ],
+  "blockedBy": [],
+  "metadata": {
+    "milestone": 1,
+    "category": "islam-etl",
+    "files": [
+      "services/ingest/",
+      "scripts/load_fixtures.py",
+      "apps/api/src/islam_intelligent/ingest/"
+    ],
+    "priority": "critical",
+    "acceptance_criteria": [
+      "services/ingest/ directory deleted",
+      "Only apps/api/src/islam_intelligent/ingest/ remains",
+      "load_fixtures.py has clear docstring explaining it's a seeding utility",
+      "No duplicate ingestion logic"
+    ],
+    "agent": "islam-etl (kimi-for-coding/k2p5)"
+  },
+  "threadID": "ses_352686818ffeQlPPnHDPMf2FO4"
+}

@@ -29,9 +29,21 @@ islam-intelligent/
 ```bash
 make up
 make migrate
-make ingest:quran_sample
+make ingest:hadith_full
 make test
 make logs
+```
+
+To seed only minimal local fixtures instead of full Quran+hadith ingestion:
+
+```bash
+make ingest:quran_sample
+```
+
+To ingest only full Quran (Tanzil) while keeping minimal hadith fixtures:
+
+```bash
+make ingest:quran_full
 ```
 
 Stop services:

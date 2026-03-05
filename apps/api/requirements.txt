@@ -1,0 +1,14 @@
+Verify each finding against the current code and only fix it if needed.
+
+In @islam-intelligent/apps/api/requirements.txt around lines 10 - 11, Remove the redundant explicit declarations for "torch>=2.0" and "numpy>=1.24" from requirements.txt since "sentence-transformers>=3.0.0" already brings them in, or if you deliberately need stricter minimums keep them but add a single-line comment explaining why those explicit versions are required (e.g., compatibility or performance reasons) and ensure they do not conflict with the transitive requirements from "sentence-transformers>=3.0.0".fastapi
+sqlalchemy>=2.0
+pydantic>=2,<3
+alembic
+openai>=1.0.0
+sentence-transformers>=3.0.0
+
+
+# Additional dependencies for new features
+torch>=2.0
+numpy>=1.24
+tiktoken>=0.6

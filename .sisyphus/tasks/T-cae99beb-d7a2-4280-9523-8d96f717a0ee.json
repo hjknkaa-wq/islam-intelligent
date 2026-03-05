@@ -1,0 +1,13 @@
+{
+  "id": "T-cae99beb-d7a2-4280-9523-8d96f717a0ee",
+  "subject": "Delete services/ingest/ directory",
+  "description": "Remove the entire services/ingest/ directory as it's a stub and no longer needed",
+  "status": "completed",
+  "blocks": [],
+  "blockedBy": [],
+  "metadata": {
+    "step": 1,
+    "type": "delete"
+  },
+  "threadID": "ses_352606915ffehWYaIfoB69ZutB"
+}

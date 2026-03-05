@@ -1,0 +1,10 @@
+{
+  "id": "T-36d63b82-2754-4d01-9188-28466894f2dd",
+  "subject": "Expand citation verification tests (10+ cases)",
+  "description": "Update apps/api/tests/test_rag_citation_verification.py with >=10 cases: hash mismatch, fabrication, valid citations, missing citations, edge cases.",
+  "status": "completed",
+  "activeForm": "Implement citation verification tests aligned to current citation schema and verifier logic.",
+  "blocks": [],
+  "blockedBy": [],
+  "threadID": "ses_352565f5dffePaLSSU1igyLYsw"
+}

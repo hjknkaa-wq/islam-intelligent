@@ -8,6 +8,8 @@ import hashlib
 import json
 
 import pytest
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
 from islam_intelligent.provenance import models as _prov_models  # noqa: F401
 
@@ -19,9 +21,45 @@ from islam_intelligent.kg.models import EvidenceSpan
 
 @pytest.fixture(autouse=True)
 def _reset_db():
-    Base.metadata.drop_all(engine)
-    Base.metadata.create_all(engine)
-    yield
+    global SessionLocal, engine
+
+    original_engine = engine
+    original_session_local = SessionLocal
+    original_edge_engine = edge_manager.engine
+    original_edge_session_local = edge_manager.SessionLocal
+    original_entity_engine = entity_manager.engine
+    original_entity_session_local = entity_manager.SessionLocal
+    original_edge_tables_initialized = edge_manager._tables_initialized
+    original_entity_tables_initialized = entity_manager._tables_initialized
+
+    test_engine = create_engine("sqlite+pysqlite:///:memory:", future=True)
+    test_session_local = sessionmaker(
+        bind=test_engine, autoflush=False, autocommit=False
+    )
+
+    engine = test_engine
+    SessionLocal = test_session_local
+    edge_manager.engine = test_engine
+    edge_manager.SessionLocal = test_session_local
+    entity_manager.engine = test_engine
+    entity_manager.SessionLocal = test_session_local
+    edge_manager._tables_initialized = False
+    entity_manager._tables_initialized = False
+
+    Base.metadata.create_all(bind=test_engine)
+
+    try:
+        yield
+    finally:
+        SessionLocal = original_session_local
+        engine = original_engine
+        edge_manager.engine = original_edge_engine
+        edge_manager.SessionLocal = original_edge_session_local
+        entity_manager.engine = original_entity_engine
+        entity_manager.SessionLocal = original_entity_session_local
+        edge_manager._tables_initialized = original_edge_tables_initialized
+        entity_manager._tables_initialized = original_entity_tables_initialized
+        test_engine.dispose()
 
 
 def _insert_evidence_span(evidence_span_id: str = "es_test_001") -> str:

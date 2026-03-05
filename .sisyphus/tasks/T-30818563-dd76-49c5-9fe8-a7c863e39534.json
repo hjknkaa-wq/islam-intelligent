@@ -1,0 +1,31 @@
+{
+  "id": "T-30818563-dd76-49c5-9fe8-a7c863e39534",
+  "subject": "REVISED M2: Unify RAG (Delete services/rag)",
+  "description": "CRITICAL FIX: There are TWO RAG implementations - apps/api (real) and services/rag (stub). docker-compose runs both. This is confusing.\n\nAPPROACH:\n1. DELETE services/rag/ entirely (it's a stub, never implemented)\n2. Update docker-compose.yml to remove rag service\n3. apps/api/rag/ is the ONLY RAG path\n4. Document that RAG is a module, not a microservice\n\nACCEPTANCE:\n- services/rag/ directory DELETED\n- docker-compose.yml has no rag service\n- Only /rag/query endpoint is in apps/api\n- RAG pipeline at apps/api/src/islam_intelligent/rag/ is fully functional",
+  "status": "completed",
+  "blocks": [
+    "REVISED-M3",
+    "REVISED-M5"
+  ],
+  "blockedBy": [
+    "REVISED-M1"
+  ],
+  "metadata": {
+    "milestone": 2,
+    "category": "islam-rag",
+    "files": [
+      "services/rag/",
+      "docker-compose.yml",
+      "apps/api/src/islam_intelligent/api/routes/rag.py"
+    ],
+    "priority": "critical",
+    "acceptance_criteria": [
+      "services/rag/ deleted",
+      "docker-compose.yml updated",
+      "Single RAG endpoint at apps/api",
+      "RAGPipeline fully functional"
+    ],
+    "agent": "islam-rag (gpt-5.3-codex)"
+  },
+  "threadID": "ses_352686818ffeQlPPnHDPMf2FO4"
+}

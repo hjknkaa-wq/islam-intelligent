@@ -23,17 +23,6 @@ class EvidenceItem(TypedDict):
     evidence_span_id: NotRequired[str]
 
 
-class Citation(TypedDict):
-    evidence_span_id: str
-    canonical_id: str
-    snippet: str
-
-
-class Statement(TypedDict):
-    text: str
-    citations: list[Citation]
-
-
 class LLMGenerator:
     """Generate evidence-grounded statements using OpenAI Chat Completions."""
 
