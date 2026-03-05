@@ -14,8 +14,11 @@ class TestVectorFallback:
         results = search_vector("test query", limit=10)
         assert results == []
 
-    def test_is_vector_available_returns_true(self):
-        """is_vector_available should return True with fallback embeddings."""
+    def test_is_vector_available_returns_true(self, monkeypatch):
+        """is_vector_available should return True when embedding generator is available."""
+        import islam_intelligent.rag.retrieval.vector as vector_mod
+
+        monkeypatch.setattr(vector_mod, "_EMBEDDING_GENERATOR", type("_Gen", (), {"is_available": lambda self: True})())
         assert is_vector_available() is True
 
     def test_hybrid_falls_back_gracefully(self):

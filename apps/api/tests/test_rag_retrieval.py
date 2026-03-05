@@ -145,7 +145,10 @@ class TestLexicalSearch:
 
 
 class TestVectorSearch:
-    def test_vector_placeholder_enabled_with_fallback(self) -> None:
+    def test_vector_placeholder_enabled_with_fallback(self, monkeypatch) -> None:
+        import islam_intelligent.rag.retrieval.vector as vector_mod
+
+        monkeypatch.setattr(vector_mod, "_EMBEDDING_GENERATOR", type("_Gen", (), {"is_available": lambda self: True, "generate_embedding": lambda self, q: []})())
         assert is_vector_available() is True
         assert search_vector("anything", limit=5) == []
 

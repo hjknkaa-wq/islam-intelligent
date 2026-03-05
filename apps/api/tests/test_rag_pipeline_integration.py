@@ -210,40 +210,6 @@ class TestRAGPipelineIntegration:
 
         assert result["verdict"] == "abstain"
         assert result["abstain_reason"] == "faithfulness_check_failed"
-        """Pipeline should abstain when statements are not faithful to evidence."""
-        config = RAGConfig(
-            enable_faithfulness=True,
-            sufficiency_threshold=0.1,
-        )
-        pipeline = RAGPipeline(config=config)
-
-        # Mock unfaithful result
-        mock_faithfulness_result = FaithfulnessResult(
-            overall_score=3.0,
-            claims_checked=1,
-            unsupported_claim_count=1,
-            per_claim=(),
-            judge="heuristic",
-        )
-
-        with patch.object(
-            pipeline._faithfulness_verifier,
-            "evaluate",
-            return_value=mock_faithfulness_result,
-        ):
-            trusted_results = [
-                {
-                    "text_unit_id": "es_1",
-                    "trust_status": "trusted",
-                    "score": 0.8,
-                    "snippet": "test evidence",
-                },
-            ]
-
-            result = pipeline.generate_answer("test query", trusted_results)
-
-        assert result["verdict"] == "abstain"
-        assert result["abstain_reason"] == "faithfulness_check_failed"
 
     def test_pipeline_with_disabled_faithfulness(self):
         """Test pipeline behavior when faithfulness is disabled."""
@@ -270,27 +236,6 @@ class TestRAGPipelineIntegration:
                 verified=True, reason=None, checked_citation_count=1
             )
             result = pipeline.generate_answer("test query", trusted_results)
-
-        assert result["verdict"] == "answer"
-        # When disabled, should get max score
-        assert result["faithfulness_score"] == 10.0
-        """Test pipeline behavior when faithfulness is disabled."""
-        config = RAGConfig(
-            enable_faithfulness=False,
-            sufficiency_threshold=0.1,
-        )
-        pipeline = RAGPipeline(config=config)
-
-        trusted_results = [
-            {
-                "text_unit_id": "es_1",
-                "trust_status": "trusted",
-                "score": 0.8,
-                "snippet": "test evidence",
-            },
-        ]
-
-        result = pipeline.generate_answer("test query", trusted_results)
 
         assert result["verdict"] == "answer"
         # When disabled, should get max score

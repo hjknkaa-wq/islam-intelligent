@@ -282,43 +282,63 @@ class TestHyDEEdgeCases:
         assert len(embedding) == 1536
 
 
+def _make_mock_client(content: str | None = "mock", *, raise_exc: bool = False):
+    """Build a lightweight mock OpenAI client for HyDE tests."""
+
+    class _Message:
+        def __init__(self, text: str | None):
+            self.content = text
+
+    class _Choice:
+        def __init__(self, text: str | None):
+            self.message = _Message(text)
+
+    class _Completions:
+        def create(self, **kwargs: object):
+            if raise_exc:
+                raise RuntimeError("API error")
+
+            class _Resp:
+                choices = [_Choice(content)] if content is not None else []
+
+            return _Resp()
+
+    class _Chat:
+        completions = _Completions()
+
+    class _Client:
+        chat = _Chat()
+
+    return _Client()
+
+
+def _build_hyde_with_mock_client(
+    content: str | None = "mock",
+    *,
+    raise_exc: bool = False,
+) -> HyDEQueryExpander:
+    """Create a HyDEQueryExpander with a pre-wired mock client (no openai import)."""
+    config = HyDEConfig(enabled=True)
+    expander = HyDEQueryExpander.__new__(HyDEQueryExpander)
+    expander.config = config
+    expander.api_key = "test-key"
+    expander.base_url = None
+    from islam_intelligent.rag.retrieval.embeddings import EmbeddingGenerator
+
+    expander._embedding_generator = EmbeddingGenerator()
+    expander._client = _make_mock_client(content, raise_exc=raise_exc)
+    expander._available = True
+    return expander
+
+
 class TestHyDEWithMockedLLM:
     """Tests using mocked LLM responses."""
 
-    def test_expand_with_mocked_llm_success(
-        self, monkeypatch: pytest.MonkeyPatch
-    ) -> None:
+    def test_expand_with_mocked_llm_success(self) -> None:
         """Test expand when LLM is available and returns content."""
-
-        # Create mock response
-        class MockMessage:
-            content = "Tahajjud is prayed at night after sleeping."
-
-        class MockChoice:
-            message = MockMessage()
-
-        class MockCompletion:
-            choices = [MockChoice()]
-
-        class MockCompletions:
-            def create(self, **kwargs: object) -> MockCompletion:
-                return MockCompletion()
-
-        class MockChat:
-            completions = MockCompletions()
-
-        class MockClient:
-            chat = MockChat()
-
-        # Mock the OpenAI import
-        def mock_openai_init(*args: object, **kwargs: object) -> MockClient:
-            return MockClient()
-
-        monkeypatch.setattr("openai.OpenAI", mock_openai_init)
-        monkeypatch.setenv("OPENAI_API_KEY", "test-key")
-
-        config = HyDEConfig(enabled=True)
-        expander = HyDEQueryExpander(config=config)
+        expander = _build_hyde_with_mock_client(
+            "Tahajjud is prayed at night after sleeping."
+        )
 
         query = "How do I pray tahajjud?"
         result = expander.expand(query)
@@ -326,61 +346,18 @@ class TestHyDEWithMockedLLM:
         assert result == "Tahajjud is prayed at night after sleeping."
         assert result != query
 
-    def test_expand_with_mocked_llm_empty_choices(
-        self, monkeypatch: pytest.MonkeyPatch
-    ) -> None:
+    def test_expand_with_mocked_llm_empty_choices(self) -> None:
         """Test expand falls back to query when LLM returns empty choices."""
-
-        class MockCompletion:
-            choices = []
-
-        class MockCompletions:
-            def create(self, **kwargs: object) -> MockCompletion:
-                return MockCompletion()
-
-        class MockChat:
-            completions = MockCompletions()
-
-        class MockClient:
-            chat = MockChat()
-
-        def mock_openai_init(*args: object, **kwargs: object) -> MockClient:
-            return MockClient()
-
-        monkeypatch.setattr("openai.OpenAI", mock_openai_init)
-        monkeypatch.setenv("OPENAI_API_KEY", "test-key")
-
-        config = HyDEConfig(enabled=True)
-        expander = HyDEQueryExpander(config=config)
+        expander = _build_hyde_with_mock_client(None)
 
         query = "How do I pray?"
         result = expander.expand(query)
 
         assert result == query  # Falls back to original
 
-    def test_expand_with_mocked_llm_exception(
-        self, monkeypatch: pytest.MonkeyPatch
-    ) -> None:
+    def test_expand_with_mocked_llm_exception(self) -> None:
         """Test expand falls back to query when LLM raises exception."""
-
-        class MockCompletions:
-            def create(self, **kwargs: object) -> None:
-                raise RuntimeError("API error")
-
-        class MockChat:
-            completions = MockCompletions()
-
-        class MockClient:
-            chat = MockChat()
-
-        def mock_openai_init(*args: object, **kwargs: object) -> MockClient:
-            return MockClient()
-
-        monkeypatch.setattr("openai.OpenAI", mock_openai_init)
-        monkeypatch.setenv("OPENAI_API_KEY", "test-key")
-
-        config = HyDEConfig(enabled=True)
-        expander = HyDEQueryExpander(config=config)
+        expander = _build_hyde_with_mock_client(raise_exc=True)
 
         query = "How do I pray?"
         result = expander.expand(query)
@@ -391,45 +368,17 @@ class TestHyDEWithMockedLLM:
         self, monkeypatch: pytest.MonkeyPatch
     ) -> None:
         """Test get_embedding when HyDE succeeds."""
-
-        # Mock LLM response
-        class MockMessage:
-            content = "Prayer involves specific steps."
-
-        class MockChoice:
-            message = MockMessage()
-
-        class MockCompletion:
-            choices = [MockChoice()]
-
-        class MockCompletions:
-            def create(self, **kwargs: object) -> MockCompletion:
-                return MockCompletion()
-
-        class MockChat:
-            completions = MockCompletions()
-
-        class MockClient:
-            chat = MockChat()
-
-        def mock_openai_init(*args: object, **kwargs: object) -> MockClient:
-            return MockClient()
-
-        # Mock embedding generator
         mock_embedding = [0.1] * 1536
 
         def mock_generate_embedding(self: object, text: str) -> list[float]:
             return mock_embedding
 
-        monkeypatch.setattr("openai.OpenAI", mock_openai_init)
-        monkeypatch.setenv("OPENAI_API_KEY", "test-key")
         monkeypatch.setattr(
             "islam_intelligent.rag.retrieval.embeddings.EmbeddingGenerator.generate_embedding",
             mock_generate_embedding,
         )
 
-        config = HyDEConfig(enabled=True)
-        expander = HyDEQueryExpander(config=config)
+        expander = _build_hyde_with_mock_client("Prayer involves specific steps.")
 
         query = "How do I pray?"
         result = expander.get_embedding(query)
@@ -440,43 +389,17 @@ class TestHyDEWithMockedLLM:
         self, monkeypatch: pytest.MonkeyPatch
     ) -> None:
         """Test get_embedding_with_fallback when HyDE succeeds."""
-
-        class MockMessage:
-            content = "Detailed Islamic answer."
-
-        class MockChoice:
-            message = MockMessage()
-
-        class MockCompletion:
-            choices = [MockChoice()]
-
-        class MockCompletions:
-            def create(self, **kwargs: object) -> MockCompletion:
-                return MockCompletion()
-
-        class MockChat:
-            completions = MockCompletions()
-
-        class MockClient:
-            chat = MockChat()
-
-        def mock_openai_init(*args: object, **kwargs: object) -> MockClient:
-            return MockClient()
-
         mock_embedding = [0.2] * 1536
 
         def mock_generate_embedding(self: object, text: str) -> list[float]:
             return mock_embedding
 
-        monkeypatch.setattr("openai.OpenAI", mock_openai_init)
-        monkeypatch.setenv("OPENAI_API_KEY", "test-key")
         monkeypatch.setattr(
             "islam_intelligent.rag.retrieval.embeddings.EmbeddingGenerator.generate_embedding",
             mock_generate_embedding,
         )
 
-        config = HyDEConfig(enabled=True)
-        expander = HyDEQueryExpander(config=config)
+        expander = _build_hyde_with_mock_client("Detailed Islamic answer.")
 
         query = "How do I pray?"
         embedding, metadata = expander.get_embedding_with_fallback(query)
