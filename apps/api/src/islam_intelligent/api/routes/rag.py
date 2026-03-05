@@ -45,7 +45,7 @@ def get_pipeline() -> RAGPipeline:
                         daily_budget_usd=settings.daily_budget_usd,
                         weekly_budget_usd=settings.weekly_budget_usd,
                         enable_metrics=settings.metrics_enabled,
-                        metrics_db_enabled=settings.metrics_db_enabled,
+                        enable_metrics_db=settings.metrics_db_enabled,
                     )
                 )
     return _pipeline
