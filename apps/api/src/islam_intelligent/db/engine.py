@@ -20,6 +20,7 @@ from sqlalchemy.ext.asyncio import (
     create_async_engine,
 )
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.pool import StaticPool
 
 
 _DEFAULT = "sqlite+pysqlite:///./.local/dev.db"
@@ -50,10 +51,13 @@ def _is_sqlite_in_memory(db_url: str) -> bool:
     lowered = db_url.lower()
     return lowered.startswith("sqlite") and ":memory:" in lowered
 
-
 def _engine_kwargs(db_url: str) -> dict[str, Any]:
     kwargs: dict[str, Any] = {"future": True}
-    if not _is_sqlite_in_memory(db_url):
+    if _is_sqlite_in_memory(db_url):
+        # Share one in-memory SQLite connection across threads/process contexts.
+        kwargs["connect_args"] = {"check_same_thread": False}
+        kwargs["poolclass"] = StaticPool
+    else:
         kwargs["pool_size"] = POOL_SIZE
         kwargs["max_overflow"] = MAX_OVERFLOW
     return kwargs
